@@ -1,8 +1,8 @@
 <!--
  * @Author: your name
  * @Date: 2021-03-04 17:23:51
- * @LastEditTime: 2021-10-19 11:18:35
- * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2022-04-02 09:57:29
+ * @LastEditors: Bian <389701057@qq.com>
  * @Description: In User Settings Edit
  * @FilePath: \JChat\src\components\ChatInterface\windowBar.vue
 -->
@@ -14,19 +14,28 @@
     <div class="winBarBox" ref="windowBar">
       <div>
         <div
-          v-for="item in winList" :key="item.id" :ref="`winItem${item.id}`"
-          @click.stop="bindClick(item)" :style="winItemStyle"
-          :class="{'winItem':true,'winActive': activeItem == item.id}" >
-          <JwChat-item :config="item"/>
+          v-for="item in winList"
+          :key="item.id"
+          :ref="`winItem${item.id}`"
+          @click.stop="bindClick(item)"
+          :style="winItemStyle"
+          :class="{ winItem: true, winActive: activeItem == item.id }"
+        >
+          <JwChat-item :config="item" />
           <div class="itemOperation">
-            <el-button type="info" icon="el-icon-close" circle size="mini"
-             @click.stop="bindOperation({ type: 'remove', target: item})" />
+            <el-button
+              type="info"
+              icon="el-icon-close"
+              circle
+              size="mini"
+              @click.stop="bindOperation({ type: 'remove', target: item })"
+            />
           </div>
         </div>
         <template v-if="!winList.length">
           <JwChat-empty size="8rem" />
-          <el-divider  style="padding: 0 5px;">
-            <span style="font-size: 0.2rem;">暂无会话</span>
+          <el-divider style="padding: 0 5px">
+            <span style="font-size: 0.2rem">暂无会话</span>
           </el-divider>
         </template>
       </div>
@@ -35,95 +44,95 @@
 </template>
 
 <script>
-import Scroll from '@/utils/scroll'
+import Scroll from "@/utils/scroll";
 export default {
-  props:{
-    config:{
+  props: {
+    config: {
       typeof: Object,
-      default:()=>({
+      default: () => ({
         list: [],
         active: null,
-        width: '150px',
-        listHeight: '60px'
-      })
-    }
+        width: "150px",
+        listHeight: "60px",
+      }),
+    },
   },
-  data () {
+  data() {
     return {
       activeItem: 0,
       moveObj: {},
       scroll: null,
       complete: null,
-      operationTimer: null
-    }
+      operationTimer: null,
+    };
   },
   computed: {
-    winList(){
-      const { list = [] } = this.config
-      const winList = list 
-      return winList
+    winList() {
+      const { list = [] } = this.config;
+      const winList = list;
+      return winList;
     },
     winItemStyle() {
-      const { listHeight: height = '60px' } = this.config 
+      const { listHeight: height = "60px" } = this.config;
       return {
-        height
-      }
+        height,
+      };
     },
     winBarStyle() {
-      const { width ='150px' } = this.config 
+      const { width = "150px" } = this.config;
       return {
-        width
-      }
-    }
+        width,
+      };
+    },
   },
   watch: {
-    'config.active': {
+    "config.active": {
       handler(newVal) {
-        if(newVal){
-          this.activeItem = newVal
+        if (newVal) {
+          this.activeItem = newVal;
         }
       },
-      deep:true,
-      immediate:true
+      deep: true,
+      immediate: true,
     },
-    'config.list': {
+    "config.list": {
       handler(newVal) {
-        if(newVal){
-          this.scrollRefresh()
+        if (newVal) {
+          this.scrollRefresh();
         }
       },
-      deep:true,
-      immediate:true
-    }
+      deep: true,
+      immediate: true,
+    },
   },
-  mounted () {
-    const dom = this.$refs.windowBar
-    this.scroll = new Scroll(dom,{
-      pullingDown:false
-    })
+  mounted() {
+    const dom = this.$refs.windowBar;
+    this.scroll = new Scroll(dom, {
+      pullingDown: false,
+    });
   },
   methods: {
-    bindClick(play){
-      const {id} = play
-      this.activeItem = id
-      this.$emit('click',{type: 'winBar', data: play})
+    bindClick(play) {
+      const { id } = play;
+      this.activeItem = id;
+      this.$emit("click", { type: "winBar", data: play });
     },
     bindOperation(play) {
-      this.$emit('click',{type: 'winBtn', data: play})
+      this.$emit("click", { type: "winBtn", data: play });
     },
-    scrollRefresh () {
-      if(!this.scroll) return
-      const that = this
+    scrollRefresh() {
+      if (!this.scroll) return;
+      const that = this;
       that.complete = setInterval(function () {
         // 判断文档和所有子资源(图片、音视频等)已完成加载
-        if (document.readyState === 'complete') {
-          window.clearInterval(that.complete)
-          that.scroll.refresh()
+        if (document.readyState === "complete") {
+          window.clearInterval(that.complete);
+          that.scroll.refresh();
         }
-      }, 50)
+      }, 50);
     },
-  }
-}
+  },
+};
 </script>
 
 <style lang='scss' scoped>
@@ -134,19 +143,20 @@ export default {
   overflow: hidden;
   display: flex;
   border-right: 1px solid #dcdfe6;
-  .toolBarBox{
+  .toolBarBox {
     $barSize: 60px;
     width: $barSize;
     border-right: 1px solid #dcdfe6;
-    img{
+    img {
       width: 50px;
     }
   }
-  .winBarBox{
-    padding:0 5px;
+  .winBarBox {
+    padding: 0 5px;
     margin-top: 15px;
     width: calc(100% - 10px);
     height: calc(100% - 20px);
+    overflow: hidden;
   }
   .winItem {
     display: flex;
@@ -157,17 +167,17 @@ export default {
     user-select: none;
     border: 1px solid #f9f9f9;
     overflow: hidden;
-    &:hover{
+    &:hover {
       background: #f9f9f9;
-      .itemOperation{
+      .itemOperation {
         opacity: 1;
         transform: translateY(0);
       }
     }
-    &.winActive{
+    &.winActive {
       background: #f0f0f0;
     }
-    .itemOperation{
+    .itemOperation {
       position: absolute;
       display: flex;
       align-items: flex-end;
@@ -178,18 +188,18 @@ export default {
       opacity: 0;
       transform: translateY(100%);
       right: 0;
-      /deep/ .el-button{
+      /deep/ .el-button {
         margin: 0;
-        padding: .06rem;
-        margin-bottom: .4rem;
-        &:hover{
+        padding: 0.06rem;
+        margin-bottom: 0.4rem;
+        &:hover {
           background-color: #f56c6c;
           border-color: #f56c6c;
         }
       }
     }
   }
-  /deep/ .el-divider__text{
+  /deep/ .el-divider__text {
     padding: 0 5px;
   }
 }

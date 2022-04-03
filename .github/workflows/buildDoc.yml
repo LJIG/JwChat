@@ -9,7 +9,7 @@ jobs:
   autoTag:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - uses: Klemensas/action-autotag@stable
         with:
           GITHUB_TOKEN: "${{ secrets.STORE_TOKEN }}"
@@ -18,14 +18,19 @@ jobs:
   build_vuepress:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: "14"
+          cache: 'yarn'
+          cache-dependency-path: ./yarn.lock
       - name: build
         run: |
           yarn
-          npm run lib
-          npm run build
-          cp -r ./public/image/ ./docs/.vuepress/public/image/
-          npm run docs:build
+          yarn lib
+          yarn build
+          cp -r ./public/image/ ./docs/.vuepress/public/
+          yarn docs:build
           cp -r ./dist/ ./docs/.vuepress/dist/demo/
       # - name: addtoken
       #   env:
@@ -44,6 +49,7 @@ jobs:
           git init
           git config --global user.name "codegi"
           git config --global user.email "389701057@qq.com"
+          git branch -m master
           git add .
           git commit -m 'deploy'
           git remote add origin https://CodeGI:${{ secrets.GITEE_PASSWORD }}@gitee.com/CodeGI/JwChatDoc.git

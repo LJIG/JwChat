@@ -209,7 +209,7 @@ export default {
         dept: "最简单、最便捷",
         callback: this.bindCover,
         historyConfig: {
-          show: true,
+          show: false,
           tip: "加载更多提示框,可以直接使用组件的",
           callback: this.bindLoadHistory,
         },

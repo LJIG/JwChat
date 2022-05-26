@@ -5,98 +5,121 @@
         <div class="pulldown-wrapper">
           <div v-html="historyConfig.tip"></div>
         </div>
-        <template  v-for="(item,k) in list">
-          <el-divider v-if="item.type==='tip'" :key="JSON.stringify(item)+k">{{item.text}}</el-divider>
+        <template v-for="(item, k) in list">
+          <el-divider
+            v-if="item.type === 'tip'"
+            :key="JSON.stringify(item) + k"
+            >{{ item.text }}</el-divider
+          >
           <div
             v-else
             class="web__main-item"
-            :key="JSON.stringify(item)+k"
-            :class="{'web__main-item--mine':item.mine}"
+            :key="JSON.stringify(item) + k"
+            :class="{ 'web__main-item--mine': item.mine }"
           >
-              <div class="web__main-user">
-                <img :src="item.img" @click="$emit('click', { type:'img', data:item })" />
-                <cite @click="$emit('click', { type:'nickname', data:item })">
-                  {{item.name}}
-                  <i>{{item.date}}</i>
-                </cite>
-              </div>
-              <div class="web__main-text">
-                <div class="web__main-arrow"></div>
-                <itemTalk v-if="item.text.text" :text="item.text.text" 
-                @systemEvent="taskEvent" @loadDone="loadDone"/>
-                <systemTalk v-if="item.text.system" :text="item.text.system"
-                @systemEvent="systemEvent" @loadDone="loadDone"/>
-                <el-link @click="taskEvent(item.text)" v-if="item.text.subLink"
-                v-bind="item.text.subLink.prop" class="itemChild">
-                  {{item.text.subLink.text}}
-                </el-link>
-                <shopTalk v-if="item.text.shop" :text="item.text.shop" 
-                @systemEvent="taskEvent" @loadDone="loadDone"/>
-              </div>
+            <div class="web__main-user">
+              <img
+                :src="item.img"
+                @click="$emit('click', { type: 'img', data: item })"
+              />
+              <cite @click="$emit('click', { type: 'nickname', data: item })">
+                {{ item.name }}
+                <i>{{ item.date }}</i>
+              </cite>
+            </div>
+            <div class="web__main-text">
+              <div class="web__main-arrow"></div>
+              <itemTalk
+                v-if="item.text.text"
+                :text="item.text.text"
+                @systemEvent="taskEvent"
+                @loadDone="loadDone"
+              />
+              <systemTalk
+                v-if="item.text.system"
+                :text="item.text.system"
+                @systemEvent="systemEvent"
+                @loadDone="loadDone"
+              />
+              <el-link
+                @click="taskEvent(item.text)"
+                v-if="item.text.subLink"
+                v-bind="item.text.subLink.prop"
+                class="itemChild"
+              >
+                {{ item.text.subLink.text }}
+              </el-link>
+              <shopTalk
+                v-if="item.text.shop"
+                :text="item.text.shop"
+                @systemEvent="taskEvent"
+                @loadDone="loadDone"
+              />
+            </div>
           </div>
         </template>
       </div>
     </div>
     <div class="downBtn" v-if="showDownBtn" @click="scrollBottom">
-      <span v-if="unread">{{unread}}</span>
+      <span v-if="unread">{{ unread }}</span>
     </div>
   </div>
 </template>
 
 <script>
-import Scroll from '@/utils/scroll'
+import Scroll from "@/utils/scroll";
 // import Remind from '@/utils/remind'
-import itemTalk from './itemTalk'
-import systemTalk from './systemTalk'
-import shopTalk from './shopTalk'
+import itemTalk from "./itemTalk";
+import systemTalk from "./systemTalk";
+import shopTalk from "./shopTalk";
 export default {
-  name: 'JwChat_list',
+  name: "JwChat_list",
   components: { itemTalk, systemTalk, shopTalk },
   props: {
     list: {
       type: Array,
-      default: () => ([])
+      default: () => [],
     },
     config: {
       type: Object,
-      default: () => ({})
-    }
+      default: () => ({}),
+    },
   },
-  data () {
+  data() {
     return {
       scroll: null,
       // remind: null, // 消息提示
       stopScroll: false,
-    }
+    };
   },
   computed: {
-    boxSize () {
-      let { height = '382px', width = '525px' } = this.config || {}
+    boxSize() {
+      let { height = "382px", width = "525px" } = this.config || {};
       if (`${height}`.match(/\d$/)) {
-        height += 'px'
+        height += "px";
       }
       if (`${width}`.match(/\d$/)) {
-        width += 'px'
+        width += "px";
       }
-      return { height, width }
+      return { height, width };
     },
-    historyConfig () {
-      const { tip = "", show = false, } = this.config.historyConfig || {}
-      const { tipText } = this.scroll||{}
-      return { tip: tip||tipText , show }
+    historyConfig() {
+      const { tip = "", show = false } = this.config.historyConfig || {};
+      const { tipText } = this.scroll || {};
+      return { tip: tip || tipText, show };
     },
-    scrollType () {
-      const { scrollType = "noroll" } = this.config
-      return scrollType
+    scrollType() {
+      const { scrollType = "noroll" } = this.config;
+      return scrollType;
     },
-    unread () {
-      const { unread = 0 } = this.scroll || {}
-      return unread
+    unread() {
+      const { unread = 0 } = this.scroll || {};
+      return unread;
     },
-    showDownBtn(){
-      if(this.scroll) return !this.scroll.isBottom
-      return false
-    }
+    showDownBtn() {
+      if (this.scroll) return !this.scroll.isBottom;
+      return false;
+    },
   },
   watch: {
     // unread (newval) {
@@ -108,57 +131,58 @@ export default {
     //     this.remind.resetTitle()
     //   }
     // },
-    boxSize(){
-       this.scroll.refresh()
-    }
+    boxSize() {
+      this.scroll.refresh();
+    },
   },
   methods: {
-    loadDone(){
-      if(this.scrollType == 'scroll') {
-        this.scrollBottom()
+    loadDone() {
+      if (this.scrollType == "scroll") {
+        this.scrollBottom();
       }
     },
-    scrollBottom () {
-      if (!this.scroll) return
-      if(this.scroll.isLoding) return
-      this.scroll.refresh()
-      this.scroll.scrollBottom()
+    scrollBottom() {
+      if (!this.scroll) return;
+      if (this.scroll.isLoding) return;
+      this.scroll.refresh();
+      this.scroll.scrollBottom();
     },
-    createScroll () {
+    createScroll() {
+      const { show: pullingDown = false } = this.historyConfig || {};
       this.scroll = new Scroll(this.$refs.scroller, {
-          scrollType: this.scrollType,
-          pullingDown: this.historyConfig.show
-        })
+        scrollType: this.scrollType,
+        pullingDown,
+      });
       // 保存数据
-      this.scroll.on('refresh',  this.childnodeLoad)
+      this.scroll.on("refresh", this.childnodeLoad);
       // 刷新
-      this.scroll.on('pullingDown', this.pullingDownHandler)
+      pullingDown && this.scroll.on("pullingDown", this.pullingDownHandler);
     },
-    finishPullDown(){
-      this.scroll.finishPullDown()
+    finishPullDown() {
+      this.scroll.finishPullDown();
     },
-    childnodeLoad () {
-      if (this.scrollType !== 'noroll') return
-      const parent = this.$refs.main
-      if (!parent) return
-      const [,...childs] = parent.children
-      this.scroll.saveNodes({ nodes:childs, dataList: this.list })
+    childnodeLoad() {
+      if (this.scrollType !== "noroll") return;
+      const parent = this.$refs.main;
+      if (!parent) return;
+      const [, ...childs] = parent.children;
+      this.scroll.saveNodes({ nodes: childs, dataList: this.list });
     },
     pullingDownHandler() {
-      this.$emit('loadHistory')
+      this.$emit("loadHistory");
     },
-    systemEvent(itemData){
-      this.$emit('click', { type:'systemItem', data: itemData })
+    systemEvent(itemData) {
+      this.$emit("click", { type: "systemItem", data: itemData });
     },
-    taskEvent(itemData){
-       this.$emit('click', { type:'taskItem', data: itemData })
+    taskEvent(itemData) {
+      this.$emit("click", { type: "taskItem", data: itemData });
     },
   },
-  mounted () {
-    this.createScroll()
+  mounted() {
+    this.createScroll();
     // this.remind = new Remind()
-  }
-}
+  },
+};
 </script>
 
 <style  scoped lang="scss">
@@ -207,7 +231,7 @@ export default {
       transform: translate(-50%, -50%);
     }
   }
-  .scroller{
+  .scroller {
     height: 100%;
     width: 100%;
   }
@@ -230,7 +254,7 @@ export default {
       min-height: 68px;
       text-align: left;
     }
-    .sysTip{
+    .sysTip {
       font-size: 1rem;
       text-align: center;
     }
@@ -366,7 +390,7 @@ export default {
     }
   }
 }
-.pulldown-wrapper{
+.pulldown-wrapper {
   position: absolute;
   width: 100%;
   padding: 20px;
@@ -374,6 +398,5 @@ export default {
   transform: translateY(-100%) translateZ(0);
   text-align: center;
   color: #999;
-  }
-
+}
 </style>

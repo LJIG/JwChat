@@ -1,6 +1,5 @@
 <template>
   <span class="item_msg" @click="itemCallback">
-  <!-- {{emojiPng}} -->
     <span v-if="getTag === 'span'" v-html="parseText()"/>
     <img
       class="web__msg--img"
@@ -142,7 +141,6 @@ export default {
       text = text.replace(/\n/g,'<br/>')
       let html = emojiParser(text).replace(/<img src/g, '<img data-class="iconBox" src')
       html = html.replace('https://res.wx.qq.com/wxdoc/dist/assets/img/emoji-sprite.b5bd1fe0.png', emojiPng)
-      console.log(text,emojiParser(text));
       return html
     },
     //处理排版

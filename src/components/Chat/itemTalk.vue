@@ -1,5 +1,6 @@
 <template>
   <span class="item_msg" @click="itemCallback">
+  <!-- {{emojiPng}} -->
     <span v-if="getTag === 'span'" v-html="parseText()"/>
     <img
       class="web__msg--img"
@@ -54,6 +55,8 @@
 
 <script>
 import emojiParser from 'wechat-emoji-parser'
+const emojiPng = require( '@/utils/emoji-sprite.png')
+console.log(emojiPng);
 export default {
   props: {
     text: String,
@@ -137,7 +140,9 @@ export default {
       let { text } = this
       if (!text) return
       text = text.replace(/\n/g,'<br/>')
-      const html = emojiParser(text).replace(/<img src/g, '<img data-class="iconBox" src')
+      let html = emojiParser(text).replace(/<img src/g, '<img data-class="iconBox" src')
+      html = html.replace('https://res.wx.qq.com/wxdoc/dist/assets/img/emoji-sprite.b5bd1fe0.png', emojiPng)
+      console.log(text,emojiParser(text));
       return html
     },
     //处理排版

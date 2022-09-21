@@ -54,8 +54,8 @@
 
 <script>
 import emojiParser from 'wechat-emoji-parser'
-const emojiPng = require( '@/utils/emoji-sprite.png')
-console.log(emojiPng);
+// const emojiPng = require( '@/utils/emoji-sprite.png')
+// console.log(emojiPng);
 export default {
   props: {
     text: String,
@@ -140,7 +140,7 @@ export default {
       if (!text) return
       text = text.replace(/\n/g,'<br/>')
       let html = emojiParser(text).replace(/<img src/g, '<img data-class="iconBox" src')
-      html = html.replace('https://res.wx.qq.com/wxdoc/dist/assets/img/emoji-sprite.b5bd1fe0.png', emojiPng)
+      html = html.replace('https://res.wx.qq.com/wxdoc/dist/assets/img/emoji-sprite.b5bd1fe0.png', 'https://codegi.gitee.io/chat/emoji-sprite.png')
       return html
     },
     //处理排版

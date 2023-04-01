@@ -4,22 +4,28 @@
 ## JwChat
 
 <div class="tip" />
-<JwChat class='jwchat' :taleList="list" @clickTalk="talkEvent" @enter="bindEnter"
- v-model="inputMsg" :toolConfig="tool" :quickList="quickList" >
-  <template slot="tools">
-    <div style="width:20rem;text-align:right;" @click="toolEvent('自定义')">
-      <b slot="tools">插槽</b>
-      <JwChat-icon type="icon-lishi" title="自定义"/>
-    </div>
-  </template>
+<JwChat
+  class="jwChat"
+  ref="jwChat"
+  v-model="inputMsg"
+  :taleList="taleList"
+  :scrollType="scrollType"
+  :toolConfig="tool"
+  :placeholder="placeholder"
+  :config="config"
+  @enter="bindEnter"
+  @clickTalk="talkEvent"
+>
 </JwChat>
 
 <script>
 export default {
   data () {
     return {
+      scrollType: 'noroll', // scroll  noroll 俩种类型
+      placeholder: "欢迎使用JwChat...",
       inputMsg: '',
-      list: [],
+      taleList: [],
       tool: {
         callback: this.toolEvent
       },
@@ -34,10 +40,41 @@ export default {
         {text: '假如你是云，我就是雨，一生相伴，风风雨雨；'},
         {text: '即使泪水在眼中打转，我依旧可以笑的很美，这是你学不来的坚强。'},
         {text: ' 因为不知来生来世会不会遇到你，所以今生今世我会加倍爱你。'},
-      ]
+      ],
+      config: {
+        historyConfig: {
+          show: false,
+          tip: "加载更多提示框,可以直接使用组件的",
+          callback: this.bindLoadHistory,
+        }
+      },
     }
   },
   methods: {
+    /**
+     * @description: 点击加载更多的回调函数
+     * @param {*}
+     * @return {*}
+     */
+    async bindLoadHistory() {
+      const history = new Array(3).fill().map((i, j) => {
+        return {
+          date: "2020/05/20 23:19:07",
+          text: { text: j + new Date() },
+          mine: false,
+          name: "JwChat",
+          img: "image/three.jpeg",
+        };
+      });
+      let list = history.concat(this.taleList);
+      this.taleList = list;
+      console.log("加载历史", list, history);
+      //  加载完成后通知组件关闭加载动画
+      this.config.historyConfig.tip = "加载完成";
+      this.$nextTick(() => {
+        this.$refs.jwChat.finishPullDown();
+      });
+    },
     bindEnter (e) {
       console.log(e)
       const msg = this.inputMsg
@@ -138,43 +175,63 @@ export default {
           "img": "../image/one.jpeg"
         },
       ]
-    this.list = list
+    this.taleList = list
   }
 }
 </script>
+
 <style scoped>
 .tip{
   margin: 1rem 0;
 }
-.jwchat{
+.jwChat{
   margin: 1rem 0;
-  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
-}
-.jwchat>>>.web__msg{
-  padding-top:0;
-  padding-bottom:0;
+  box-shadow: 0 0px 0px rgba(0, 0, 0, 0.25), 0 1px 2px rgba(0, 0, 0, 0.22);
 }
 </style>
 
 
 :::details 点击查看代码
 ``` vue
-<JwChat :taleList="list" @enter="bindEnter" @clickTalk="talkEvent" v-model="inputMsg"
- :toolConfig="tool":quickList="quickList">
-  <template slot="tools">
-    <div style="width:20rem;text-align:right;" @click="toolEvent('自定义')">
-      <b slot="tools">插槽</b>
-      <JwChat-icon type="icon-lishi" title="自定义"/>
+<JwChat
+  ref="jwChat"
+  v-model="inputMsg"
+  :config="config"
+  :taleList="list"
+  :scrollType="scrollType"
+  :toolConfig="tool"
+  :placeholder="placeholder"
+  :quickList="quickList"
+  @enter="bindEnter"
+  @clickTalk="talkEvent"
+>
+
+  <!-- <template slot="enter">
+    <div>自定义输入框</div>
+  </template> -->
+  <!-- <template slot="enterBtn">
+    <div>自定义按钮</div>
+  </template> -->
+  <!-- <template #downBtn="{unread}">
+    <div>
+      未读{{unread}}
     </div>
-  </template>
+  </template> -->
+  <!-- <template slot="tools">
+    <div style="width: 20rem; text-align: right" @click="toolEvent(12)">
+      <JwChat-icon type="icon-lishi" title="自定义" />
+    </div>
+  </template> -->
 </JwChat>
 
 <script>
 export default {
   data () {
     return {
+      scrollType: 'noroll', // scroll  noroll 俩种类型
+      placeholder: "欢迎使用JwChat...",
       inputMsg: '',
-      list: [],
+      taleList: [],
       tool: {
         callback: this.toolEvent
       },
@@ -189,10 +246,41 @@ export default {
         {text: '假如你是云，我就是雨，一生相伴，风风雨雨；'},
         {text: '即使泪水在眼中打转，我依旧可以笑的很美，这是你学不来的坚强。'},
         {text: ' 因为不知来生来世会不会遇到你，所以今生今世我会加倍爱你。'},
-      ] 
+      ],
+      config: {
+        historyConfig: {
+          show: false,
+          tip: "加载更多提示框,可以直接使用组件的",
+          callback: this.bindLoadHistory,
+        }
+      },
     }
   },
   methods: {
+    /**
+     * @description: 点击加载更多的回调函数
+     * @param {*}
+     * @return {*}
+     */
+    async bindLoadHistory() {
+      const history = new Array(3).fill().map((i, j) => {
+        return {
+          date: "2020/05/20 23:19:07",
+          text: { text: j + new Date() },
+          mine: false,
+          name: "JwChat",
+          img: "image/three.jpeg",
+        };
+      });
+      let list = history.concat(this.taleList);
+      this.taleList = list;
+      console.log("加载历史", list, history);
+      //  加载完成后通知组件关闭加载动画
+      this.config.historyConfig.tip = "加载完成";
+      this.$nextTick(() => {
+        this.$refs.jwChat.finishPullDown();
+      });
+    },
     bindEnter (e) {
       console.log(e)
       const msg = this.inputMsg
@@ -221,41 +309,41 @@ export default {
           "text": { "text": "起床不" },
           "mine": false,
           "name": "留恋人间不羡仙",
-          "img": "/image/one.jpeg"
+          "img": "../image/one.jpeg"
         },
         {
           "date": "2020/04/25 21:19:07",
           "text": { "text": "<audio data-src='https://www.w3school.com.cn/i/horse.mp3'/>" },
           "mine": false,
           "name": "只盼流星不盼雨",
-          "img": "/image/two.jpeg"
+          "img": "../image/two.jpeg"
         },
         {
           "date": "2020/04/25 21:19:07",
           "text": { "text": "<img data-src='"+img+"'/>" },
           "mine": false,
           "name": "只盼流星不盼雨",
-          "img": "/image/two.jpeg"
+          "img": "../image/two.jpeg"
         },
         {
           "date": "2020/04/25 21:19:07",
-          "text": { "text": "<img data-src='/image/three.jpeg'/>" },
+          "text": { "text": "<img data-src='../image/three.jpeg'/>" },
           "mine": false,
           "name": "只盼流星不盼雨",
-          "img": "/image/two.jpeg"
+          "img": "../image/two.jpeg"
         },
         {
           "date": "2020/04/16 21:19:07",
           "text": { "text": "<video data-src='https://www.w3school.com.cn/i/movie.mp4' controls='controls' />" },
           "mine": true,
           "name": "JwChat",
-          "img": "/image/three.jpeg"
+          "img": "../image/three.jpeg"
         },
         {
           "date": "2021/03/02 13:14:21",
           "mine": false,
           "name": "留恋人间不羡仙",
-          "img": "/image/one.jpeg",
+          "img": "../image/one.jpeg",
           "text": {
             system: {
               title: '在接入人工前，智能助手将为您首次应答。',
@@ -292,28 +380,8 @@ export default {
           "name": "留恋人间不羡仙",
           "img": "../image/one.jpeg"
         },
-        {
-          "date": "2020/04/25 21:19:07",
-          "mine": false,
-          "name": "留恋人间不羡仙",
-          "img": "../image/one.jpeg",
-          "text": {
-            shop: {
-              title: `2022年寒假读一本好书小学生三四五六年级课外读
-              物阅读书籍经典儿童文学 回到远古和神仙们聊天 王云超著`,
-              describe: '购买1-3件时享受单件价￥18.20，超出数量以结算价为准，仅限购买一次:',
-              price: '999.99',
-              cover: '../image/two.jpeg',
-              tags: [
-                {name:'第二件半价'},
-                {name:'送50元优惠'},
-                {name:'满1件,送50元优惠'},
-              ]
-            }
-          }
-        }
       ]
-    this.list = list
+    this.taleList = list
   }
 }
 </script>
@@ -335,6 +403,7 @@ export default {
 | config     | 组件配置项     | Object | -      | {}     |
 | scrollType | 滚动类型 | String | scroll (滚动到最新消息) | noroll (停留当期位置) |
 | quickList | 快捷回复-根据输入内容显示 | Array | - | [] |
+| placeholder | 输入框占位符 | string | - | '请输入内容...' |
 
 ### Methods
 
@@ -356,6 +425,9 @@ export default {
 | name   | 说明           |
 | ------ | -------------- |
 | tools | 工具栏自定义插槽 |
+| enter | 舍弃组件输入框，用户自定义插槽 |
+| downBtn | 下拉按钮自定义插槽 |
+| enterBtn | 发送按钮自定义插槽 |
 
 ### `toolConfig` 说明
 
@@ -402,6 +474,11 @@ export default {
       })
       let list = history.concat(this.list)
       this.list = list
+      //  加载完成后通知组件关闭加载动画
+      this.config.historyConfig.tip = "加载完成";
+      this.$nextTick(() => {
+        this.$refs.jwChat.finishPullDown();
+      });
     } 
   }
 }

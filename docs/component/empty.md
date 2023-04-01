@@ -12,7 +12,7 @@
   width: 10rem;
   height: 10rem;
   margin: 2rem auto;
-  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+  box-shadow: 0 0px 0px rgba(0, 0, 0, 0.25), 0 1px 2px rgba(0, 0, 0, 0.22);
 }
 </style>
 
@@ -28,7 +28,7 @@
   width: 10rem;
   height: 10rem;
   margin: 2rem auto;
-  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+  box-shadow: 0 0px 0px rgba(0, 0, 0, 0.25), 0 1px 2px rgba(0, 0, 0, 0.22);
 }
 </style>
 

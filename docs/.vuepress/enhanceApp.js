@@ -13,7 +13,7 @@ export default ({ Vue, isServer }) => {
       import('../../lib/JwChat.umd.js').then(function (module) {
         // console.log(12,module);
       // import('jwchat').then(function (module) {
-        Vue.use(module.default)
+        Vue.use(module)
       })
     },
   })

@@ -1,21 +1,15 @@
 <template>
   <div class="web__msg" @keyup.enter="handleSend">
-    <textarea
-      v-model="currentMsg"
-      rows="3"
-      :placeholder="placeholder"
-      class="web__msg-input"
-      ref="msgBox"
-    />
-    <div class="web__msg-menu">
-      <el-button
-        class="web__msg-submit"
-        type="primary"
-        size="mini"
-        @click="handleSend"
-        >发送</el-button
-      >
-    </div>
+    <slot v-if="$scopedSlots.enter" name="enter" />
+    <template v-else>
+      <textarea v-model="currentMsg" rows="3" :placeholder="placeholder" class="web__msg-input" ref="msgBox" />
+      <div class="web__msg-menu">
+        <div v-if="$scopedSlots.enterBtn" @click="handleSend">
+          <slot name="enterBtn" />
+        </div>
+        <el-button v-else class="web__msg-submit" type="primary" size="mini" @click="handleSend">发送</el-button>
+      </div>
+    </template>
   </div>
 </template>
 
@@ -36,26 +30,26 @@ export default {
       default: ''
     },
   },
-  data () {
+  data() {
     return {
       currentMsg: ""
     }
   },
   watch: {
     value: {
-      handler () {
+      handler() {
         this.currentMsg = this.value;
       },
       immediate: true
     },
     currentMsg: {
-      handler (newval) {
+      handler(newval) {
         const msg = newval.trim()
         this.$emit('input', msg)
       },
       immediate: true
     },
-    insert (newval) {
+    insert(newval) {
       if (newval) {
         this.joinToMsg(newval)
       }
@@ -63,7 +57,7 @@ export default {
   },
   methods: {
     //用户主动发送
-    handleSend (e) {
+    handleSend(e) {
       const shiftKey = e.shiftKey
       if (shiftKey) return
       this.$emit('submit', this.currentMsg);
@@ -71,7 +65,7 @@ export default {
         this.currentMsg = ''
       })
     },
-    joinToMsg (str) {
+    joinToMsg(str) {
       /* eslint-disable */
       const myField = this.$refs.msgBox
       let afterMsg = this.currentMsg
@@ -113,13 +107,16 @@ export default {
 </script>
 <style scoped lang="scss">
 .web__msg {
-  padding: 0 10px;
-  height: auto;
+  padding: 8px 10px;
+  height: 100%;
   overflow: hidden;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+
   &-input {
     display: block;
     width: 100%;
-    height: 60px;
     overflow-x: hidden;
     overflow-y: auto;
     box-sizing: border-box;
@@ -131,10 +128,13 @@ export default {
     font-size: 13px;
     line-height: 17px;
     -webkit-appearance: none;
+    flex: auto;
   }
+
   &-menu {
     text-align: right;
   }
+
   &-submit {
     display: inline-block;
     outline: none;

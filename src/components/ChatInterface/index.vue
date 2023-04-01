@@ -1,33 +1,34 @@
 <template>
-  <div class="ChatPage" :style="faceSize">
-    <WinBar v-if="JSON.stringify(winBarConfig)!=='{}'" class="winBar"  :config="winBarConfig" @click="winBarClick"/>
-    <div class="header">
-      <JwChat-item :config="config" @click="bindClick" />
-      <slot name="header" />
+  <div class="ChatPage" :style="{ width, height }">
+    <div v-if="JSON.stringify(winBarConfig) !== '{}'" class="winBar">
+      <WinBar :config="winBarConfig" @click="winBarClick" />
     </div>
-    <div class="main">
-      <div class="chatBox">
-        <JwChat
-          ref="jwChat"
-          :taleList="taleList"
-          @enter="$emit('enter', $event)"
-          v-model="msg"
-          :toolConfig="toolConfig"
-          :scrollType="scrollType"
-          :width="realWidth"
-          :height="chatHeight"
-          :config="chatConfig"
-          :quickList="quickList"
-          @clickTalk="$emit('clickTalk',$event)"
-        >
-          <slot name="tools" slot="tools" />
-        </JwChat>
+    <div class="ChatPage-main">
+      <div class="header">
+        <JwChat-item :config="config" @click="bindClick" />
+        <slot name="header" />
       </div>
-      <div class="rightBox" v-if="showRightBox">
-        <span  @click="switchBox = !switchBox">
-          <JwChat-icon class="switch" :type="switchIcon"/>
-        </span>
-        <slot v-if="switchBox"/>
+      <div class="main" :style="{ width: winBarWidth ? `calc(${width} - ${winBarWidth})` : width }">
+        <div class="chatBox">
+          <JwChat ref="jwChatEmpty" :taleList="taleList" @enter="$emit('enter', $event)" v-model="msg"
+            :toolConfig="toolConfig" :scrollType="scrollType" width="100%" :height="`calc(${height} - 60px)`"
+            :config="chatConfig" :quickList="quickList" :placeholder="placeholder"
+            @clickTalk="$emit('clickTalk', $event)">
+            <slot name="tools" slot="tools" />
+            <slot name="enterBtn" slot="enterBtn" />
+            <slot name="enter" slot="enter" />
+            <template v-if="$scopedSlots.downBtn" #downBtn="{ unread }">
+              <slot :unread="unread" name="downBtn" />
+            </template>
+          </JwChat>
+        </div>
+        <div class="rightBox" v-if="showRightBox" :style="`${!switchBox ? 'width:0;padding:0;' : ''}`">
+          <span @click="switchBox = !switchBox">
+            <JwChat-icon v-if="switchBox" class="switch" type="icon-jiantou-xiangyou" />
+            <JwChat-icon v-else class="switch" type="icon-jiantou-xiangzuo" />
+          </span>
+          <slot v-if="switchBox" />
+        </div>
       </div>
     </div>
   </div>
@@ -37,7 +38,7 @@
 import WinBar from './windowBar'
 export default {
   name: "JwChat-index",
-  components:{
+  components: {
     WinBar
   },
   props: {
@@ -62,10 +63,10 @@ export default {
     },
     height: {
       type: String,
-      default: "570"
+      default: "560px"
     },
     width: {
-      default: "750"
+      default: "900px"
     },
     value: {
       default: ''
@@ -73,147 +74,148 @@ export default {
     toolConfig: {
       type: Object
     },
-    winBarConfig:{
+    winBarConfig: {
       type: Object,
-      default: ()=>({})
+      default: () => ({})
     },
     scrollType: {
       default: "noroll"
     },
+    placeholder: {
+      type: String
+    }
   },
-  data () {
+  data() {
     return {
-      chatHeight: '',
       msg: '',
       switchBox: true,
     }
   },
   computed: {
-    faceSize () {
-      let height = this.height
-      let width = this.width + ''
-      if (height.match(/\d$/)) {
-        height += 'px'
-      }
-      if (width.match(/\d$/)) {
-        width += 'px'
-      }
-      const style = { height, width }
-      return style
-    },
-    chatConfig () {
+    chatConfig() {
       const { historyConfig = {} } = this.config || {}
       return { historyConfig }
     },
-    switchIcon(){
-      let result = 'icon-jiantou-xiangzuo'
-      if(this.switchBox) result = 'icon-jiantou-xiangyou'
-      return result
+    winBarWidth() {
+      let width = 0
+      if (JSON.stringify(this.winBarConfig) !== '{}') {
+        width = this.winBarConfig.width
+      }
+      return width
     },
-    realWidth(){
-      const width = this.width
-      let ratio = 1
-      if(this.showRightBox&&this.switchBox)  ratio = .7
-      return width * ratio+''
-    },
-    quickList(){
-      const { quickList=[]} = this.config
+    quickList() {
+      const { quickList = [] } = this.config
       return quickList
     }
   },
   watch: {
-    height: {
-      handler () {
-        this.chatHeight = this.height - 60 + ''
-      },
-      immediate: true
-    },
     value: {
-      handler () {
+      handler() {
         this.msg = this.value;
       },
       immediate: true
     },
     msg: {
-      handler () {
+      handler() {
         this.$emit('input', this.msg);
       },
       immediate: true
     },
-    showRightBox:{
-      handler (newval) {
-        if(typeof newval === 'boolean')
+    showRightBox: {
+      handler(newval) {
+        if (typeof newval === 'boolean')
           this.switchBox = newval
       },
       immediate: true
     }
   },
   methods: {
-    bindClick (type) {
+    bindClick(type) {
       const { callback } = this.config || {}
       if (callback) {
         callback(type)
       }
     },
     winBarClick(play) {
-      const {callback = null} = this.winBarConfig
-      if(callback){
+      const { callback = null } = this.winBarConfig
+      if (callback) {
         callback(play)
       }
     },
-    finishPullDown(){
-      this.$refs.jwChat.finishPullDown()
+    finishPullDown() {
+      this.$refs.jwChatEmpty.finishPullDown()
     }
-  }
+  },
 }
 </script>
 
 <style  scoped lang="scss">
 .ChatPage {
-  margin: 0 auto;
   background: #fff;
   box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
-  position: relative;
-  .winBar{
-    position: absolute;
-    transform: translateX(-100%);
-  }
-  .header {
-    background-color: #409eff;
-    display: flex;
-    margin: 0 auto;
-    padding-left: 12px;
-    align-items: center;
-    height: 60px;
-    position: relative;
-    color: #fff;
+  display: flex;
+  justify-content: center;
+
+
+  .winBar {
+    flex: none;
+    min-width: 150px;
+    border-right: 1px solid rgba(0, 0, 0, 0.1);
   }
 
-  .main {
+  .ChatPage-main {
+    flex: auto;
     display: flex;
-    height: calc(100% - 60px);
+    flex-direction: column;
 
-    .rightBox {
-      box-shadow: 0 -3px 3px 0 rgba(0, 0, 0, 0.1);
-      width: 45%;
+
+    .header {
+      box-sizing: border-box;
+      background-color: #409eff;
+      display: flex;
+      margin: 0 auto;
+      padding-left: 12px;
+      align-items: center;
+      height: 60px;
+      width: 100%;
       position: relative;
+      color: #fff;
+    }
 
-      .switch {
-        position: absolute;
-        left: -1.2rem;
-        top: 20%;
-        background:rgba(204,204,204,0.5);
-        padding: 0.3rem 0 0.3rem 0.1rem;
-        border-radius: 100% 0 0 100%;
-        color:#fff;
-        cursor: pointer;
-        &:hover{
-          background:#409eff;
-        }
+    .main {
+      display: flex;
+      height: calc(100% - 60px);
+
+      .chatBox {
+        flex: auto;
       }
 
+      .rightBox {
+        box-shadow: 0 -3px 3px 0 rgba(0, 0, 0, 0.1);
+        max-width: 45%;
+        width: 220px;
+        box-sizing: border-box;
+        position: relative;
+
+        .switch {
+          position: absolute;
+          left: 0;
+          top: 20%;
+          transform: translate(-130%, 0);
+          background: rgba(204, 204, 204, 0.5);
+          padding: 0.3rem 0 0.3rem 0.1rem;
+          border-radius: 100% 0 0 100%;
+          color: #fff;
+          cursor: pointer;
+
+          &:hover {
+            background: #409eff;
+          }
+        }
+
+      }
     }
   }
-}
 
+}
 </style>

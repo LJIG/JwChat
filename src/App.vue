@@ -7,12 +7,25 @@
       @enter="bindEnter"
       v-model="inputMsg"
       :showRightBox="true"
-      scrollType="scroll"
-      :quickList="config.quickList"
+      :scrollType="scrollType"
       @clickTalk="talkEvent"
       :toolConfig="tool"
       :winBarConfig="winBarConfig"
+      :placeholder="placeholder"
+      width1="80vw"
+      height="80vh"
     >
+      <!-- <template slot="enter">
+        <div>自定义输入框</div>
+      </template> -->
+      <!-- <template slot="enterBtn">
+        <div>自定义按钮</div>
+      </template> -->
+      <template #downBtn="{unread}">
+        <div>
+          未读{{unread}}
+        </div>
+      </template>
       <JwChat-rightbox
         class="rightSlot"
         :config="rightConfig"
@@ -149,6 +162,8 @@ export default {
   components: {},
   data() {
     return {
+      scrollType:'noroll', // scroll  noroll 俩种类型
+      placeholder: "欢迎使用JwChat...",
       inputMsg: "",
       list: [],
       tool: {
@@ -234,7 +249,7 @@ export default {
       },
       winBarConfig: {
         active: "win01",
-        width: "160px",
+        width: "180px",
         listHeight: "60px",
         list: [
           {
@@ -398,11 +413,16 @@ body {
 }
 #app {
   height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* width: 70vw; */
+  /* margin: 0 auto; */
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+  /* margin-top: 60px; */
 }
 </style>

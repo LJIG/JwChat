@@ -110,10 +110,11 @@ export default {
 </script>
 <style scoped lang="scss">
 .wrapper {
-  padding: 0px;
+  box-sizing: border-box;
   height: 100%;
   max-width: 100%;
   width: 0;
+  padding: 0 10px;
   min-width: 220px;
   margin: 0 auto;
   .notice {

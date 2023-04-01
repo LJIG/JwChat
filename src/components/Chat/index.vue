@@ -1,20 +1,29 @@
 <template>
-  <div class="chatPage" :style="setStyle">
+  <div class="chatPage" :style="{ height, width }">
     <div class="taleBox">
-      <chatList
-        ref="chatList"
-        :list="taleList"
-        @click="$emit('clickTalk', $event)"
-        @loadHistory="loadHistoryHandler"
-        :config="chatListConfig"
-      />
+      <chatList ref="chatList" :list="taleList" @click="$emit('clickTalk', $event)" @loadHistory="loadHistoryHandler"
+        :config="chatListConfig">
+        <template v-if="$scopedSlots.downBtn" #downBtn="{ unread }">
+          <slot :unread="unread" name="downBtn" />
+        </template>
+      </chatList>
     </div>
     <div class="toolBox">
-      <tools :tools="toolConfig" class="tools" @emoji="bindEmoji">
-        <slot name="tools" slot="tools" />
-      </tools>
-      <quickList :list="quickList" :msg="msg" class="quickList" @submit="quickSubmit"/>
-      <EnterBox @submit="$emit('enter', $event)" v-model="msg" :insert="insert"/>
+      <div class="tools">
+        <tools :tools="toolConfig" @emoji="bindEmoji">
+          <slot name="tools" slot="tools" />
+        </tools>
+      </div>
+
+      <div class="enterBox">
+        <div class="quickList">
+          <quickList :list="quickList" :msg="msg" @submit="quickSubmit" />
+        </div>
+        <EnterBox @submit="$emit('enter', $event)" v-model="msg" :insert="insert" :placeholder="placeholder">
+          <slot name="enter" slot="enter" />
+          <slot name="enterBtn" slot="enterBtn" />
+        </EnterBox>
+      </div>
     </div>
   </div>
 </template>
@@ -55,10 +64,13 @@ export default {
     config: {},
     quickList: {
       type: Array,
-      default: ()=>([])
+      default: () => ([])
+    },
+    placeholder: {
+      type: String
     }
   },
-  data () {
+  data() {
     return {
       msg: '',
       insert: ''
@@ -66,64 +78,52 @@ export default {
   },
   watch: {
     value: {
-      handler () {
+      handler() {
         this.msg = this.value;
       },
       immediate: true
     },
     msg: {
-      handler () {
+      handler() {
         this.$emit('input', this.msg);
       },
       immediate: true
     }
   },
   computed: {
-    setStyle () {
-      let height = this.height
-      let width = this.width
-      if (`${height}`.match(/\d$/)) {
-        height += 'px'
-      }
-      if (`${width}`.match(/\d$/)) {
-        width += 'px'
-      }
-      const style = { height, width }
-      return style
-    },
-    talkHeight () {
+    talkHeight() {
       let height = this.height
       if (`${height}`.match(/\d$/)) {
-        height -= 140
+        height -= 160
       } else
-        height = `calc(${height} - 140px)`
+        height = `calc(${height} - 160px)`
       return height
     },
-    chatListConfig () {
+    chatListConfig() {
       const { width, talkHeight: height, scrollType, config: { historyConfig = {} } = {} } = this
       return { width, height, scrollType, historyConfig }
     }
   },
   methods: {
-    bindEmoji (emoji) {
+    bindEmoji(emoji) {
       this.insert = emoji
-      this.$nextTick(()=>{
-         this.insert = ""
+      this.$nextTick(() => {
+        this.insert = ""
       })
     },
-    loadHistoryHandler () {
+    loadHistoryHandler() {
       const { historyConfig: { callback = null } = {} } = this.chatListConfig
       callback && callback()
     },
-    quickSubmit(target){
+    quickSubmit(target) {
       const { text } = target
       this.msg = text
-      this.$nextTick(()=>{
+      this.$nextTick(() => {
         this.$emit('enter', target)
         this.msg = ''
       })
     },
-    finishPullDown(){
+    finishPullDown() {
       this.$refs.chatList.finishPullDown()
     }
   },
@@ -135,20 +135,36 @@ export default {
   position: relative;
   background: #fff;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
   .taleBox {
-    height: calc(100% - 140px);
-    min-height: 100px;
+    width: 100%;
+    flex: auto;
     overflow: hidden;
   }
+
   .toolBox {
-    height: 140px;
+    height: 160px;
+    min-height: 160px;
+    width: 100%;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12), 0 0 6px rgba(0, 0, 0, 0.04);
     position: relative;
-    .quickList{
+    display: flex;
+    flex-direction: column;
+
+    .quickList {
+      width: 100%;
       transform: translateY(-100%);
       background: #fff;
       position: absolute;
       z-index: 5;
+    }
+
+    .enterBox {
+      flex: auto;
     }
   }
 }

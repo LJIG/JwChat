@@ -14,7 +14,7 @@
           <div
             v-else
             class="web__main-item"
-            :key="JSON.stringify(item) + k"
+            :key="`${JSON.stringify(item) + k}`"
             :class="{ 'web__main-item--mine': item.mine }"
           >
             <div class="web__main-user">
@@ -60,8 +60,11 @@
         </template>
       </div>
     </div>
-    <div class="downBtn" v-if="showDownBtn" @click="scrollBottom">
-      <span v-if="unread">{{ unread }}</span>
+    <div v-if="showDownBtn" class="downBtn-position" @click="scrollBottom">
+      <slot v-if="$scopedSlots.downBtn" name="downBtn" :unread="unread" />
+      <div v-else class="downBtn">
+        <span v-if="unread">{{ unread }}</span>
+      </div>
     </div>
   </div>
 </template>
@@ -199,13 +202,15 @@ export default {
   touch-action: none;
   /* Prevent text resize on orientation change, useful for web-apps */
   text-size-adjust: none;
-  .downBtn {
+  .downBtn-position{
     position: absolute;
     cursor: pointer;
     right: 1rem;
     width: 2rem;
     height: 2rem;
     bottom: 2rem;
+  }
+  .downBtn {
     &::before {
       content: "V";
       position: absolute;

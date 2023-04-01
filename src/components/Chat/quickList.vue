@@ -65,12 +65,13 @@ export default {
 <style lang='scss' scoped>
   //@import url(); 引入公共css类
   .quickListBox{
+    box-sizing: border-box;
     padding: 0px;
-    margin: 0px;
+    margin: 8px;
     text-align: left;
     max-height: 100px;
     overflow: auto;
-    width: 100%;
+    // width: 100%;
     padding: 5px;
     box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
     transition: all 2s;

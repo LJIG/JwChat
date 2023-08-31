@@ -6,22 +6,11 @@
           <div v-html="historyConfig.tip"></div>
         </div>
         <template v-for="(item, k) in list">
-          <el-divider
-            v-if="item.type === 'tip'"
-            :key="JSON.stringify(item) + k"
-            >{{ item.text }}</el-divider
-          >
-          <div
-            v-else
-            class="web__main-item"
-            :key="`${JSON.stringify(item) + k}`"
-            :class="{ 'web__main-item--mine': item.mine }"
-          >
+          <el-divider v-if="item.type === 'tip'" :key="JSON.stringify(item) + k">{{ item.text }}</el-divider>
+          <div v-else class="web__main-item" :key="`${JSON.stringify(item) + k}`"
+            :class="{ 'web__main-item--mine': item.mine }">
             <div class="web__main-user">
-              <img
-                :src="item.img"
-                @click="$emit('click', { type: 'img', data: item })"
-              />
+              <img :src="item.img" @click="$emit('click', { type: 'img', data: item })" />
               <cite @click="$emit('click', { type: 'nickname', data: item })">
                 {{ item.name }}
                 <i>{{ item.date }}</i>
@@ -29,32 +18,21 @@
             </div>
             <div class="web__main-text">
               <div class="web__main-arrow"></div>
-              <itemTalk
-                v-if="item.text.text"
-                :text="item.text.text"
-                @systemEvent="taskEvent"
-                @loadDone="loadDone"
-              />
-              <systemTalk
-                v-if="item.text.system"
-                :text="item.text.system"
-                @systemEvent="systemEvent"
-                @loadDone="loadDone"
-              />
-              <el-link
-                @click="taskEvent(item.text)"
-                v-if="item.text.subLink"
-                v-bind="item.text.subLink.prop"
-                class="itemChild"
-              >
-                {{ item.text.subLink.text }}
-              </el-link>
-              <shopTalk
-                v-if="item.text.shop"
-                :text="item.text.shop"
-                @systemEvent="taskEvent"
-                @loadDone="loadDone"
-              />
+              <div v-if="item.custom">
+                <slotTalk :data="item" @systemEvent="taskEvent" @loadDone="loadDone">
+                  <slot name="talkItem" :data="item" />
+                </slotTalk>
+              </div>
+              <template v-else>
+                <itemTalk v-if="item.text.text" :text="item.text.text" @systemEvent="taskEvent" @loadDone="loadDone" />
+                <systemTalk v-if="item.text.system" :text="item.text.system" @systemEvent="systemEvent"
+                  @loadDone="loadDone" />
+                <el-link @click="taskEvent(item.text)" v-if="item.text.subLink" v-bind="item.text.subLink.prop"
+                  class="itemChild">
+                  {{ item.text.subLink.text }}
+                </el-link>
+                <shopTalk v-if="item.text.shop" :text="item.text.shop" @systemEvent="taskEvent" @loadDone="loadDone" />
+              </template>
             </div>
           </div>
         </template>
@@ -74,10 +52,11 @@ import Scroll from "@/utils/scroll";
 // import Remind from '@/utils/remind'
 import itemTalk from "./itemTalk";
 import systemTalk from "./systemTalk";
+import slotTalk from "./slotTalk";
 import shopTalk from "./shopTalk";
 export default {
   name: "JwChat_list",
-  components: { itemTalk, systemTalk, shopTalk },
+  components: { itemTalk, systemTalk, shopTalk, slotTalk },
   props: {
     list: {
       type: Array,
@@ -172,7 +151,7 @@ export default {
       this.scroll.saveNodes({ nodes: childs, dataList: this.list });
     },
     pullingDownHandler() {
-      this.$emit("loadHistory");
+      this.$emit("loadHistory", this.finishPullDown);
     },
     systemEvent(itemData) {
       this.$emit("click", { type: "systemItem", data: itemData });
@@ -189,7 +168,7 @@ export default {
 </script>
 
 <style  scoped lang="scss">
-/deep/.iScrollVerticalScrollbar.iScrollLoneScrollbar {
+::v-deep.iScrollVerticalScrollbar.iScrollLoneScrollbar {
   z-index: 1 !important;
 }
 
@@ -202,7 +181,8 @@ export default {
   touch-action: none;
   /* Prevent text resize on orientation change, useful for web-apps */
   text-size-adjust: none;
-  .downBtn-position{
+
+  .downBtn-position {
     position: absolute;
     cursor: pointer;
     right: 1rem;
@@ -210,6 +190,7 @@ export default {
     height: 2rem;
     bottom: 2rem;
   }
+
   .downBtn {
     &::before {
       content: "V";
@@ -224,6 +205,7 @@ export default {
       left: 50%;
       transform: translateX(-50%);
     }
+
     span {
       background: #409eff;
       padding: 0.1rem 0.5rem;
@@ -236,10 +218,12 @@ export default {
       transform: translate(-50%, -50%);
     }
   }
+
   .scroller {
     height: 100%;
     width: 100%;
   }
+
   .web__main {
     position: absolute;
     width: calc(100% - 1.5rem);
@@ -251,6 +235,7 @@ export default {
 
     /* Put the scroller into the HW Compositing layer right from the start */
     transform: translateZ(0);
+
     .web__main-item {
       position: relative;
       font-size: 0;
@@ -259,10 +244,12 @@ export default {
       min-height: 68px;
       text-align: left;
     }
+
     .sysTip {
       font-size: 1rem;
       text-align: center;
     }
+
     .web__main-user,
     .web__main-text {
       display: inline-block;
@@ -274,11 +261,13 @@ export default {
       position: absolute;
       cursor: pointer;
       left: 3px;
+
       img {
         width: 40px;
         height: 40px;
         border-radius: 100%;
       }
+
       cite {
         position: absolute;
         left: 60px;
@@ -290,6 +279,7 @@ export default {
         color: #999;
         text-align: left;
         font-style: normal;
+
         i {
           padding-left: 15px;
           font-style: normal;
@@ -322,6 +312,7 @@ export default {
       border-width: 8px;
       border-left-width: 0;
       border-right-color: #ebeef5;
+
       &::after {
         content: " ";
         top: -7px;
@@ -346,6 +337,7 @@ export default {
       border-width: 8px;
       border-right-width: 0;
       border-left-color: #409eff;
+
       &::after {
         left: auto;
         right: -2px;
@@ -359,6 +351,7 @@ export default {
 
     .web__main-list {
       margin: 10px 0;
+
       li {
         height: 30px;
         color: #409eff;
@@ -370,24 +363,29 @@ export default {
       text-align: right;
       padding-left: 0;
       padding-right: 60px;
+
       .web__main-user {
         left: auto;
         right: 3px;
+
         cite {
           left: auto;
           right: 60px;
           text-align: right;
+
           i {
             padding-left: 0;
             padding-right: 15px;
           }
         }
       }
+
       .web__main-text {
         margin-left: 0;
         text-align: left;
         background-color: #409eff;
         color: #fff;
+
         img {
           max-width: 200px;
         }
@@ -395,6 +393,7 @@ export default {
     }
   }
 }
+
 .pulldown-wrapper {
   position: absolute;
   width: 100%;

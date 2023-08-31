@@ -106,7 +106,7 @@ export default {
       showWin: true,
       switchRight: true,
       scrollType: 'noroll', // scroll  noroll 俩种类型
-      placeholder: "欢迎使用JwChat...",
+      placeholder: "欢迎使用JwChat...(最多输入30字)",
       inputMsg: '',
       taleList: [],
       tool: {
@@ -140,6 +140,7 @@ export default {
             id: 13,
           },
         ],
+        maxlength: 30,
       },
       rightConfig: {
         listTip: "当前在线",
@@ -430,7 +431,7 @@ export default {
   data () {
     return {
       scrollType: 'noroll', // scroll  noroll 俩种类型
-      placeholder: "欢迎使用JwChat...",
+      placeholder: "欢迎使用JwChat...(最多输入30字)",
       inputMsg: '',
       taleList: [],
       tool: {
@@ -464,6 +465,7 @@ export default {
             id: 13,
           },
         ],
+        maxlength: 30,
       },
       rightConfig: {
         listTip: "当前在线",
@@ -744,6 +746,8 @@ export default {
 | enter | 舍弃组件输入框，用户自定义插槽 |
 | downBtn | 下拉按钮自定义插槽 |
 | enterBtn | 发送按钮自定义插槽 |
+| talkItem | 对话框自定义插槽 ｜
+| winBarBtn | 删除按钮自定义插槽 ｜
 
 ### `config` 说明
 
@@ -762,7 +766,7 @@ export default {
      * @param {*}
      * @return {*}
      */
-    callback: bindLoadHistory () {
+    callback: bindLoadHistory (done) {
       const history = new Array(3).fill().map((i, j) => {
         return {
           "date": "2020/05/20 23:19:07",
@@ -777,7 +781,11 @@ export default {
       //  加载完成后通知组件关闭加载动画
       this.config.historyConfig.tip = "加载完成";
       this.$nextTick(() => {
-        this.$refs.jwChat.finishPullDown();
+        // 组件完成加载后需要需要告知组件 下列方法任选一种
+        // 1.直接调用 done
+        done()
+        // 2.直接使用组件方法
+        // this.$refs.jwChat.finishPullDown();
       });
     } 
   },
@@ -792,7 +800,8 @@ export default {
     {text: '假如你是云，我就是雨，一生相伴，风风雨雨；'},
     {text: '即使泪水在眼中打转，我依旧可以笑的很美，这是你学不来的坚强。'},
     {text: ' 因为不知来生来世会不会遇到你，所以今生今世我会加倍爱你。'},
-  ]
+  ],
+  maxlength: 30, 
 }
 ```
 

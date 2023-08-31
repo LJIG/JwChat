@@ -6,6 +6,9 @@
         <template v-if="$scopedSlots.downBtn" #downBtn="{ unread }">
           <slot :unread="unread" name="downBtn" />
         </template>
+        <template v-if="$scopedSlots.downBtn" #talkItem="{ data }">
+          <slot :data="data" name="talkItem" />
+        </template>
       </chatList>
     </div>
     <div class="toolBox">
@@ -19,7 +22,7 @@
         <div class="quickList">
           <quickList :list="quickList" :msg="msg" @submit="quickSubmit" />
         </div>
-        <EnterBox @submit="$emit('enter', $event)" v-model="msg" :insert="insert" :placeholder="placeholder">
+        <EnterBox @submit="$emit('enter', $event)" v-model="msg" v-bind="enterBoxProps">
           <slot name="enter" slot="enter" />
           <slot name="enterBtn" slot="enterBtn" />
         </EnterBox>
@@ -91,17 +94,24 @@ export default {
     }
   },
   computed: {
-    talkHeight() {
-      let height = this.height
-      if (`${height}`.match(/\d$/)) {
-        height -= 160
-      } else
-        height = `calc(${height} - 160px)`
-      return height
-    },
     chatListConfig() {
-      const { width, talkHeight: height, scrollType, config: { historyConfig = {} } = {} } = this
-      return { width, height, scrollType, historyConfig }
+      const { width, height, scrollType, config: { historyConfig = {} } = {} } = this
+
+      let listBoxHeight = height
+      if (`${height}`.match(/\d$/)) {
+        listBoxHeight = height - 160
+      } else {
+        listBoxHeight = `calc(${height} - 160px)`
+      }
+
+      return { width, height: listBoxHeight, scrollType, historyConfig }
+    },
+    enterBoxProps() {
+      const { insert, placeholder, config } = this
+      const maxlength = config.maxlength
+      return {
+        insert, placeholder, maxlength
+      }
     }
   },
   methods: {
@@ -111,9 +121,9 @@ export default {
         this.insert = ""
       })
     },
-    loadHistoryHandler() {
+    loadHistoryHandler(done) {
       const { historyConfig: { callback = null } = {} } = this.chatListConfig
-      callback && callback()
+      callback ? callback(done) : done()
     },
     quickSubmit(target) {
       const { text } = target

@@ -1,40 +1,31 @@
 <template>
   <div id="app" class="wrapper">
-    <JwChat-index
-      ref="jwChat"
-      :config="config"
-      :taleList="list"
-      @enter="bindEnter"
-      v-model="inputMsg"
-      :showRightBox="true"
-      :scrollType="scrollType"
-      @clickTalk="talkEvent"
-      :toolConfig="tool"
-      :winBarConfig="winBarConfig"
-      :placeholder="placeholder"
-      width1="80vw"
-      height="80vh"
-    >
+    <JwChat-index ref="jwChat" :config="config" :taleList="list" @enter="bindEnter" v-model="inputMsg"
+      :showRightBox="true" :scrollType="scrollType" @clickTalk="talkEvent" :toolConfig="tool" :winBarConfig="winBarConfig"
+      :placeholder="placeholder" width1="80vw" height="80vh">
       <!-- <template slot="enter">
         <div>自定义输入框</div>
       </template> -->
       <!-- <template slot="enterBtn">
         <div>自定义按钮</div>
       </template> -->
-      <template #downBtn="{unread}">
+      <!-- <template slot="winBarBtn">
+        <div>删除按钮</div>
+      </template> -->
+      <template #downBtn="{ unread }">
         <div>
-          未读{{unread}}
+          未读{{ unread }}
         </div>
       </template>
-      <JwChat-rightbox
-        class="rightSlot"
-        :config="rightConfig"
-        @click="rightClick"
-      />
+      <template #talkItem="{ data }">
+        {{ data }}
+      </template>
+      
+      <JwChat-rightbox class="rightSlot" :config="rightConfig" @click="rightClick" />
       <!-- <JwChat-talk class="rightSlot" :Talelist="talk" :config="quickConfig" @event="bindTalk" /> -->
       <template slot="tools">
-        <div style="width: 20rem; text-align: right" @click="toolEvent(12)">
-          <JwChat-icon type="icon-lishi" title="自定义" />
+        <div style="width: 20rem; text-align: right" @click="toolEvent(12)" title="自定义">
+          <JwChat-icon type="icon-lishi" />
         </div>
       </template>
     </JwChat-index>
@@ -64,6 +55,7 @@ const listData = [
     text: { text: "起床不" },
     mine: false,
     name: "留恋人间不羡仙",
+    // custom: true,
     img: "image/one.jpeg",
   },
   {
@@ -162,7 +154,7 @@ export default {
   components: {},
   data() {
     return {
-      scrollType:'noroll', // scroll  noroll 俩种类型
+      scrollType: 'noroll', // scroll  noroll 俩种类型
       placeholder: "欢迎使用JwChat...",
       inputMsg: "",
       list: [],
@@ -223,8 +215,9 @@ export default {
         name: "JwChat",
         dept: "最简单、最便捷",
         callback: this.bindCover,
+        maxlength: 20,
         historyConfig: {
-          show: false,
+          show: true,
           tip: "加载更多提示框,可以直接使用组件的",
           callback: this.bindLoadHistory,
         },
@@ -297,7 +290,7 @@ export default {
      * @param {*}
      * @return {*}
      */
-    async bindLoadHistory() {
+    async bindLoadHistory(done) {
       const history = new Array(3).fill().map((i, j) => {
         return {
           date: "2020/05/20 23:19:07",
@@ -312,8 +305,13 @@ export default {
       console.log("加载历史", list, history);
       //  加载完成后通知组件关闭加载动画
       this.config.historyConfig.tip = "加载完成";
+
       this.$nextTick(() => {
-        this.$refs.jwChat.finishPullDown();
+        // 组件完成加载后需要需要告知组件 下列方法任选一种
+        // 1.直接调用 done
+        done()
+        // 2.直接使用组件方法
+        // this.$refs.jwChat.finishPullDown();
       });
     },
     talkEvent(play) {
@@ -401,16 +399,19 @@ export default {
 .active {
   color: red;
 }
+
 * {
   padding: 0;
   margin: 0;
 }
+
 body {
   width: 100vw;
   height: 100vh;
   overflow: hidden;
   background-image: linear-gradient(to bottom right, #7a88ff, #7affaf);
 }
+
 #app {
   height: 100vh;
   display: flex;

@@ -4,24 +4,23 @@
       <el-popover placement="top-start" trigger="click" ref="popover">
         <ul class="emjioBox">
           <li v-for="item in Object.keys(emoji)" :key="item" @click="selectEmit(item)">
-            <a v-if="emoji[item]&&emoji[item].position" :style="emojiStyle(item)"></a>
-            <a v-else-if="emoji[item].length<5">{{emoji[item]}}</a>
+            <a v-if="emoji[item] && emoji[item].position" :style="emojiStyle(item)"></a>
+            <a v-else-if="emoji[item].length < 5">{{ emoji[item] }}</a>
             <img v-else :src="emoji[item]" />
           </li>
         </ul>
-        <JwChat-icon class="toolIcon" slot="reference" type="icon-xiaolian" title="表情" />
+        <span class="toolIcon" slot="reference" title="表情">
+          <JwChat-icon type="icon-xiaolian" />
+        </span>
       </el-popover>
     </template>
-    <template v-for="(item,k) in showkeys">
-      <span
-        v-if="toolConfig[item]"
-        :key="item"
-      >
-        <span @click="bindButton(item)">
-          <JwChat-icon class="toolIcon" :type="toolConfig[item].icon" :title="iconTitle(item,k)" />
+    <template v-for="(item, k) in showkeys">
+      <span v-if="toolConfig[item]" :key="item">
+        <span @click="bindButton(item)" class="toolIcon" :title="iconTitle(item, k)">
+          <JwChat-icon :type="toolConfig[item].icon" />
         </span>
       </span>
-      <i :key="item" v-else :class="item" @click="bindButton(item)"></i>
+      <i :key="item" v-else class="toolIcon" :class="item" @click="bindButton(item)"></i>
     </template>
     <slot name="tools" />
   </div>
@@ -43,7 +42,7 @@ export default {
       }
     }
   },
-  data () {
+  data() {
     return {
       emoji,
       toolConfig: {
@@ -57,12 +56,12 @@ export default {
       newTitle: null
     }
   },
-  computed:{
-    showEmoji () {
+  computed: {
+    showEmoji() {
       const { showEmoji = true } = this.tools || {}
       return showEmoji
     },
-    showkeys () {
+    showkeys() {
       let keys = Object.keys(this.toolConfig)
       const { show = [] } = this.tools || {}
       let _key = []
@@ -72,8 +71,8 @@ export default {
             this.newTitle = i
             return
           }
-          if(keys.includes(i))
-           _key.push(i)
+          if (keys.includes(i))
+            _key.push(i)
         })
         // keys = _key
       }
@@ -81,7 +80,7 @@ export default {
     }
   },
   methods: {
-    iconTitle (key, index) {
+    iconTitle(key, index) {
       let title = ''
       // newTitle = ['自定义标题1', '自定义标题2']
       if (this.newTitle) {
@@ -92,12 +91,11 @@ export default {
       }
       return title
     },
-
-    selectEmit (type) {
+    selectEmit(type) {
       this.$emit('emoji', type)
       this.$refs.popover.doClose()
     },
-    bindButton (type) {
+    bindButton(type) {
       if (!this.tools.callback) return console.warn('callback not find')
       if (type === 'file') {
         this.openFile(type, this.tools.callback)
@@ -105,7 +103,7 @@ export default {
         this.tools.callback(type)
       }
     },
-    openFile (type, callback) {
+    openFile(type, callback) {
       var input = document.createElement("input")
       input.type = "file"
       input.multiple = 'multiple'
@@ -115,7 +113,7 @@ export default {
         callback(type, file)
       }
     },
-    emojiStyle (item) {
+    emojiStyle(item) {
       const emojiitem = this.emoji[item]
       if (!emojiitem) return {}
       return {
@@ -139,14 +137,18 @@ export default {
   align-items: center;
   height: 30px;
 }
+
 .toolIcon {
   padding-left: 6px;
   font-size: 20px;
   color: #888a91;
+  cursor: pointer;
+
   &:hover {
     color: #76b1f9;
   }
 }
+
 .emjioBox {
   background: #fff;
   height: 150px;
@@ -154,6 +156,7 @@ export default {
   overflow: auto;
   text-align: left;
   padding: 0;
+
   li {
     display: inline-block;
     width: 28px;

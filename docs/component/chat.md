@@ -428,6 +428,7 @@ export default {
 | enter | 舍弃组件输入框，用户自定义插槽 |
 | downBtn | 下拉按钮自定义插槽 |
 | enterBtn | 发送按钮自定义插槽 |
+| talkItem | 对话框自定义插槽 ｜
 
 ### `toolConfig` 说明
 
@@ -462,7 +463,7 @@ export default {
      * @param {*}
      * @return {*}
      */
-    callback: bindLoadHistory () {
+    callback: bindLoadHistory (done) {
       const history = new Array(3).fill().map((i, j) => {
         return {
           "date": "2020/05/20 23:19:07",
@@ -477,10 +478,15 @@ export default {
       //  加载完成后通知组件关闭加载动画
       this.config.historyConfig.tip = "加载完成";
       this.$nextTick(() => {
-        this.$refs.jwChat.finishPullDown();
+        // 组件完成加载后需要需要告知组件 下列方法任选一种
+        // 1.直接调用 done
+        done()
+        // 2.直接使用组件方法
+        // this.$refs.jwChat.finishPullDown();
       });
     } 
-  }
+  },
+  maxlength: 300, // 输入框长度，默认300
 }
 ```
 

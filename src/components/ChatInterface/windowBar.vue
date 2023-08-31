@@ -23,7 +23,11 @@
         >
           <JwChat-item :config="item" />
           <div class="itemOperation">
+            <div v-if="$scopedSlots.winBarBtn" @click.stop="bindOperation({ type: 'remove', target: item })">
+              <slot name="winBarBtn" />
+            </div>
             <el-button
+              v-else
               type="info"
               icon="el-icon-close"
               circle
@@ -157,6 +161,7 @@ export default {
     width: calc(100% - 10px);
     height: calc(100% - 20px);
     overflow: hidden;
+    position: relative;
   }
   .winItem {
     display: flex;
@@ -188,7 +193,7 @@ export default {
       opacity: 0;
       transform: translateY(100%);
       right: 0;
-      /deep/ .el-button {
+      ::v-deep .el-button {
         margin: 0;
         padding: 0.06rem;
         margin-bottom: 0.4rem;
@@ -199,7 +204,7 @@ export default {
       }
     }
   }
-  /deep/ .el-divider__text {
+  ::v-deep .el-divider__text {
     padding: 0 5px;
   }
 }

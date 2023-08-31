@@ -1,7 +1,9 @@
 <template>
   <div class="ChatPage" :style="{ width, height }">
     <div v-if="JSON.stringify(winBarConfig) !== '{}'" class="winBar">
-      <WinBar :config="winBarConfig" @click="winBarClick" />
+      <WinBar :config="winBarConfig" @click="winBarClick">
+        <slot name="winBarBtn" slot="winBarBtn" />
+      </WinBar>
     </div>
     <div class="ChatPage-main">
       <div class="header">
@@ -10,15 +12,16 @@
       </div>
       <div class="main" :style="{ width: winBarWidth ? `calc(${width} - ${winBarWidth})` : width }">
         <div class="chatBox">
-          <JwChat ref="jwChatEmpty" :taleList="taleList" @enter="$emit('enter', $event)" v-model="msg"
-            :toolConfig="toolConfig" :scrollType="scrollType" width="100%" :height="`calc(${height} - 60px)`"
-            :config="chatConfig" :quickList="quickList" :placeholder="placeholder"
+          <JwChat ref="jwChatEmpty" v-model="msg" v-bind="chatProps" @enter="$emit('enter', $event)"
             @clickTalk="$emit('clickTalk', $event)">
             <slot name="tools" slot="tools" />
             <slot name="enterBtn" slot="enterBtn" />
             <slot name="enter" slot="enter" />
             <template v-if="$scopedSlots.downBtn" #downBtn="{ unread }">
               <slot :unread="unread" name="downBtn" />
+            </template>
+            <template #talkItem="{ data }">
+              <slot :data="data" name="talkItem" />
             </template>
           </JwChat>
         </div>
@@ -92,10 +95,6 @@ export default {
     }
   },
   computed: {
-    chatConfig() {
-      const { historyConfig = {} } = this.config || {}
-      return { historyConfig }
-    },
     winBarWidth() {
       let width = 0
       if (JSON.stringify(this.winBarConfig) !== '{}') {
@@ -103,9 +102,20 @@ export default {
       }
       return width
     },
-    quickList() {
-      const { quickList = [] } = this.config
-      return quickList
+
+    chatProps() {
+      const { taleList, toolConfig, scrollType, height, config, placeholder } = this
+      const { quickList = [], historyConfig = {}, maxlength = 300 } = config
+      return {
+        taleList,
+        toolConfig,
+        scrollType,
+        quickList,
+        placeholder,
+        width: "100%",
+        height: `calc(${height} - 60px)`,
+        config: { historyConfig, maxlength },
+      }
     }
   },
   watch: {

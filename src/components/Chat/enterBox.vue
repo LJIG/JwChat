@@ -2,7 +2,7 @@
   <div class="web__msg" @keyup.enter="handleSend">
     <slot v-if="$scopedSlots.enter" name="enter" />
     <template v-else>
-      <textarea v-model="currentMsg" rows="3" :placeholder="placeholder" class="web__msg-input" ref="msgBox" />
+      <textarea v-model="currentMsg" rows="3" :placeholder="placeholder" class="web__msg-input" ref="msgBox" :maxlength="maxlength" />
       <div class="web__msg-menu">
         <div v-if="$scopedSlots.enterBtn" @click="handleSend">
           <slot name="enterBtn" />
@@ -29,6 +29,10 @@ export default {
       type: String,
       default: ''
     },
+    maxlength: {
+      type: Number,
+      default: 300
+    }
   },
   data() {
     return {

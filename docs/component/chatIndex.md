@@ -746,8 +746,8 @@ export default {
 | enter | 舍弃组件输入框，用户自定义插槽 |
 | downBtn | 下拉按钮自定义插槽 |
 | enterBtn | 发送按钮自定义插槽 |
-| talkItem | 对话框自定义插槽 ｜
-| winBarBtn | 删除按钮自定义插槽 ｜
+| talkItem | 对话框自定义插槽 |
+| winBarBtn | 删除按钮自定义插槽 |
 
 ### `config` 说明
 

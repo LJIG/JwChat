@@ -6,7 +6,7 @@
         <template v-if="$scopedSlots.downBtn" #downBtn="{ unread }">
           <slot :unread="unread" name="downBtn" />
         </template>
-        <template v-if="$scopedSlots.downBtn" #talkItem="{ data }">
+        <template v-if="$scopedSlots.talkItem" #talkItem="{ data }">
           <slot :data="data" name="talkItem" />
         </template>
       </chatList>

@@ -217,6 +217,9 @@ export default {
       未读{{unread}}
     </div>
   </template> -->
+  <!-- <template #talkItem="{ data }">
+        自定义对话框{{ data }}
+      </template> -->
   <!-- <template slot="tools">
     <div style="width: 20rem; text-align: right" @click="toolEvent(12)">
       <JwChat-icon type="icon-lishi" title="自定义" />
@@ -309,7 +312,8 @@ export default {
           "text": { "text": "起床不" },
           "mine": false,
           "name": "留恋人间不羡仙",
-          "img": "../image/one.jpeg"
+          "img": "../image/one.jpeg",
+          // "custom": true, // 自定义对话框开关
         },
         {
           "date": "2020/04/25 21:19:07",
@@ -428,7 +432,7 @@ export default {
 | enter | 舍弃组件输入框，用户自定义插槽 |
 | downBtn | 下拉按钮自定义插槽 |
 | enterBtn | 发送按钮自定义插槽 |
-| talkItem | 对话框自定义插槽 ｜
+| talkItem | 对话框自定义插槽 |
 
 ### `toolConfig` 说明
 

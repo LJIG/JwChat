@@ -12,11 +12,11 @@
       <!-- <template slot="winBarBtn">
         <div>删除按钮</div>
       </template> -->
-      <template #downBtn="{ unread }">
+      <!-- <template #downBtn="{ unread }">
         <div>
           未读{{ unread }}
         </div>
-      </template>
+      </template> -->
       <template #talkItem="{ data }">
         {{ data }}
       </template>
@@ -55,7 +55,7 @@ const listData = [
     text: { text: "起床不" },
     mine: false,
     name: "留恋人间不羡仙",
-    // custom: true,
+    custom: true,
     img: "image/one.jpeg",
   },
   {

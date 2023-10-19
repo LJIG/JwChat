@@ -1,0 +1,44 @@
+[
+  {
+    "compName": "Chat",
+    "compZhName": "聊天组件",
+    "compDesc": "聊天组件",
+    "compClassName": "chat"
+  },
+  {
+    "compName": "JwChatIcon",
+    "compZhName": "图标",
+    "compDesc": "简单的图标",
+    "compClassName": "jw-chat-icon"
+  },
+  {
+    "compName": "ChatIndex",
+    "compZhName": "组件主页",
+    "compDesc": "聊天组件的主页",
+    "compClassName": "chat-index"
+  },
+  {
+    "compName": "JwChatItem",
+    "compZhName": "用户条目",
+    "compDesc": "默认：这是一个新组件",
+    "compClassName": "jw-chat-item"
+  },
+  {
+    "compName": "RightList",
+    "compZhName": "右侧组件",
+    "compDesc": "默认：这是一个新组件",
+    "compClassName": "right-list"
+  },
+  {
+    "compName": "Empty",
+    "compZhName": "空状态",
+    "compDesc": "默认：这是一个新组件",
+    "compClassName": "empty"
+  },
+  {
+    "compName": "QuickTalk",
+    "compZhName": "快速回复",
+    "compDesc": "默认：这是一个新组件",
+    "compClassName": "quick-talk"
+  }
+]

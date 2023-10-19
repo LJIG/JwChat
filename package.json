@@ -1,0 +1,79 @@
+{
+  "name": "jwchat",
+  "version": "2.0.0",
+  "auther": "Bian<389701057@qq.com>",
+  "description": "Vue 聊天组件",
+  "keyword": "chat,Vue",
+  "files": [
+    "lib"
+  ],
+  "exports": {
+    ".": {
+      "import": "./lib/JwChat.es.js",
+      "require": "./lib/JwChat.umd.js",
+      "types": "./lib/JwChat.d.ts"
+    },
+    "./lib/*": {
+      "import": "./lib/JwChat.es.js",
+      "require": "./lib/JwChat.umd.js",
+      "types": "./lib/JwChat.d.ts"
+    }
+  },
+  "main": "./lib/JwChat.umd.js",
+  "module": "./lib/JwChat.es.js",
+  "types": "./lib/JwChat.d.ts",
+  "private": false,
+  "license": "MIT",
+  "scripts": {
+    "commit": "git-cz",
+    "dev": "vite",
+    "serve": "vite preview",
+    "build": "vue-tsc --noEmit && vite build --mode build && node script/copyDir.js",
+    "lib": "vue-tsc --noEmit && vite build --mode lib",
+    "gen": "node ./script/genNewComp/index.js",
+    "version": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0 && git add CHANGELOG.md"
+  },
+  "dependencies": {
+    "@better-scroll/core": "^2.4.2",
+    "@better-scroll/mouse-wheel": "^2.4.2",
+    "@better-scroll/observe-dom": "^2.4.2",
+    "@better-scroll/observe-image": "^2.4.2",
+    "@better-scroll/pull-down": "^2.4.2",
+    "@better-scroll/scroll-bar": "^2.4.2",
+    "@element-plus/icons-vue": "^2.0.4",
+    "element-plus": "^2.1.9",
+    "prismjs": "^1.25.0",
+    "vue": "^3.2.37",
+    "wechat-emoji-parser": "^2.0.1"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^16.2.3",
+    "@types/node": "^16.11.12",
+    "@vitejs/plugin-vue": "^3.0.1",
+    "@vitejs/plugin-vue-jsx": "^2.0.0",
+    "conventional-changelog": "^3.1.25",
+    "cz-conventional-changelog": "^3.3.0",
+    "fs-extra": "^10.0.0",
+    "handlebars": "^4.7.7",
+    "husky": "^7.0.4",
+    "inquirer": "^8.2.0",
+    "sass": "^1.50.0",
+    "typescript": "^4.4.4",
+    "vite": "^3.0.4",
+    "vite-plugin-copy": "^0.1.6",
+    "vite-plugin-dts": "^0.9.6",
+    "vite-plugin-md": "^0.11.4",
+    "vue-router": "^4.0.12",
+    "vue-tsc": "^0.28.10"
+  },
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  }
+}

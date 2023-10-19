@@ -1,0 +1,22 @@
+.chatPage {
+  margin: 0 auto;
+  position: relative;
+  background: #fff;
+  overflow: hidden;
+  .taleBox {
+    height: calc(100% - 140px);
+    min-height: 100px;
+    overflow: hidden;
+  }
+  .toolBox {
+    height: 140px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12), 0 0 6px rgba(0, 0, 0, 0.04);
+    position: relative;
+    .quickList {
+      transform: translateY(-100%);
+      background: #fff;
+      position: absolute;
+      z-index: 5;
+    }
+  }
+}

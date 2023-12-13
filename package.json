@@ -48,6 +48,7 @@
   },
   "devDependencies": {
     "@commitlint/cli": "^16.2.3",
+    "@commitlint/config-conventional": "^18.4.3",
     "@types/node": "^16.11.12",
     "@vitejs/plugin-vue": "^3.0.1",
     "@vitejs/plugin-vue-jsx": "^2.0.0",

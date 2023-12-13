@@ -9,12 +9,12 @@ import { App, Plugin } from 'vue';
 
 {{ importPlugins }}
 
-const MYKitPlugin: Plugin = {
+const JwChatPlugin: Plugin = {
   install(app: App) {
     {{ installPlugins }}
   },
 };
 
-export default MYKitPlugin;
+export default JwChatPlugin;
 
 {{ exportPlugins }}

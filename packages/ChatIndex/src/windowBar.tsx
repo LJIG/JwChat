@@ -100,71 +100,52 @@ export default defineComponent({
         preventDefault: false,
       });
     });
-    /* const refData = toRefs(data);
-    return {
-      Close,
-      ...refData,
-      windowBar,
-
-      winList,
-      winBarStyle,
-      winItemStyle,
-
-      bindClick,
-      bindOperation,
-      scrollRefresh,
-    }; */
 
     return () => (
-      <>
-        <div class={style.windowBar} style={winBarStyle.value}>
-          {/* <div class="toolBarBox">
-              <img src="image/three.jpeg" alt="">
-            </div> */}
-          <div class={style.winBarBox} ref={windowBar}>
-            <div>
-              {winList.value.map((item, k) => {
-                return (
-                  <div
-                    key={k}
-                    onClick={() => {
-                      bindClick(item);
-                    }}
-                    style={winItemStyle.value}
-                    class={{
-                      [style.winItem]: true,
-                      [style.winActive]: data.activeItem == item.id,
-                    }}
-                  >
-                    <JwChat-item config={item} />
-                    <div class={style.itemOperation}>
-                      <el-button
-                        type="info"
-                        icon={Close}
-                        circle
-                        size="small"
-                        onClick={() => {
-                          bindOperation({ type: "remove", target: item });
-                        }}
-                      />
-                    </div>
+      <div class={style.windowBar} style={winBarStyle.value}>
+        <div class={style.winBarBox} ref={windowBar}>
+          <div>
+            {winList.value.map((item, k) => {
+              return (
+                <div
+                  key={k}
+                  onClick={() => {
+                    bindClick(item);
+                  }}
+                  style={winItemStyle.value}
+                  class={{
+                    [style.winItem]: true,
+                    [style.winActive]: data.activeItem == item.id,
+                  }}
+                >
+                  <JwChat-item config={item} />
+                  <div class={style.itemOperation}>
+                    <el-button
+                      type="info"
+                      icon={Close}
+                      circle
+                      size="small"
+                      onClick={() => {
+                        bindOperation({ type: "remove", target: item });
+                      }}
+                    />
                   </div>
-                );
-              })}
-              {!winList.value.length && (
-                <>
-                  <div>
-                    <JwChat-empty size="8rem" />
-                  </div>
-                  <el-divider style="padding: 0 5px">
-                    <span style="font-size: 0.2rem">暂无会话</span>
-                  </el-divider>
-                </>
-              )}
-            </div>
+                </div>
+              );
+            })}
+            {!winList.value.length && (
+              <>
+                <div>
+                  <JwChat-empty size="8rem" />
+                </div>
+                <el-divider style="padding: 0 5px">
+                  <span style="font-size: 0.2rem">暂无会话</span>
+                </el-divider>
+              </>
+            )}
           </div>
         </div>
-      </>
+      </div>
     );
 
     function bindClick(play: any) {

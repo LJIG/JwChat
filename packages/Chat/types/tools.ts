@@ -3,9 +3,8 @@
  * @Date: 2022-10-12 21:51:57
  * @LastEditTime: 2022-10-12 22:23:03
  * @LastEditors: Bian <389701057@qq.com>
- * @Description: 
- * @FilePath: \ui-MY-Kit\packages\Chat\types\tools.ts
- * hello 
+ * @Description:
+ * hello
  */
 
 // export const affixProps = buildProps({

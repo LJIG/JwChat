@@ -71,6 +71,12 @@ export default defineComponent({
     const setStyle = computed(() => {
       let height = props.height;
       let width = props.width;
+      if (height.match(/\d$/)) {
+        height += "px";
+      }
+      if (width.match(/\d$/)) {
+        width += "px";
+      }
       return { height, width };
     });
 

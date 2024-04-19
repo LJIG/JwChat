@@ -71,12 +71,6 @@ export default defineComponent({
       if (width.match(/\d$/)) {
         width += "px";
       }
-      if (JSON.stringify(props.winBarConfig) !== "{}") {
-        const winBarWidth = props.winBarConfig?.width;
-        const widthNum = width.replace("px", "");
-        const winBarWidthNum = winBarWidth.replace("px", "");
-        width = Number(widthNum) + Number(winBarWidthNum) + "px";
-      }
       const style = { height, width };
       return style;
     });
@@ -143,12 +137,10 @@ export default defineComponent({
     return () => (
       <>
         <div class={style.ChatPage} style={faceSize.value}>
-          <div class={style.winBar}>
-            {JSON.stringify(props.winBarConfig) !== "{}" && (
-              <WinBar config={props.winBarConfig} onClick={winBarClick} />
-            )}
-          </div>
-          <div style="width: 100%">
+          {JSON.stringify(props.winBarConfig) !== "{}" && (
+            <WinBar config={props.winBarConfig} onClick={winBarClick} />
+          )}
+          <div class={style.winBox}>
             <div class={style.header}>
               <JwChat-item config={props.config} onClick={bindClick} />
               {slots.header?.()}
@@ -167,8 +159,8 @@ export default defineComponent({
                   v-model={data.msg}
                   toolConfig={props.toolConfig}
                   scrollType={props.scrollType}
-                  width={realWidth.value}
-                  height={data.chatHeight}
+                  width={"100%"}
+                  height={"100%"}
                   config={chatConfig}
                   quickList={quickList}
                   onClickTalk={($event: Event) => {

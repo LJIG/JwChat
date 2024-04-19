@@ -1,4 +1,4 @@
-import { computed, defineComponent } from "vue";
+import { computed, defineComponent, unref } from "vue";
 import style from "./quickList.module.scss";
 export default defineComponent({
   props: {
@@ -15,8 +15,9 @@ export default defineComponent({
   setup(props, { emit }) {
     const showList = computed(() => {
       const msg = props.msg;
-      if (!msg) return [];
-      const originList = props.list;
+      // 当空字符串和表情时候不匹配
+      if (!msg || /^\[.+\]$/.test(msg)) return [];
+      const originList = unref(props.list);
       const reg = new RegExp(msg);
       const result: Array<any> = [];
       originList.forEach((i: any) => {
@@ -26,44 +27,37 @@ export default defineComponent({
           result.push({ ...i, showtext: str });
         }
       });
+      console.log(result, "result");
       return result;
     });
 
-    // return {
-    //   showList,
-    //   submit,
-    // };
-
-    return () => {
-      {
-        showList.value.length && (
+    return () => (
+      <>
+        {showList.value.length > 0 && (
           <div class={style.quickListBox}>
-            <div class={style.quickList}>
-              {showList.value.map((i: any, k) => {
-                return (
-                  <div key={k} class={style.quickItem}>
-                    <span
-                      v-html={i.showtext}
-                      onClick={() => {
-                        submit(i);
-                      }}
-                    />
-                    <i
-                      class={[style.enterBtn, style["el-icon-circle-check"]]}
-                      title="选择"
-                      onClick={() => {
-                        submit(i);
-                      }}
-                    />
-                    {/* <!-- <el-button class="enterBtn" type="mini" @click.stop="submit(i)">选择</el-button> --> */}
-                  </div>
-                );
-              })}
-            </div>
+            {showList.value.map((i: any, k) => {
+              return (
+                <div key={k} class={style.quickItem}>
+                  <span
+                    v-html={i.showtext}
+                    onClick={() => {
+                      submit(i);
+                    }}
+                  />
+                  <i
+                    class={[style.enterBtn, style["el-icon-circle-check"]]}
+                    title="选择"
+                    onClick={() => {
+                      submit(i);
+                    }}
+                  />
+                </div>
+              );
+            })}
           </div>
-        );
-      }
-    };
+        )}
+      </>
+    );
 
     function submit(target: string) {
       emit("submit", target);

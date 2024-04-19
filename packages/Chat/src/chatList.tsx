@@ -11,7 +11,6 @@ import {
   onUpdated,
   reactive,
   ref,
-  toRefs,
   watch,
 } from "vue";
 import type { PropType } from "vue";
@@ -104,16 +103,6 @@ export default defineComponent({
       data.scroll.refresh();
     });
 
-    // watch(unread, (newval) => {
-    //   newval && Remind.showBrowser.call(this);
-    //   if (!this.remind) return;
-    //   if (newval) {
-    //     this.remind.changeTitle(newval);
-    //   } else {
-    //     this.remind.resetTitle();
-    //   }
-    // });
-
     const scrollerRef = ref(null);
     const main = ref(null);
 
@@ -121,23 +110,9 @@ export default defineComponent({
       const { unread = 0 } = data.scroll || {};
       return unread;
     });
-    /* const refData = toRefs(data);
-    return {
-      scroller,
-      main,
-      ...refData,
-      boxSize,
-      unread,
-
-      loadDone,
-      taskEvent,
-      systemEvent,
-      scrollBottom,
-      finishPullDown,
-    }; */
 
     return () => (
-      <div class={style.wrapper} style={boxSize.value}>
+      <div class={style.wrapper}>
         <div class={style.scroller} ref={scrollerRef}>
           <div class={style.web__main} ref={main}>
             <div class={style["pulldown-wrapper"]}>
@@ -216,7 +191,7 @@ export default defineComponent({
         </div>
         {data.showDownBtn && (
           <div class={style.downBtn} onClick={scrollBottom}>
-            {unread.value && <span>{unread.value}</span>}
+            {unread.value > 0 && <span>{unread.value}</span>}
           </div>
         )}
       </div>

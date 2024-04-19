@@ -3,15 +3,7 @@ import chatListBox from "./chatList";
 import tools from "./tools";
 import quickList from "./quickList";
 import style from "./index.module.scss";
-import {
-  computed,
-  defineComponent,
-  nextTick,
-  reactive,
-  ref,
-  toRefs,
-  watch,
-} from "vue";
+import { computed, defineComponent, nextTick, reactive, ref, watch } from "vue";
 
 interface DataProps {
   msg: string;
@@ -79,15 +71,7 @@ export default defineComponent({
     const setStyle = computed(() => {
       let height = props.height;
       let width = props.width;
-
-      if (`${height}`.match(/\d$/)) {
-        height += "px";
-      }
-      if (`${width}`.match(/\d$/)) {
-        width += "px";
-      }
-      const style = { height, width };
-      return style;
+      return { height, width };
     });
 
     const talkHeight = computed(() => {
@@ -105,17 +89,6 @@ export default defineComponent({
     });
 
     const chatList = ref(null);
-    /* const refData = toRefs(data);
-    return {
-      ...refData,
-      setStyle,
-      chatListConfig,
-      chatList,
-      bindEmoji,
-      loadHistoryHandler,
-      quickSubmit,
-      finishPullDown,
-    }; */
     return () => (
       <>
         <div class={style.chatPage} style={setStyle.value}>
@@ -179,7 +152,6 @@ export default defineComponent({
     }
 
     function finishPullDown() {
-      /*  this.$refs. */
       (chatList as any).value.finishPullDown();
     }
   },

@@ -139,20 +139,6 @@ export default defineComponent({
     );
 
     const jwChat = ref(null);
-    /* const refData = toRefs(data);
-    return {
-      jwChat,
-      ...refData,
-      faceSize,
-      chatConfig,
-      switchIcon,
-      realWidth,
-      quickList,
-
-      bindClick,
-      winBarClick,
-      finishPullDown,
-    }; */
 
     return () => (
       <>
@@ -191,7 +177,10 @@ export default defineComponent({
                 ></jw-chat>
               </div>
               {props.showRightBox && (
-                <div class={style.rightBox}>
+                <div
+                  class={style.rightBox}
+                  style={!data.switchBox && "width:0px;"}
+                >
                   <span
                     onClick={() => {
                       data.switchBox = !data.switchBox;

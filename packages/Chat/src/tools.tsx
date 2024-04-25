@@ -1,34 +1,43 @@
-import { computed, defineComponent, reactive, toRefs } from "vue";
+import { PropType, computed, defineComponent, reactive } from "vue";
 import { getEmojis } from "wechat-emoji-parser";
 import style from "./tools.module.scss";
+import { ToolsProps, DataProps } from "../types/tools";
 
 const emojis = getEmojis({ size: 26, emojiSpriteUrl: "/emoji-sprite.png" });
 
-interface DataProps {
-  emoji: Array<any>;
-  toolConfig: {
-    [key: string]: { icon: string; title: string };
-  };
-  newTitle: string | null;
-  emojiShow: Boolean;
-}
+// interface DataProps {
+//   emoji: Array<any>;
+//   toolConfig: {
+//     [key: string]: { icon: string; title: string };
+//   };
+//   newTitle: string[] | null;
+//   emojiShow: Boolean;
+// }
+
+// type toolsProps = {
+//   showEmoji?: Boolean;
+//   show?: Array<string | string[]>;
+//   callback?: Function;
+// };
+
+const Props = {
+  tools: {
+    type: Object as PropType<ToolsProps>,
+    default: () => {
+      return {
+        show: ["file"],
+        showEmoji: true,
+        callback: () => {},
+      };
+    },
+  },
+};
 
 export default defineComponent({
   name: "JwChat-tools",
-  props: {
-    tools: {
-      type: Object,
-      default: () => {
-        return {
-          show: ["file"],
-          showEmoji: true,
-          callback: () => {},
-        };
-      },
-    },
-  },
+  props: Props,
   setup(props, { emit, slots }) {
-    const data: DataProps = reactive({
+    const data = reactive<DataProps>({
       emoji: emojis,
       toolConfig: {
         file: { icon: "icon-wenjian", title: "文件" },
@@ -52,27 +61,16 @@ export default defineComponent({
       const { show = [] } = props.tools || {};
       const _key: Array<string> = [];
       if (show.length > 0) {
-        show.forEach((i: string) => {
+        show.forEach((i) => {
           if (Array.isArray(i)) {
             data.newTitle = i;
             return;
           }
           if (keys.includes(i)) _key.push(i);
         });
-        // keys = _key
       }
       return _key;
     });
-
-    /* const refData = toRefs(data);
-    return {
-      ...refData,
-      showEmoji,
-      showkeys,
-      iconTitle,
-      selectEmit,
-      bindButton,
-    }; */
 
     return () => (
       <div class={style.toolsBox}>

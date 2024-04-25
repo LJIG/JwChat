@@ -24,7 +24,7 @@ export default defineComponent({
   emits: ["update:modelValue", "submit"],
 
   setup(props, { emit }) {
-    const data: DataProps = reactive({
+    const data = reactive<DataProps>({
       currentMsg: "",
     });
 
@@ -38,8 +38,8 @@ export default defineComponent({
 
     watch(
       () => data.currentMsg,
-      (newval: string = "") => {
-        const msg = newval.trim();
+      (newVal: string = "") => {
+        const msg = newVal.trim();
         emit("update:modelValue", msg);
       },
       { immediate: true }
@@ -65,13 +65,6 @@ export default defineComponent({
     );
 
     const msgBox = ref<HTMLElement | null>(null);
-
-    /* const refData = toRefs(data);
-    return {
-      ...refData,
-      handleSend,
-      msgBox,
-    }; */
 
     return () => (
       <div class={style.enterBox} onKeyup={handleSend}>

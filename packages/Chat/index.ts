@@ -1,12 +1,10 @@
-import { App, Plugin } from 'vue';
-import Chat from './src/index';
+import { App, Plugin } from "vue";
+import Chat from "./src/index";
 
 export const ChatPlugin: Plugin = {
   install(app: App) {
-    app.component('jw-chat', Chat);
+    app.component(Chat.name as string, Chat);
   },
 };
 
-export {
-  Chat,
-};
+export { Chat };

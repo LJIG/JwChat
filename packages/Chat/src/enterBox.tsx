@@ -1,4 +1,4 @@
-import { defineComponent, nextTick, reactive, ref, toRefs, watch } from "vue";
+import { PropType, defineComponent, nextTick, reactive, ref, watch } from "vue";
 import style from "./enterBox.module.scss";
 
 interface DataProps {
@@ -9,15 +9,15 @@ export default defineComponent({
   name: "JwChat_enterbox",
   props: {
     placeholder: {
-      type: String,
+      type: Object as PropType<string>,
       default: "请输入内容...",
     },
     modelValue: {
-      type: String,
+      type: Object as PropType<string>,
       default: "",
     },
     insert: {
-      type: String,
+      type: Object as PropType<string>,
       default: "",
     },
   },
@@ -57,9 +57,9 @@ export default defineComponent({
 
     watch(
       () => props.insert,
-      (newval: string = "") => {
-        if (newval) {
-          joinToMsg(newval);
+      (newVal = "") => {
+        if (newVal) {
+          joinToMsg(newVal);
         }
       }
     );
@@ -90,19 +90,11 @@ export default defineComponent({
 
     function joinToMsg(str: string) {
       /* eslint-disable */
-      const myField: any = msgBox.value; //proxy.$refs.msgBox;
+      const myField = msgBox.value as HTMLTextAreaElement; //proxy.$refs.msgBox;
       let afterMsg = data.currentMsg;
 
-      //IE浏览器
-      if ((document as any).selection) {
-        var sel = null;
-        myField.focus();
-        sel = (document as any).selection.createRange();
-        sel.text = str;
-        sel.select();
-      }
       //火狐/网景 浏览器
-      else if (myField.selectionStart || myField.selectionStart == "0") {
+      if (myField.selectionStart || myField.selectionStart == 0) {
         //得到光标前的位置
         var startPos = myField.selectionStart;
         //得到光标后的位置

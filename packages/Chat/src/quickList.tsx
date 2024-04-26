@@ -1,33 +1,35 @@
-import { computed, defineComponent, unref } from "vue";
+import { PropType, computed, defineComponent, unref } from "vue";
 import style from "./quickList.module.scss";
+
+type ListProps = { text: string };
+
 export default defineComponent({
   props: {
     list: {
-      type: Array,
+      type: Object as PropType<ListProps[]>,
       default: () => [],
     },
     msg: {
-      type: String,
+      type: Object as PropType<string>,
       default: "",
     },
   },
   emits: ["submit"],
   setup(props, { emit }) {
-    const showList = computed(() => {
+    const showList = computed<(ListProps & { showText: string })[]>(() => {
       const msg = props.msg;
       // 当空字符串和表情时候不匹配
       if (!msg || /^\[.+\]$/.test(msg)) return [];
       const originList = unref(props.list);
       const reg = new RegExp(msg);
       const result: Array<any> = [];
-      originList.forEach((i: any) => {
+      originList.forEach((i) => {
         const { text } = i;
         if (reg.test(text)) {
-          const str: string = text.replace(reg, `<b>${msg}</b>`);
-          result.push({ ...i, showtext: str });
+          const str = text.replace(reg, `<b>${msg}</b>`);
+          result.push({ ...i, showText: str });
         }
       });
-      console.log(result, "result");
       return result;
     });
 
@@ -35,11 +37,11 @@ export default defineComponent({
       <>
         {showList.value.length > 0 && (
           <div class={style.quickListBox}>
-            {showList.value.map((i: any, k) => {
+            {showList.value.map((i, k) => {
               return (
                 <div key={k} class={style.quickItem}>
                   <span
-                    v-html={i.showtext}
+                    v-html={i.showText}
                     onClick={() => {
                       submit(i);
                     }}
@@ -59,7 +61,7 @@ export default defineComponent({
       </>
     );
 
-    function submit(target: string) {
+    function submit(target: ListProps) {
       emit("submit", target);
     }
   },

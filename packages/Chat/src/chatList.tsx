@@ -24,16 +24,40 @@ interface DataProps {
   isLoding: boolean;
 }
 
+type ListProps = {
+  type: string;
+  text: {
+    text: string;
+    system: string;
+    subLink: { text: string };
+    shop: object;
+  };
+  time: string;
+  mine: boolean;
+  img: string;
+  name: string;
+  avatar: string;
+  content: string;
+  // [key: string]: any;
+};
+
+type ConfigProps = {
+  width: string;
+  height: string;
+  historyConfig: { tip: string; show: boolean };
+  scrollType: "scroll" | "noroll";
+};
+
 export default defineComponent({
   name: "JwChat_list",
   components: { itemTalk, systemTalk, shopTalk },
   props: {
     list: {
-      type: Array as PropType<any>,
+      type: Array as PropType<ListProps[]>,
       default: () => [],
     },
     config: {
-      type: Object,
+      type: Object as PropType<ConfigProps>,
       default: () => ({}),
     },
   },
@@ -47,7 +71,7 @@ export default defineComponent({
       },
       fetching: "fetching",
       succeed: "succeed",
-    };
+    } as const;
     onMounted(() => {
       createScroll();
     });
@@ -56,7 +80,7 @@ export default defineComponent({
       // console.log("更新");
     });
 
-    let data: DataProps = reactive({
+    let data = reactive<DataProps>({
       show: false,
       scroll: {},
       // remind: null, // 消息提示
@@ -77,7 +101,7 @@ export default defineComponent({
       return { height, width };
     });
 
-    const historyConfig: any = computed(() => {
+    const historyConfig = computed<{ tip: string; show: boolean }>(() => {
       const { tip = "", show = false } = props.config.historyConfig || {};
       return { tip, show };
     });
@@ -90,10 +114,10 @@ export default defineComponent({
 
     watch(
       () => data.scroll,
-      (newval, oldvalue) => {
-        if (!newval) return;
-        // console.log(newval, "watch");
-        const isBottom = newval.isBottom;
+      (newVal) => {
+        if (!newVal) return;
+        // console.log(newVal, "watch");
+        const isBottom = newVal.isBottom;
         data.showDownBtn = !isBottom;
       },
       { deep: true }
@@ -104,7 +128,7 @@ export default defineComponent({
     });
 
     const scrollerRef = ref(null);
-    const main = ref(null);
+    const main = ref<HTMLElement | null>(null);
 
     const unread = computed(() => {
       const { unread = 0 } = data.scroll || {};
@@ -118,7 +142,7 @@ export default defineComponent({
             <div class={style["pulldown-wrapper"]}>
               <div v-html={data.tipText}></div>
             </div>
-            {props.list.map((item: any, k: number) => {
+            {props.list.map((item, k: number) => {
               return item.type === "tip" ? (
                 <el-divider key={JSON.stringify(item) + k}>
                   {item.text}
@@ -197,9 +221,9 @@ export default defineComponent({
       </div>
     );
 
-    function loadDone(target: any) {
+    function loadDone(target: { type: string; target }) {
       // TODO:需要一个防抖
-      childnodeLoad();
+      childNodeLoad();
       if (scrollType.value == "scroll") {
         scrollBottom();
       }
@@ -238,10 +262,10 @@ export default defineComponent({
       // 保存数据
       data.scroll.on("scrollEnd", () => {
         data.isLoding = false;
-        childnodeLoad();
+        childNodeLoad();
       });
       // data.scroll.on("refresh", () => {
-      //   childnodeLoad();
+      //   childNodeLoad();
       //   console.log("刷新");
       // });
       // 当顶部下拉的距离大于 threshold 值时，触发一次 pullingDown 钩子。
@@ -267,17 +291,17 @@ export default defineComponent({
       // 结束下拉刷新行为。
       data.scroll.finishPullDown();
     }
-    function childnodeLoad() {
+    function childNodeLoad() {
       if (scrollType.value !== "noroll") return;
       const parent = main.value;
 
       if (!parent) return;
-      const [, ...childs] = (parent as any).children;
+      const [, ...childs] = parent.children as any;
 
       data.scroll.saveNodes({ nodes: childs, dataList: props.list });
     }
 
-    function setTipText(phase: string = (PHASE as any).default) {
+    function setTipText(phase: string = "") {
       const tip = historyConfig.value?.tip; //|| false;
 
       const ARROW_BOTTOM = `<svg width="16" height="16" viewBox="0 0 512 512">
@@ -292,9 +316,9 @@ export default defineComponent({
         leave: `${ARROW_UP} 刷新`,
         fetching: "加载中...",
         succeed: "刷新完成",
-      };
+      } as const;
 
-      data.tipText = (TEXTS_MAP as any)[phase] || "";
+      data.tipText = TEXTS_MAP[phase] || "";
       if (tip) data.tipText = tip;
     }
 
@@ -303,11 +327,10 @@ export default defineComponent({
       setTipText(PHASE.fetching);
       emit("loadHistory");
     }
-    function systemEvent(itemData: any) {
+    function systemEvent(itemData) {
       emit("click", { type: "systemItem", data: itemData });
     }
-    function taskEvent(itemData: any) {
-      console.log(itemData);
+    function taskEvent(itemData) {
       emit("click", { type: "taskItem", data: itemData });
     }
   },

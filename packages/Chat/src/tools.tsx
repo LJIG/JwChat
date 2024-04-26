@@ -1,10 +1,10 @@
 import { PropType, computed, defineComponent, reactive } from "vue";
 import { getEmojis } from "wechat-emoji-parser";
 import style from "./tools.module.scss";
-import { ToolsProps, DataProps } from "../types/tools";
+import { /* ToolsProps, */ DataProps } from "../types/tools";
 
 const emojis = getEmojis({ size: 26, emojiSpriteUrl: "/emoji-sprite.png" });
-
+console.log("emojis", emojis);
 // interface DataProps {
 //   emoji: Array<any>;
 //   toolConfig: {
@@ -14,11 +14,11 @@ const emojis = getEmojis({ size: 26, emojiSpriteUrl: "/emoji-sprite.png" });
 //   emojiShow: Boolean;
 // }
 
-// type toolsProps = {
-//   showEmoji?: Boolean;
-//   show?: Array<string | string[]>;
-//   callback?: Function;
-// };
+type ToolsProps = {
+  showEmoji?: Boolean;
+  show?: Array<string | string[]>;
+  callback?: Function;
+};
 
 const Props = {
   tools: {
@@ -93,7 +93,7 @@ export default defineComponent({
               ),
             }}
           >
-            <ul class={style.emjioBox}>
+            <ul class={style.emojiBox}>
               <emojiDom />
             </ul>
           </el-popover>
@@ -175,9 +175,9 @@ export default defineComponent({
     }
 
     function openFile(type: string, callback: Function) {
-      var input: any = document.createElement("input");
+      var input = document.createElement("input") as HTMLInputElement;
       input.type = "file";
-      input.multiple = "multiple";
+      input.multiple = true; //"multiple";
       input.click();
       input.onchange = function () {
         var file = input.files;
@@ -185,15 +185,15 @@ export default defineComponent({
       };
     }
 
-    function emojiStyle(item: any) {
-      const emojiitem = data.emoji[item];
-      if (!emojiitem) return {};
+    function emojiStyle(index: number) {
+      const emojiItem = data.emoji[index];
+      if (!emojiItem) return {};
       return {
         display: "inline-block",
         background: `url('https://res.wx.qq.com/a/wx_fed/webwx/res/static/img/6AfH8-r.png')  no-repeat`,
         width: `28px`,
         height: `28px`,
-        "background-position": emojiitem.position,
+        "background-position": emojiItem.position,
       };
     }
   },

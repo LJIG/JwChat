@@ -10,6 +10,7 @@ interface DataProps {
   insert: string;
 }
 
+// TODO: 需要写 PropsType
 export default defineComponent({
   name: "JwChat",
   components: { quickList, tools, EnterBox, chatListBox },
@@ -19,7 +20,7 @@ export default defineComponent({
       default: () => [],
     },
     height: {
-      type: String || Number,
+      type: [String, Number],
       default: "500px",
     },
     width: {
@@ -69,8 +70,8 @@ export default defineComponent({
     );
 
     const setStyle = computed(() => {
-      let height = props.height;
-      let width = props.width;
+      let height = `${props.height}`;
+      let width = `${props.width}`;
       if (height.match(/\d$/)) {
         height += "px";
       }
@@ -81,9 +82,9 @@ export default defineComponent({
     });
 
     const talkHeight = computed(() => {
-      let height: any = props.height;
-      if (`${height}`.match(/\d$/)) {
-        height -= 140;
+      let height = `${props.height}`;
+      if (height.match(/\d$/)) {
+        height = `${Number(height) - 140}`;
       } else height = `calc(${height} - 140px)`;
       return height;
     });

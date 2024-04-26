@@ -1,9 +1,18 @@
-import { defineComponent, nextTick, onMounted } from "vue";
+import { PropType, defineComponent, nextTick, onMounted } from "vue";
 import style from "./shopTalk.module.scss";
+
+type TextProps = {
+  cover: string;
+  price: string;
+  title: string;
+  describe: string;
+  tags: { name: string }[];
+};
+
 export default defineComponent({
   props: {
     text: {
-      type: Object,
+      type: Object as PropType<TextProps>,
       default: () => ({}),
     },
   },
@@ -31,7 +40,7 @@ export default defineComponent({
         )}
         {props.text.tags && props.text.tags.length && (
           <div class={style.tagBox}>
-            {props.text.tags.map((i: any, k: number) => (
+            {props.text.tags.map((i, k) => (
               <span key={k}>{i.name}</span>
             ))}
           </div>

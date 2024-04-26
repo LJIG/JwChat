@@ -1,9 +1,16 @@
-import { defineComponent, nextTick, onMounted } from "vue";
+import { PropType, defineComponent, nextTick, onMounted } from "vue";
 import style from "./systemTalk.module.scss";
+
+type TextProps = {
+  title: string;
+  subtitle: string;
+  content: { text: string }[];
+};
+
 export default defineComponent({
   props: {
     text: {
-      type: Object,
+      type: Object as PropType<TextProps>,
       default: () => ({}),
     },
   },
@@ -18,7 +25,7 @@ export default defineComponent({
       <div class={style.systemTalk}>
         <div class={style.title}>{props.text.title}</div>
         <div class={style.subtitle}>{props.text.subtitle}</div>
-        {props.text.content.map((item: any) => (
+        {props.text.content.map((item) => (
           <div key={JSON.stringify(item)}>
             <el-link
               type="primary"

@@ -1,10 +1,10 @@
 import {
+  PropType,
   computed,
   defineComponent,
   nextTick,
   onMounted,
   reactive,
-  toRefs,
 } from "vue";
 import style from "./itemTalk.module.scss";
 import {
@@ -19,19 +19,20 @@ interface DataProps {
   imgSrc: string;
   videoSrc: string;
   audioSrc: string;
-  // [key: string]: string;
-  // keyof: any;
 }
 
 export default defineComponent({
   inheritAttrs: false,
   props: {
-    text: String,
+    text: {
+      type: Object as PropType<string>,
+      default: "",
+    },
   },
   // 定义抛出的事件名称
   emits: ["loadDone", "systemEvent"],
   setup(props, { emit }) {
-    const data: DataProps = reactive({
+    const data = reactive<DataProps>({
       tags: ["img", "video", "audio"],
       /* 查看文件详情 */
       show: false,
@@ -41,23 +42,23 @@ export default defineComponent({
       loadState: false,
     });
 
-    const getData: any = computed(() => {
-      const str = props.text || "";
-      const dom = document.createElement("div");
+    const getData = computed<{ src: string; controls: boolean }>(() => {
+      const str = props.text;
+      const dom = document.createElement("div") as HTMLDivElement;
       dom.innerHTML = str;
-      const target: any = dom.firstChild;
+      const target = dom.firstChild as HTMLElement;
 
-      const src = target.getAttribute("data-src");
-      const controls = target.getAttribute("controls") || false;
+      const src = target.getAttribute("data-src") || "";
+      const controls = (target.getAttribute("controls") && true) || false;
       return {
         src,
         controls,
       };
     });
 
-    const getTag: any = computed(() => {
-      const str = props.text || "";
-      let tag: string = "span";
+    const getTag = computed<string>(() => {
+      const str = props.text;
+      let tag = "span";
       let type = "";
       if (str.match(/<\/?[^>]+>/)) {
         type = str.split(" ")[0].replace(/<|>/, "") || "";
@@ -69,24 +70,12 @@ export default defineComponent({
     });
 
     onMounted(() => {
-      const type = getTag;
+      const type = getTag.value;
       if (data.tags.includes(type)) return;
       nextTick(() => {
         emit("loadDone", { type, target: props.text });
       });
     });
-
-    /* const refData = toRefs(data);
-    return {
-      ...refData,
-      getData,
-      getTag,
-      load,
-      handleClose,
-      itemCallback,
-      showDialog,
-      parseText,
-    }; */
 
     return () => (
       <>
@@ -159,7 +148,7 @@ export default defineComponent({
       </>
     );
 
-    function load(type: any) {
+    function load(type: string) {
       if (data.loadState) return;
       data.loadState = true;
       emit("loadDone", { type, target: props.text });
@@ -171,10 +160,10 @@ export default defineComponent({
       // done();
     }
     // getInfo<T extends keyof DataProps>(key: T): Person[T]
-    function showDialog({ tag }: { tag: string }): void {
-      const { src } = getData;
+    function showDialog({ tag }: { tag: "img" | "video" | "FILE" }): void {
+      const { src } = getData.value;
       const callback = () => {
-        const config: { [key: string]: { target: string; show: boolean } } = {
+        const config = {
           FILE: { target: "", show: false },
           img: { target: "imgSrc", show: true },
           video: { target: "videoSrc", show: true },
@@ -184,22 +173,13 @@ export default defineComponent({
         const current = config[tag];
         if (!current) return;
 
+        // TODO: 未发现调用
         if (tag === "FILE") {
           window.open(src);
           return;
         }
         data.show = current.show;
-        (data as any)[current.target] = src;
-
-        // if (tag === "img") {
-        //   data.imgSrc = src;
-        // }
-        // if (tag === "video") {
-        //   data.videoSrc = src;
-        // }
-        // if (tag === "audio") {
-        //   data.audioSrc = src;
-        // }
+        data[current.target] = src;
       };
 
       callback();
@@ -215,66 +195,5 @@ export default defineComponent({
       const html = emojiParser(text);
       return html;
     }
-  },
-
-  methods: {
-    //处理排版
-    /*  handleDetail (html = '') {
-       let tag = 'span'
-       let options = {}
-       if (this.isObject(html)) {
-         const { type, content } = html
-         tag = type
-         options = content
-       } else {
-         tag = this.getTag(html)
-       }
- 
-       this.createdElement(tag, content)
- 
-       let result = html;
-       result = emojiParser(result).replace(/(<img src)/g, '<img data-class="iconBox" data-src')
-       setTimeout(() => {
-         const list = this.$refs.content;
-         list.forEach(ele => {
-           for (let i = 0; i < ele.children.length; i++) {
-             const child = ele.children[i];
-             child.onload = this.childnodeLoad
-             // console.log(child.parentNode)
-             if (child.getAttribute('data-flag') != 0) {
-               child.setAttribute('data-flag', 0)
-               child.onclick = () => {
-                 this.handleEvent(child)
-               };
-               if (child.tagName === 'IMG') {
-                 child.className = 'web__msg--img'
-                 const icon = child.getAttribute('data-class')
-                 if (icon !== 'iconBox') child.type = "IMG"
-                 child.src = child.getAttribute('data-src')
-               } else if (child.tagName === 'VIDEO') {
-                 child.type = "VIDEO"
-                 child.className = 'web__msg--video'
-                 child.src = child.getAttribute('data-src')
-               } else if (child.tagName === 'AUDIO') {
-                 child.type = "AUDIO"
-                 child.className = 'web__msg--audio'
-                 child.controls = 'controls';
-                 child.src = child.getAttribute('data-src')
-               } else if (child.tagName === 'FILE') {
-                 child.type = "FILE"
-                 child.className = 'web__msg--file'
-                 child.innerHTML = `<h2>File</h2><span>${child.getAttribute('data-name')}</span>`
-               } else if (child.tagName === 'MAP') {
-                 child.type = "MAP"
-                 child.className = 'web__msg--file web__msg--map'
-                 child.innerHTML = `<h2>Map</h2><span>${child.getAttribute('data-longitude')} , ${child.getAttribute('data-latitude')}<br />${child.getAttribute('data-address')}</span>`
-               }
-             }
-           }
-         });
-         console.log('n')
-       }, 200)
-       return result;
-     }, */
   },
 });

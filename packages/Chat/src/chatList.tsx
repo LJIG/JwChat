@@ -14,6 +14,7 @@ import {
   watch,
 } from "vue";
 import type { PropType } from "vue";
+
 interface DataProps {
   show: boolean;
   scroll: any;
@@ -24,7 +25,7 @@ interface DataProps {
   isLoding: boolean;
 }
 
-type ListProps = {
+export type ListProps = {
   type: string;
   text: {
     text: string;
@@ -32,20 +33,21 @@ type ListProps = {
     subLink: { text: string };
     shop: object;
   };
-  time: string;
   mine: boolean;
   img: string;
   name: string;
   avatar: string;
-  content: string;
-  // [key: string]: any;
+  date: string;
 };
+
+export type scrollType = "scroll" | "noroll";
+export type historyConfig = { tip: string; show: boolean };
 
 type ConfigProps = {
   width: string;
   height: string;
-  historyConfig: { tip: string; show: boolean };
-  scrollType: "scroll" | "noroll";
+  historyConfig: historyConfig;
+  scrollType: scrollType;
 };
 
 export default defineComponent({
@@ -106,7 +108,7 @@ export default defineComponent({
       return { tip, show };
     });
 
-    const scrollType = computed(() => {
+    const scrollType = computed<scrollType>(() => {
       const scrollType = props.config.scrollType || "noroll";
 
       return scrollType;

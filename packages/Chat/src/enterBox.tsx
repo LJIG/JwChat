@@ -1,5 +1,6 @@
-import { PropType, defineComponent, nextTick, reactive, ref, watch } from "vue";
+import { defineComponent, nextTick, reactive, ref, watch } from "vue";
 import style from "./enterBox.module.scss";
+import type { PropType } from "vue";
 
 interface DataProps {
   currentMsg: string;

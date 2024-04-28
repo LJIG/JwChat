@@ -1,7 +1,8 @@
-import { PropType, computed, defineComponent, reactive } from "vue";
+import { computed, defineComponent, reactive } from "vue";
 import { getEmojis } from "wechat-emoji-parser";
 import style from "./tools.module.scss";
 import { /* ToolsProps, */ DataProps } from "../types/tools";
+import type { PropType } from "vue";
 
 const emojis = getEmojis({ size: 26, emojiSpriteUrl: "/emoji-sprite.png" });
 console.log("emojis", emojis);
@@ -14,7 +15,7 @@ console.log("emojis", emojis);
 //   emojiShow: Boolean;
 // }
 
-type ToolsProps = {
+export type ToolsProps = {
   showEmoji?: Boolean;
   show?: Array<string | string[]>;
   callback?: Function;

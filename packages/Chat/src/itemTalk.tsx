@@ -1,17 +1,12 @@
-import {
-  PropType,
-  computed,
-  defineComponent,
-  nextTick,
-  onMounted,
-  reactive,
-} from "vue";
+import { computed, defineComponent, nextTick, onMounted, reactive } from "vue";
 import style from "./itemTalk.module.scss";
 import {
   configParseEmoji,
   parseEmoji as emojiParser,
 } from "wechat-emoji-parser";
 configParseEmoji({ size: 24, emojiSpriteUrl: "/emoji-sprite.png" }); // 设置一些参数
+import type { PropType } from "vue";
+
 interface DataProps {
   tags: Array<string>;
   show: boolean;

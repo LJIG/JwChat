@@ -1,7 +1,8 @@
-import { PropType, computed, defineComponent, unref } from "vue";
+import { computed, defineComponent, unref } from "vue";
 import style from "./quickList.module.scss";
+import type { PropType } from "vue";
 
-type ListProps = { text: string };
+export type ListProps = { text: string };
 
 export default defineComponent({
   props: {

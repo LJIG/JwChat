@@ -5,50 +5,47 @@ import quickList from "./quickList";
 import style from "./index.module.scss";
 import { computed, defineComponent, nextTick, reactive, ref, watch } from "vue";
 
+import type { PropType } from "vue";
+import type { ToolsProps } from "./tools";
+import type { ListProps as QuickListProps } from "./quickList";
+import type { ListProps, scrollType, historyConfig } from "./chatList";
+
 interface DataProps {
   msg: string;
   insert: string;
 }
 
-// TODO: 需要写 PropsType
+export type configProps = {
+  historyConfig: historyConfig & { callback?: Function };
+};
+
 export default defineComponent({
   name: "JwChat",
   components: { quickList, tools, EnterBox, chatListBox },
   props: {
-    taleList: {
-      type: Array,
-      default: () => [],
-    },
+    taleList: Object as PropType<ListProps>,
+    scrollType: Object as PropType<scrollType>,
+    toolConfig: Object as PropType<ToolsProps>,
+    quickList: Object as PropType<QuickListProps[]>,
     height: {
-      type: [String, Number],
+      type: Object as PropType<string | number>,
       default: "500px",
     },
     width: {
+      type: Object as PropType<string | number>,
       default: "550px",
     },
     modelValue: {
+      type: Object as PropType<string>,
       default: "",
     },
-    scrollType: {
-      default: "",
-    },
-    toolConfig: {
-      type: Object,
-      // default: () => ({
-      //   show: [],
-      //   showEmoji: true,
-      //   callback: Function
-      // })
-    },
-    config: {},
-    quickList: {
-      type: Array,
-      default: () => [],
+    config: {
+      type: Object as PropType<configProps>,
     },
   },
   emits: ["update:modelValue", "enter", "clickTalk"],
   setup(props, { emit, slots }) {
-    const data: DataProps = reactive({
+    const data = reactive<DataProps>({
       msg: "",
       insert: "",
     });
@@ -90,8 +87,8 @@ export default defineComponent({
     });
 
     const chatListConfig = computed(() => {
-      const { width, scrollType, config } = props;
-      const { historyConfig = {} } = (config as any) || {};
+      const { width, scrollType } = props;
+      const { historyConfig = {} } = props.config || {};
       return { width, height: talkHeight, scrollType, historyConfig };
     });
 
@@ -149,7 +146,7 @@ export default defineComponent({
       callback && callback();
     }
 
-    function quickSubmit(target: any) {
+    function quickSubmit(target) {
       const { text } = target;
       data.msg = text;
       nextTick(() => {

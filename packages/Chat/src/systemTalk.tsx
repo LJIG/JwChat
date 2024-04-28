@@ -1,5 +1,6 @@
-import { PropType, defineComponent, nextTick, onMounted } from "vue";
+import { defineComponent, nextTick, onMounted } from "vue";
 import style from "./systemTalk.module.scss";
+import type { PropType } from "vue";
 
 type TextProps = {
   title: string;

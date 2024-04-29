@@ -125,7 +125,7 @@ export default class MyPlugin implements PluginAPI {
   saveNodes(params = { nodes: [], dataList: [] }) {
     // debugger
     const { nodes = [], dataList } = params;
-    let result = [];
+    let result: any = [];
     const previous = this.domPotision;
     for (const key in nodes) {
       if (Object.hasOwnProperty.call(nodes, key)) {

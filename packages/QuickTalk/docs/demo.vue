@@ -1,6 +1,6 @@
 <template>
   <div>
-    <quick-talk :Talelist="talk" :config="quickConfig" @event="bindTalk" />
+    <quick-talk :taleList="talk" :config="quickConfig" @event="bindTalk" />
   </div>
 </template>
 

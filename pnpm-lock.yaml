@@ -72,6 +72,9 @@ importers:
       fs-extra:
         specifier: ^10.0.0
         version: 10.1.0
+      git-cz:
+        specifier: ^4.9.0
+        version: 4.9.0
       handlebars:
         specifier: ^4.7.7
         version: 4.7.8
@@ -1211,6 +1214,10 @@ packages:
   get-stream@8.0.1:
     resolution: {integrity: sha512-VaUJspBffn/LMCJVoMvSAdmscJyS1auj5Zulnn5UoYcY531UWmdwhRWkcGKnGU93m5HSXP9LP2usOryrBtQowA==}
     engines: {node: '>=16'}
+
+  git-cz@4.9.0:
+    resolution: {integrity: sha512-cSRL8IIOXU7UFLdbziCYqg8f8InwLwqHezkiRHNSph7oZqGv0togId1kMTfKil6gzK0VaSXeVBb4oDl0fQCHiw==}
+    hasBin: true
 
   git-raw-commits@2.0.11:
     resolution: {integrity: sha512-VnctFhw+xfj8Va1xtfEqCUD2XDrbAPSJx+hSrE5K7fGdjZruW7XV+QOrN7LF/RJyvspRiD2I0asWsxFp0ya26A==}
@@ -3691,6 +3698,8 @@ snapshots:
       yargs: 16.2.0
 
   get-stream@8.0.1: {}
+
+  git-cz@4.9.0: {}
 
   git-raw-commits@2.0.11:
     dependencies:

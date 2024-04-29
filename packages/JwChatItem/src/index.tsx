@@ -1,11 +1,19 @@
 import { computed, defineComponent } from "vue";
 import style from "./index.module.scss";
+import type { PropType } from "vue";
+
+export type ItemConfigProps = {
+  img: string;
+  name: string;
+  dept: string;
+  readNum: number;
+};
 
 export default defineComponent({
   name: "JwChat-item",
   props: {
     config: {
-      type: Object,
+      type: Object as PropType<ItemConfigProps>,
       default: () => ({
         img: "",
         name: "JwChat",
@@ -15,14 +23,14 @@ export default defineComponent({
       required: true,
     },
     size: {
-      type: [String, Number],
+      type: Object as PropType<string | number>,
       default: 35,
     },
   },
   emits: ["click"],
   setup(props, { emit }) {
     const coverSize = computed(() => {
-      let size: any = props.size;
+      let size = props.size;
       if (`${size}`.match(/\d$/)) {
         size += "px";
       }
@@ -33,15 +41,10 @@ export default defineComponent({
       };
     });
 
-    function bindClick(type: any) {
+    function bindClick(type) {
       const target = type;
       emit("click", target);
     }
-
-    // return {
-    //   coverSize,
-    //   bindClick,
-    // };
 
     return () => (
       <>

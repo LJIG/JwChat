@@ -1,89 +1,78 @@
 import { computed, defineComponent, nextTick, reactive, toRefs } from "vue";
 import { CirclePlus, CircleCheck, CircleClose } from "@element-plus/icons-vue";
 import style from "./index.module.scss";
+import type { PropType } from "vue";
+
 interface DataProps {
   activeIndex: string | number;
   visible: boolean;
   itemQuick: string;
 }
+
+export type ConfigProps = {
+  maxlength: number;
+  showAdd: boolean;
+  nav: string[];
+  showDeleteBtn: boolean;
+  showHeader: boolean;
+};
+
 export default defineComponent({
   name: "JwChat-talk",
   props: {
-    Talelist: {
-      type: Array,
+    taleList: {
+      type: Object as PropType<string[]>,
       default: () => [],
     },
     config: {
-      type: Object,
+      type: Object as PropType<ConfigProps>,
       default: () => ({}),
     },
   },
   emits: ["event"],
   setup(props, { emit }) {
-    const data: DataProps = reactive({
+    const data = reactive<DataProps>({
       activeIndex: "1",
       visible: false,
       itemQuick: "",
     });
 
     const maxlength = computed(() => {
-      const maxlength = props.config?.maxlength || 300;
-      return maxlength;
+      return props.config?.maxlength || 300;
     });
 
     const showAddBtn = computed(() => {
-      let result = true;
-      const { showAdd = true } = props.config;
-      if (!showAdd) {
-        result = false;
+      const { showAdd } = props.config;
+      if (showAdd === false) {
+        return false;
       }
-      return result;
+      return true;
     });
 
     const showNav = computed(() => {
-      let navList = ["快捷回复", "常用回复"];
-      const { nav } = props.config;
-      if (nav) {
-        const [a, b] = nav;
-        navList = [a, b];
+      const { nav = [] } = props.config;
+      if (nav.length) {
+        return nav;
       }
-      return navList;
+      return ["快捷回复", "常用回复"];
     });
 
     const showDelete = computed(() => {
-      let show = true;
-      const { showDeleteBtn } = props.config || {};
+      const { showDeleteBtn } = props.config;
       if (showDeleteBtn === false) {
-        show = false;
+        return false;
       }
-      return show;
+      return true;
     });
 
     const showHeader = computed(() => {
-      let heder = true;
-      const { showHeader = true } = props.config || {};
+      const { showHeader } = props.config;
       if (showHeader === false) {
-        heder = false;
+        return false;
       }
-      return heder;
+      return true;
     });
 
-    const refData = toRefs(data);
-    // return {
-    //   CirclePlus,
-    //   CircleCheck,
-    //   CircleClose,
-    //   ...refData,
-    //   maxlength,
-    //   showAddBtn,
-    //   showNav,
-    //   showDelete,
-    //   showHeader,
-
-    //   handleSelect,
-    //   AddQuickFn,
-    //   show,
-    // };
     function show() {
       data.visible = true;
     }
@@ -131,9 +120,9 @@ export default defineComponent({
               </div>
             </el-menu>
           )}
-          {!props.Talelist.length && <JwChat-empty />}
+          {!props.taleList.length && <JwChat-empty />}
           <ul>
-            {props.Talelist.map((i, k) => (
+            {props.taleList.map((i, k) => (
               <li key={JSON.stringify(i)}>
                 <el-row>
                   <el-col span={showDelete.value == false ? 19 + 2 : 19}>

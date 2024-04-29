@@ -6,27 +6,36 @@ import {
   onMounted,
   reactive,
   ref,
-  // toRefs,
   watch,
 } from "vue";
+import type { PropType } from "vue";
+
 interface DataProps {
   filter: string;
   scroll: any;
-  complete: any;
+  complete: number | null | NodeJS.Timer;
 }
+
+export type RightListProps = {
+  list: [];
+  tip: string;
+  notice: string;
+  listTip: string;
+  filterTip: string;
+};
 
 export default defineComponent({
   name: "JwChat-rightbox",
   props: {
     config: {
-      type: Object,
+      type: Object as PropType<RightListProps>,
       default: () => ({}),
     },
   },
   emits: ["click"],
   setup(props, { emit }) {
-    const scrollBox = ref(null);
-    const data: DataProps = reactive({
+    const scrollBox = ref<HTMLElement>();
+    const data = reactive<DataProps>({
       filter: "",
       scroll: null,
       complete: null,
@@ -63,7 +72,7 @@ export default defineComponent({
       }
     );
 
-    function bindClick(type: any) {
+    function bindClick(type: unknown) {
       emit("click", type);
     }
     function scrollRefresh() {
@@ -71,7 +80,7 @@ export default defineComponent({
       data.complete = setInterval(function () {
         // 判断文档和所有子资源(图片、音视频等)已完成加载
         if (document.readyState === "complete") {
-          window.clearInterval(data.complete);
+          clearInterval(data.complete as number);
           data.scroll.refresh();
         }
       }, 50);
@@ -96,24 +105,15 @@ export default defineComponent({
       const filter = data.filter;
       if (!filter) return list;
 
-      const filterArr: Array<any> = [];
+      const filterArr = [];
       const reg = new RegExp(filter, "g");
-      list.forEach((i: any) => {
+      list.forEach((i) => {
         const { name } = i;
         if (reg.test(name)) filterArr.push(i);
       });
 
       return filterArr;
     });
-
-    // const refData = toRefs(data);
-    // return {
-    //   ...refData,
-    //   dataList,
-    //   info,
-    //   bindClick,
-    //   scrollBox,
-    // };
 
     return () => (
       <div class={style.wrapper}>
@@ -143,7 +143,7 @@ export default defineComponent({
           <div class={style.listBox}>
             <div class={style.scrollBox} ref={scrollBox}>
               <ul>
-                {dataList.value.map((item: any, k: number) => (
+                {dataList.value.map((item, k: number) => (
                   <li key={k}>
                     <JwChat-item size="25" config={item} onClick={bindClick} />
                   </li>

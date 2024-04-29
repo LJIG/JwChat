@@ -2,12 +2,13 @@ import "./fonts/iconfont";
 import style from "./index.module.scss";
 
 import { defineComponent } from "vue";
+import type { PropType } from "vue";
 
 export default defineComponent({
   name: "JwChat-icon",
   props: {
     type: {
-      type: String,
+      type: Object as PropType<string>,
       required: true,
     },
   },

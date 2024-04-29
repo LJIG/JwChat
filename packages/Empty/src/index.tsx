@@ -1,10 +1,14 @@
 import { computed, defineComponent } from "vue";
+import type { PropType } from "vue";
 import css from "./index.module.scss";
+
+type sizeProp = string | number;
+
 export default defineComponent({
   name: "JwChat-empty",
   props: {
     size: {
-      type: [String, Number],
+      type: Object as PropType<sizeProp>,
       default: "5rem",
     },
   },
@@ -14,20 +18,15 @@ export default defineComponent({
       if (`${size}`.match(/\d$/)) {
         size += "px";
       }
-      return {
-        width: size,
-      };
+      return { width: size };
     });
 
     const sizeStyle = computed(() => {
       let size = props.size;
-
       if (`${size}`.match(/\d$/)) {
         size += "px";
       }
-      return {
-        fontSize: `calc(${size} / 2)`,
-      };
+      return { fontSize: `calc(${size} / 2)` };
     });
 
     return () => (

@@ -5,7 +5,7 @@ import { /* ToolsProps, */ DataProps } from "../types/tools";
 import type { PropType } from "vue";
 
 const emojis = getEmojis({ size: 26, emojiSpriteUrl: "/emoji-sprite.png" });
-console.log("emojis", emojis);
+// console.log("emojis", emojis);
 // interface DataProps {
 //   emoji: Array<any>;
 //   toolConfig: {

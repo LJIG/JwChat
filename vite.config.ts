@@ -77,6 +77,10 @@ export default defineConfig(({ mode }) => {
         },
       },
       plugins: [...(baseConfig as any).plugins, dts()],
+      esbuild: {
+        pure: ["console.log"], // 删除 console.log
+        // drop: ["debugger"], // 删除 debugger
+      },
     };
   }
 

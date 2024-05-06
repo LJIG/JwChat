@@ -44,7 +44,7 @@ export default defineComponent({
     },
   },
   emits: ["update:modelValue", "enter", "clickTalk"],
-  setup(props, { emit, slots }) {
+  setup(props, { emit, slots, expose }) {
     const data = reactive<DataProps>({
       msg: "",
       insert: "",
@@ -93,6 +93,9 @@ export default defineComponent({
     });
 
     const chatList = ref(null);
+
+    expose({ finishPullDown });
+
     return () => (
       <>
         <div class={style.chatPage} style={setStyle.value}>

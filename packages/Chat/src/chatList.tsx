@@ -65,7 +65,7 @@ export default defineComponent({
   },
   // 定义抛出的事件名称
   emits: ["loadDone", "systemEvent", "loadHistory", "click"],
-  setup(props, { emit }) {
+  setup(props, { emit, expose }) {
     const PHASE = {
       moving: {
         enter: "enter",
@@ -135,6 +135,10 @@ export default defineComponent({
     const unread = computed(() => {
       const { unread = 0 } = data.scroll || {};
       return unread;
+    });
+
+    expose({
+      finishPullDown,
     });
 
     return () => (

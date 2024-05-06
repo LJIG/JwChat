@@ -55,7 +55,7 @@ export default defineComponent({
     },
   },
   emits: ["update:modelValue", "enter", "clickTalk"],
-  setup(props, { emit, slots }) {
+  setup(props, { emit, slots, expose }) {
     const data: DataProps = reactive({
       chatHeight: "",
       msg: "",
@@ -133,6 +133,10 @@ export default defineComponent({
     );
 
     const jwChat = ref(null);
+
+    expose({
+      finishPullDown,
+    });
 
     return () => (
       <>

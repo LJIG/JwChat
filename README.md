@@ -8,10 +8,11 @@
 
 #### 介绍
 
-**一款基于 Vue 和 ElementUI 极简的聊天框组件**
+**一款基于 Vue 和 ElementPlus 的极简的聊天框组件**
 本项目是一款极简的数据驱动为主的聊天框组件。
 新增表情包可自动匹配微信表情。
 新增聊天窗口配置组件，可以自由配置 顶部状态栏 和 右侧信息栏
+**Vue2 版本 请加群**
 
 ![](https://img-blog.csdnimg.cn/20210307230254986.gif)
 
@@ -25,31 +26,34 @@
   npm install jwchat
   ```
 
-- 使用 `yarn` 安装
+- 使用 `pnpm` 安装
 
   ```bash
-  yarn add jwchat
+  pnpm add jwchat
   ```
 
 #### 使用
 
-1. 因为本组件是基于 `element-ui` 开发。首先需要引入 `element-ui`。
+1. 因为本组件是基于 `element-plus` 开发。首先需要引入 `element-plus`。
 
    ```bash
-   npm install element-ui
+   pnpm install element-plus
    ```
 
 2. 在 `main.js` 中引入组件
 
    ```js
-   import ElementUI from "element-ui";
-   import "element-ui/lib/theme-chalk/index.css";
-   Vue.use(ElementUI);
-
+   import ElementUI from "element-plus";
+   import "element-plus/dist/index.css";
    import Chat from "jwchat";
-   /* 在 0.2.041 之前的版本需要引入 css */
-   // import 'jwchat/lib/JwChat.css';
-   Vue.use(Chat);
+   import "jwchat/style.css";
+
+   import App from "./App.vue";
+   const app = createApp(App);
+
+   app.use(ElementPlus);
+   app.use(Chat);
+   app.mount("#app");
    ```
 
 3. 在 `*.vue` 中引入
@@ -85,5 +89,5 @@
 
 #### 交流学习
 
-- QQ 群 ：235689934
-- QQ 群 ：791302027
+- QQ 群 ： 235689934 (已满)
+- QQ 群 ： 791302027

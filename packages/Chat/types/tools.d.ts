@@ -20,7 +20,7 @@ import { PropType, ExtractPropTypes } from "vue";
 // }
 
 export interface DataProps {
-  emoji: Array<any>;
+  // emoji: Array<any>;
   toolConfig: {
     [key: string]: { icon: string; title: string };
   };

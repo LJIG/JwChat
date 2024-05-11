@@ -4,7 +4,10 @@ import style from "./tools.module.scss";
 import { /* ToolsProps, */ DataProps } from "../types/tools";
 import type { PropType } from "vue";
 
-const emojis = getEmojis({ size: 26, emojiSpriteUrl: "/emoji-sprite.png" });
+const emojis: Array<any> = getEmojis({
+  size: 26,
+  emojiSpriteUrl: "/emoji-sprite.png",
+});
 // console.log("emojis", emojis);
 // interface DataProps {
 //   emoji: Array<any>;
@@ -37,9 +40,10 @@ const Props = {
 export default defineComponent({
   name: "JwChat-tools",
   props: Props,
+  emits: ["emoji"],
   setup(props, { emit, slots }) {
     const data = reactive<DataProps>({
-      emoji: emojis,
+      // emoji: emojis,
       toolConfig: {
         file: { icon: "icon-wenjian", title: "文件" },
         video: { icon: "icon-shipin", title: "视频" },
@@ -133,7 +137,7 @@ export default defineComponent({
 
     function emojiDom() {
       const result: any = [];
-      data.emoji.forEach((item, i) => {
+      emojis.forEach((item, i) => {
         result.push(
           <li key={item.code}>
             <a
@@ -187,7 +191,7 @@ export default defineComponent({
     }
 
     function emojiStyle(index: number) {
-      const emojiItem = data.emoji[index];
+      const emojiItem = emojis[index];
       if (!emojiItem) return {};
       return {
         display: "inline-block",

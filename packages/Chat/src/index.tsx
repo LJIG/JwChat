@@ -78,7 +78,7 @@ export default defineComponent({
       return { height, width };
     });
 
-    const talkHeight = computed(() => {
+    const talkHeight = computed<string>(() => {
       let height = `${props.height}`;
       if (height.match(/\d$/)) {
         height = `${Number(height) - 140}`;
@@ -92,7 +92,7 @@ export default defineComponent({
       return { width, height: talkHeight, scrollType, historyConfig };
     });
 
-    const chatList = ref(null);
+    const chatList = ref<InstanceType<typeof chatListBox> | null>(null);
 
     expose({ finishPullDown });
 
@@ -136,20 +136,20 @@ export default defineComponent({
       </>
     );
 
-    function bindEmoji(emoji: string) {
+    function bindEmoji(emoji: string): void {
       data.insert = emoji;
       nextTick(() => {
         data.insert = "";
       });
     }
 
-    function loadHistoryHandler() {
+    function loadHistoryHandler(): void {
       const { historyConfig: { callback = null } = {} } =
         chatListConfig.value as any;
-      callback && callback();
+      callback && callback(finishPullDown);
     }
 
-    function quickSubmit(target) {
+    function quickSubmit(target): void {
       const { text } = target;
       data.msg = text;
       nextTick(() => {
@@ -158,7 +158,7 @@ export default defineComponent({
       });
     }
 
-    function finishPullDown() {
+    function finishPullDown(): void {
       (chatList as any).value.finishPullDown();
     }
   },

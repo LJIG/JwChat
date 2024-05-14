@@ -92,7 +92,7 @@ export default defineComponent({
       isLoding: false,
     });
 
-    const boxSize = computed(() => {
+    const boxSize = computed<{ height: string; width: string }>(() => {
       let { height = "382px", width = "525px" } = props.config || {};
       if (`${height}`.match(/\d$/)) {
         height += "px";
@@ -132,14 +132,12 @@ export default defineComponent({
     const scrollerRef = ref(null);
     const main = ref<HTMLElement | null>(null);
 
-    const unread = computed(() => {
+    const unread = computed<number>(() => {
       const { unread = 0 } = data.scroll || {};
       return unread;
     });
 
-    expose({
-      finishPullDown,
-    });
+    expose({ finishPullDown });
 
     return () => (
       <div class={style.wrapper}>
@@ -227,21 +225,21 @@ export default defineComponent({
       </div>
     );
 
-    function loadDone(target: { type: string; target }) {
+    function loadDone(target: { type: string; target }): void {
       // TODO:需要一个防抖
       childNodeLoad();
       if (scrollType.value == "scroll") {
         scrollBottom();
       }
     }
-    function scrollBottom() {
+    function scrollBottom(): void {
       if (!data.scroll) return;
       if (data.scroll.isLoding) return;
       data.scroll.refresh();
       data.scroll.scrollBottom();
     }
-    function createScroll() {
-      const pullingDown = historyConfig.value?.show; //|| false;
+    function createScroll(): void {
+      const pullingDown = historyConfig.value.show;
       const scroll = new Scroll(scrollerRef.value, {
         scrollY: true,
         click: true,
@@ -292,23 +290,23 @@ export default defineComponent({
         });
       }
     }
-    function finishPullDown() {
+    function finishPullDown(): void {
       setTipText(PHASE.succeed);
       // 结束下拉刷新行为。
       data.scroll.finishPullDown();
     }
-    function childNodeLoad() {
+    function childNodeLoad(): void {
       if (scrollType.value !== "noroll") return;
       const parent = main.value;
 
       if (!parent) return;
-      const [, ...childs] = parent.children as any;
+      const [, ...childs] = (parent as any).children;
 
       data.scroll.saveNodes({ nodes: childs, dataList: props.list });
     }
 
-    function setTipText(phase: string = "") {
-      const tip = historyConfig.value?.tip; //|| false;
+    function setTipText(phase: string = ""): void {
+      const tip = historyConfig.value.tip;
 
       const ARROW_BOTTOM = `<svg width="16" height="16" viewBox="0 0 512 512">
           <path fill="currentColor" d="M367.997 338.75l-95.998 95.997V17.503h-32v417.242l-95.996-95.995l-22.627 22.627L256 496l134.624-134.623l-22.627-22.627z"></path>
@@ -324,19 +322,18 @@ export default defineComponent({
         succeed: "刷新完成",
       } as const;
 
-      data.tipText = TEXTS_MAP[phase] || "";
-      if (tip) data.tipText = tip;
+      data.tipText = tip || TEXTS_MAP[phase] || "";
     }
 
-    function pullingDownHandler() {
+    function pullingDownHandler(): void {
       // console.log("开始下拉");
       setTipText(PHASE.fetching);
       emit("loadHistory");
     }
-    function systemEvent(itemData) {
+    function systemEvent(itemData): void {
       emit("click", { type: "systemItem", data: itemData });
     }
-    function taskEvent(itemData) {
+    function taskEvent(itemData): void {
       emit("click", { type: "taskItem", data: itemData });
     }
   },

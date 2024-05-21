@@ -1,12 +1,10 @@
-import { App, Plugin } from 'vue';
-import ChatIndex from './src/index';
+import { App, Plugin } from "vue";
+import ChatIndex from "./src/index";
 
 export const ChatIndexPlugin: Plugin = {
   install(app: App) {
-    app.component('my-chat-index', ChatIndex);
+    app.component(ChatIndex.name as string, ChatIndex);
   },
 };
 
-export {
-  ChatIndex,
-};
+export { ChatIndex };

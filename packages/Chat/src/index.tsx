@@ -20,7 +20,7 @@ export type configProps = {
 };
 
 export default defineComponent({
-  name: "JwChat",
+  name: "JwChat-simple",
   components: { quickList, tools, EnterBox, chatListBox },
   props: {
     taleList: Object as PropType<ListProps>,

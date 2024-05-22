@@ -1,5 +1,5 @@
-import { App, Plugin } from "vue";
 import QuickTalk from "./src/index";
+import type { App, Plugin } from "vue";
 
 export const QuickTalkPlugin: Plugin = {
   install(app: App) {

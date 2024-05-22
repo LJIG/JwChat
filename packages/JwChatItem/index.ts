@@ -1,5 +1,5 @@
-import { App, Plugin } from "vue";
 import JwChatItem from "./src/index";
+import type { App, Plugin } from "vue";
 
 export const JwChatItemPlugin: Plugin = {
   install(app: App) {

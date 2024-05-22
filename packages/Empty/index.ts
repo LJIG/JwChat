@@ -1,5 +1,5 @@
-import { App, Plugin } from "vue";
 import Empty from "./src/index";
+import type { App, Plugin } from "vue";
 
 export const EmptyPlugin: Plugin = {
   install(app: App) {

@@ -8,7 +8,7 @@ interface DataProps {
   switchBox: Boolean;
 }
 export default defineComponent({
-  name: "JwChat-index",
+  name: "JwChat",
   components: {
     WinBar,
   },

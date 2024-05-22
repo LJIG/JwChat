@@ -47,7 +47,7 @@ export default defineComponent({
     );
 
     //用户主动发送
-    const handleSend = (e: KeyboardEvent) => {
+    const handleSend = (e: KeyboardEvent): void => {
       const { type, shiftKey } = e;
       if (shiftKey || (type == "keyup" && e?.key != "Enter")) return;
       emit("submit", data.currentMsg);
@@ -89,7 +89,7 @@ export default defineComponent({
       </div>
     );
 
-    function joinToMsg(str: string) {
+    function joinToMsg(str: string): void {
       /* eslint-disable */
       const myField = msgBox.value as HTMLTextAreaElement; //proxy.$refs.msgBox;
       let afterMsg = data.currentMsg;

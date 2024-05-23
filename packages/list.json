@@ -1,21 +1,21 @@
 [
   {
-    "compName": "Chat",
-    "compZhName": "聊天组件",
-    "compDesc": "聊天组件",
+    "compName": "ChatIndex",
+    "compZhName": "Chat组件",
+    "compDesc": "聊天组件的主页",
     "compClassName": "chat"
+  },
+  {
+    "compName": "Chat",
+    "compZhName": "Chat组件(simple)",
+    "compDesc": "聊天组件",
+    "compClassName": "chat-simple"
   },
   {
     "compName": "JwChatIcon",
     "compZhName": "图标",
     "compDesc": "简单的图标",
     "compClassName": "jw-chat-icon"
-  },
-  {
-    "compName": "ChatIndex",
-    "compZhName": "组件主页",
-    "compDesc": "聊天组件的主页",
-    "compClassName": "chat-index"
   },
   {
     "compName": "JwChatItem",

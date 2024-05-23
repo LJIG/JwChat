@@ -151,7 +151,7 @@ export default defineComponent({
             </div>
             <div class={style.main}>
               <div class={style.chatBox}>
-                <jw-chat
+                <JwChat-simple
                   ref={jwChat}
                   taleList={props.taleList}
                   onEnter={($event: Event) => {
@@ -170,7 +170,7 @@ export default defineComponent({
                   onClickTalk={($event: Event) => {
                     emit("clickTalk", $event);
                   }}
-                ></jw-chat>
+                ></JwChat-simple>
               </div>
               {props.showRightBox && (
                 <div

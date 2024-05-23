@@ -6,9 +6,9 @@ import demo from './demo.vue'
 
 <!-- 正文开始 -->
 
-# 聊天
+# Chat 组件（simple）
 
-聊天组件
+JwChat 聊天组件, 本组件只有一个聊天框
 
 ## 基础用法
 

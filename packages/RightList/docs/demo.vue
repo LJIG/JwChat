@@ -3,7 +3,7 @@
     传入公告
   </el-button>
   <div>
-    <my-right-list
+    <JwChat-rightbox
       class="rightSlot"
       :config="rightConfig"
       @click="rightClick"

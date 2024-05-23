@@ -1,6 +1,6 @@
 <template>
   <div>
-    <jw-chat style="border: 1px solid #ccc;" ref="jwChat" v-model="inputMsg" :toolConfig="tool" :taleList="list" :config="config" scrollType="noroll"
+    <JwChat-simple style="border: 1px solid #ccc;" ref="jwChat" v-model="inputMsg" :toolConfig="tool" :taleList="list" :config="config" scrollType="noroll"
       :quickList="quickList" @enter="bindEnter" @clickTalk="talkEvent" />
   </div>
 </template>

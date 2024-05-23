@@ -1,6 +1,6 @@
 <template>
   <div>
-    <my-chat-index
+    <JwChat
       ref="jwChat"
       :config="config"
       :taleList="list"

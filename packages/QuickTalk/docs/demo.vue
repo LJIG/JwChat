@@ -1,6 +1,6 @@
 <template>
   <div>
-    <quick-talk :taleList="talk" :config="quickConfig" @event="bindTalk" />
+    <JwChat-talk :taleList="talk" :config="quickConfig" @event="bindTalk" />
   </div>
 </template>
 

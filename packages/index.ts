@@ -7,7 +7,7 @@
  */
 import type { App, Plugin } from "vue";
 
-import { ChatPlugin } from "./Chat";
+import { ChatPlugin } from "./ChatSimple";
 import { JwChatIconPlugin } from "./JwChatIcon";
 import { ChatIndexPlugin } from "./ChatIndex";
 import { JwChatItemPlugin } from "./JwChatItem";
@@ -29,7 +29,7 @@ const JwChatPlugin: Plugin = {
 
 export default JwChatPlugin;
 
-export * from "./Chat";
+export * from "./ChatSimple";
 export * from "./JwChatIcon";
 export * from "./ChatIndex";
 export * from "./JwChatItem";

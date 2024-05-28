@@ -25,9 +25,9 @@ const routes = [
   },
   {
     title: "聊天组件",
-    name: "Chat",
-    path: "/components/Chat",
-    component: () => import("packages/Chat/docs/README.md"),
+    name: "ChatSimple",
+    path: "/components/ChatSimple",
+    component: () => import("packages/ChatSimple/docs/README.md"),
   },
   {
     title: "图标",

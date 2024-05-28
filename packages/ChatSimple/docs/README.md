@@ -12,7 +12,7 @@ JwChat 聊天组件, 本组件只有一个聊天框
 
 ## 基础用法
 
-<Preview comp-name="Chat" demo-name="demo">
+<Preview comp-name="ChatSimple" demo-name="demo">
   <demo />
 </Preview>
 

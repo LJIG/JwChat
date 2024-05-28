@@ -6,9 +6,9 @@
     "compClassName": "chat"
   },
   {
-    "compName": "Chat",
+    "compName": "ChatSimple",
     "compZhName": "Chat组件(simple)",
-    "compDesc": "聊天组件",
+    "compDesc": "极简聊天组件",
     "compClassName": "chat-simple"
   },
   {

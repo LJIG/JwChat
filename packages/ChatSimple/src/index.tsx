@@ -24,19 +24,19 @@ export default defineComponent({
   components: { quickList, tools, EnterBox, chatListBox },
   props: {
     taleList: Object as PropType<ListProps>,
-    scrollType: Object as PropType<scrollType>,
+    scrollType: String as PropType<scrollType>,
     toolConfig: Object as PropType<ToolsProps>,
     quickList: Object as PropType<QuickListProps[]>,
     height: {
-      type: Object as PropType<string | number>,
+      type: [String, Number] as PropType<string | number>,
       default: "500px",
     },
     width: {
-      type: Object as PropType<string | number>,
+      type: [String, Number] as PropType<string | number>,
       default: "550px",
     },
     modelValue: {
-      type: Object as PropType<string>,
+      type: String as PropType<string>,
       default: "",
     },
     config: {
@@ -121,7 +121,6 @@ export default defineComponent({
             <quickList
               list={props.quickList}
               msg={data.msg}
-              class={style.quickList}
               onSubmit={quickSubmit}
             />
             <EnterBox

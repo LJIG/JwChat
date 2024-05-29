@@ -21,9 +21,7 @@ import { PropType, ExtractPropTypes } from "vue";
 
 export interface DataProps {
   // emoji: Array<any>;
-  toolConfig: {
-    [key: string]: { icon: string; title: string };
-  };
+  toolConfig: Object<{ [key: string]: { icon: string; title: string } }>;
   newTitle: string[] | null;
   emojiShow: Boolean;
 }

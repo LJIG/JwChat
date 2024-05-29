@@ -2,16 +2,16 @@ import { computed, defineComponent, unref } from "vue";
 import style from "./quickList.module.scss";
 import type { PropType } from "vue";
 
-export type ListProps = { text: string };
+export type ListProps = { text: string; id?: unknown };
 
 export default defineComponent({
   props: {
     list: {
-      type: Object as PropType<ListProps[]>,
+      type: Array as PropType<ListProps[]>,
       default: () => [],
     },
     msg: {
-      type: Object as PropType<string>,
+      type: String as PropType<string>,
       default: "",
     },
   },

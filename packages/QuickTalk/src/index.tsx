@@ -21,8 +21,8 @@ export default defineComponent({
   name: "JwChat-talk",
   props: {
     taleList: {
-      type: Object as PropType<string[]>,
-      default: () => [],
+      type: Array as PropType<string[]>,
+      default: () => [""],
     },
     config: {
       type: Object as PropType<ConfigProps>,

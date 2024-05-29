@@ -10,15 +10,15 @@ export default defineComponent({
   name: "JwChat_enterbox",
   props: {
     placeholder: {
-      type: Object as PropType<string>,
+      type: String as PropType<string>,
       default: "请输入内容...",
     },
     modelValue: {
-      type: Object as PropType<string>,
+      type: String as PropType<string>,
       default: "",
     },
     insert: {
-      type: Object as PropType<string>,
+      type: String as PropType<string>,
       default: "",
     },
   },

@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <JwChat-simple style="border: 1px solid #ccc;" 
+  <div style="border: 1px solid #ccc;" >
+    <JwChat-simple 
       ref="jwChat" 
       v-model="inputMsg"
       :toolConfig="tool"

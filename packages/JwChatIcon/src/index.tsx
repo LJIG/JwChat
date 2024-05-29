@@ -8,7 +8,7 @@ export default defineComponent({
   name: "JwChat-icon",
   props: {
     type: {
-      type: Object as PropType<string>,
+      type: String as PropType<string>,
       required: true,
     },
   },

@@ -13,6 +13,8 @@ import {
   ref,
   watch,
 } from "vue";
+import { ElDivider, ElLink } from "element-plus";
+
 import type { PropType } from "vue";
 
 interface DataProps {
@@ -52,7 +54,7 @@ type ConfigProps = {
 
 export default defineComponent({
   name: "JwChat_list",
-  components: { itemTalk, systemTalk, shopTalk },
+  components: { itemTalk, systemTalk, shopTalk, ElDivider, ElLink },
   props: {
     list: {
       type: Array as PropType<ListProps[]>,

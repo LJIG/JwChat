@@ -1,5 +1,6 @@
 import { defineComponent, nextTick, onMounted } from "vue";
 import style from "./systemTalk.module.scss";
+import { ElLink } from "element-plus";
 import type { PropType } from "vue";
 
 type TextProps = {
@@ -9,6 +10,7 @@ type TextProps = {
 };
 
 export default defineComponent({
+  components: { ElLink },
   props: {
     text: {
       type: Object as PropType<TextProps>,

@@ -9,6 +9,8 @@ import {
   ref,
   watch,
 } from "vue";
+import { ElButton, ElDivider } from "element-plus";
+
 interface DataProps {
   activeItem: number;
   moveObj: any;
@@ -16,6 +18,10 @@ interface DataProps {
   complete: any;
 }
 export default defineComponent({
+  components: {
+    ElButton,
+    ElDivider,
+  },
   props: {
     config: {
       typeof: Object,

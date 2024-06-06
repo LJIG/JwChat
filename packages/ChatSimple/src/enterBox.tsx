@@ -1,4 +1,5 @@
 import { defineComponent, nextTick, reactive, ref, watch } from "vue";
+import { ElButton } from "element-plus";
 import style from "./enterBox.module.scss";
 import type { PropType } from "vue";
 
@@ -8,6 +9,7 @@ interface DataProps {
 
 export default defineComponent({
   name: "JwChat_enterbox",
+  components: { ElButton },
   props: {
     placeholder: {
       type: String as PropType<string>,

@@ -8,6 +8,7 @@ import {
   ref,
   watch,
 } from "vue";
+import { ElInput } from "element-plus";
 import type { PropType } from "vue";
 
 interface DataProps {
@@ -26,6 +27,7 @@ export type RightListProps = {
 
 export default defineComponent({
   name: "JwChat-rightbox",
+  components: { ElInput },
   props: {
     config: {
       type: Object as PropType<RightListProps>,

@@ -12,12 +12,20 @@ import { resolve } from "path";
 import Markdown from "vite-plugin-md";
 import dts from "vite-plugin-dts";
 import vueJsx from "@vitejs/plugin-vue-jsx";
+import ElementPlus from "unplugin-element-plus/vite";
 
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd()).VITE_NODE_ENV;
 
   const baseConfig: UserConfigExport = {
-    plugins: [vue({ include: [/\.vue$/, /\.md$/] }), Markdown(), vueJsx()],
+    plugins: [
+      vue({ include: [/\.vue$/, /\.md$/] }),
+      Markdown(),
+      vueJsx(),
+      ElementPlus({
+        useSource: true,
+      }),
+    ],
     resolve: {
       alias: {
         "@": resolve(__dirname, "./src"),
@@ -66,13 +74,14 @@ export default defineConfig(({ mode }) => {
         sourcemap: false,
         rollupOptions: {
           // 确保外部化处理那些你不想打包进库的依赖
-          external: ["vue", "element-plus"],
+          external: ["vue" /* , "element-plus" */],
           output: {
             // 在 UMD 构建模式下为这些外部化的依赖提供一个全局变量
             globals: {
               vue: "Vue",
-              "element-plus": "elementPlus",
+              // "element-plus": "elementPlus",
             },
+            exports: "named",
           },
         },
       },

@@ -1,6 +1,16 @@
 import { computed, defineComponent, nextTick, reactive, toRefs } from "vue";
 import { CirclePlus, CircleCheck, CircleClose } from "@element-plus/icons-vue";
 import style from "./index.module.scss";
+import {
+  ElMenu,
+  ElDialog,
+  ElMenuItem,
+  ElIcon,
+  ElRow,
+  ElCol,
+  ElInput,
+  ElButton,
+} from "element-plus";
 import type { PropType } from "vue";
 
 interface DataProps {
@@ -19,6 +29,16 @@ export type ConfigProps = {
 
 export default defineComponent({
   name: "JwChat-talk",
+  components: {
+    ElMenu,
+    ElDialog,
+    ElMenuItem,
+    ElIcon,
+    ElRow,
+    ElCol,
+    ElInput,
+    ElButton,
+  },
   props: {
     taleList: {
       type: Array as PropType<string[]>,

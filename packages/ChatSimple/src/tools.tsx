@@ -2,6 +2,7 @@ import { computed, defineComponent, reactive } from "vue";
 import { getEmojis } from "wechat-emoji-parser";
 import style from "./tools.module.scss";
 import { /* ToolsProps, */ DataProps } from "../types/tools";
+import { ElPopover } from "element-plus";
 import type { PropType } from "vue";
 
 const emojis: Array<any> = getEmojis({
@@ -41,6 +42,7 @@ export default defineComponent({
   name: "JwChat-tools",
   props: Props,
   emits: ["emoji"],
+  components: { ElPopover },
   setup(props, { emit, slots }) {
     const data = reactive<DataProps>({
       // emoji: emojis,
@@ -85,6 +87,7 @@ export default defineComponent({
             trigger="click"
             ref="popover"
             visible={data.emojiShow}
+            width="auto"
             v-slots={{
               reference: () => (
                 <JwChat-icon

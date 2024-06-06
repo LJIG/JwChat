@@ -5,6 +5,7 @@ import {
   parseEmoji as emojiParser,
 } from "wechat-emoji-parser";
 configParseEmoji({ size: 24, emojiSpriteUrl: "/emoji-sprite.png" }); // 设置一些参数
+import { ElDialog } from "element-plus";
 import type { PropType } from "vue";
 
 interface DataProps {
@@ -18,6 +19,7 @@ interface DataProps {
 
 export default defineComponent({
   inheritAttrs: false,
+  components: { ElDialog },
   props: {
     text: {
       type: String as PropType<string>,

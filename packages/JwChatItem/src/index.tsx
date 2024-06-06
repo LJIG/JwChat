@@ -1,5 +1,6 @@
 import { computed, defineComponent } from "vue";
 import style from "./index.module.scss";
+import { ElBadge } from "element-plus";
 import type { PropType } from "vue";
 
 export type ItemConfigProps = {
@@ -11,6 +12,9 @@ export type ItemConfigProps = {
 
 export default defineComponent({
   name: "JwChat-item",
+  components: {
+    ElBadge,
+  },
   props: {
     config: {
       type: Object as PropType<ItemConfigProps>,

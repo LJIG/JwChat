@@ -71,6 +71,7 @@ export default defineConfig(({ mode }) => {
           name: "JwChat",
           fileName: (format: string) => `JwChat.${format}.js`,
         },
+        // assetsInlineLimit: 0,
         sourcemap: false,
         rollupOptions: {
           // 确保外部化处理那些你不想打包进库的依赖

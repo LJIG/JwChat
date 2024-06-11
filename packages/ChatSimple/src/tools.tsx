@@ -4,10 +4,11 @@ import style from "./tools.module.scss";
 import { /* ToolsProps, */ DataProps } from "../types/tools";
 import { ElPopover } from "element-plus";
 import type { PropType } from "vue";
+import { emojiImg } from "@/utils/imgUrl";
 
 const emojis: Array<any> = getEmojis({
   size: 26,
-  emojiSpriteUrl: "/emoji-sprite.png",
+  emojiSpriteUrl: emojiImg,
 });
 // console.log("emojis", emojis);
 // interface DataProps {

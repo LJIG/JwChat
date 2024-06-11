@@ -1,10 +1,11 @@
 import { computed, defineComponent, nextTick, onMounted, reactive } from "vue";
 import style from "./itemTalk.module.scss";
+import { emojiImg } from "@/utils/imgUrl";
 import {
   configParseEmoji,
   parseEmoji as emojiParser,
 } from "wechat-emoji-parser";
-configParseEmoji({ size: 24, emojiSpriteUrl: "/emoji-sprite.png" }); // 设置一些参数
+configParseEmoji({ size: 24, emojiSpriteUrl: emojiImg }); // 设置一些参数
 import { ElDialog } from "element-plus";
 import type { PropType } from "vue";
 

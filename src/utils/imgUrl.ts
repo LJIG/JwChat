@@ -2,7 +2,7 @@
  * @Author            : Bian <389701057@qq.com>
  * @Date              : 2024-06-11 17:35:24
  * @LastEditors       : Bian <389701057@qq.com>
- * @LastEditTime      : 2024-06-11 17:59:30
+ * @LastEditTime      : 2024-06-12 17:17:55
  * @FilePath          : /src/utils/imgUrl.ts
  * @Description       :
  * Copyright (c) 2024 by Bian <389701057@qq.com>, All Rights Reserved.
@@ -28,8 +28,6 @@ function base64ToUrl(base) {
   let url = URL.createObjectURL(new Blob(binaryData));
   return url;
 }
-
-console.log("%csrc/utils/imgUrl.ts:32 emojiImg", "color: #007acc;", emojiImg);
 
 if (/^data:/.test(emojiSprite)) {
   let ba64 = emojiSprite.split(",")[1];

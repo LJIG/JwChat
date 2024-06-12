@@ -30,7 +30,7 @@
     "dev": "vite",
     "serve": "vite preview",
     "build": "vue-tsc --noEmit && vite build --mode build && node script/copyDir.js",
-    "lib": "vue-tsc --noEmit && vite build --mode lib",
+    "lib": "vue-tsc --noEmit && vite build --mode lib && rm -rf ./lib/image",
     "gen": "node ./script/genNewComp/index.js",
     "version": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0 && git add CHANGELOG.md"
   },

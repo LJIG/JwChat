@@ -6,9 +6,7 @@
 
 <style lang="scss">
 .toolIcon {
-  padding-left: 6px;
-  font-size: 20px;
-  color: #888a91;
+  font-size: 60px;
   &:hover {
     color: #76b1f9;
   }

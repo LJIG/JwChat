@@ -1,6 +1,6 @@
 
 module.exports = ctx => ({
-  base: '/jwchatdoc/', // 项目根路径
+  base: '/', // 项目根路径
   locales: {
     '/': {
       lang: 'zh-CN',
@@ -37,29 +37,29 @@ module.exports = ctx => ({
   extraWatchFiles: [
     '.vuepress/nav/zh.js'
   ],
-   plugins: [
-     ['@vuepress/back-to-top', true],
-     ['@vuepress/pwa', {
-       serviceWorker: true,
-       updatePopup: true
-     }],
-     ['@vuepress/medium-zoom', true],
-     ['@vuepress/google-analytics', {
-       ga: 'UA-128189152-1'
-     }],
-     ['container', {
-       type: 'vue',
-       before: '<pre class="vue-container"><code>',
-       after: '</code></pre>'
-     }],
-     ['container', {
-       type: 'upgrade',
-       before: info => `<UpgradePath title="${info}">`,
-       after: '</UpgradePath>'
-     }],
-     ['flowchart']
-   ],
-   configureWebpack: {
+  plugins: [
+    ['@vuepress/back-to-top', true],
+    ['@vuepress/pwa', {
+      serviceWorker: true,
+      updatePopup: true
+    }],
+    ['@vuepress/medium-zoom', true],
+    ['@vuepress/google-analytics', {
+      ga: 'UA-128189152-1'
+    }],
+    ['container', {
+      type: 'vue',
+      before: '<pre class="vue-container"><code>',
+      after: '</code></pre>'
+    }],
+    ['container', {
+      type: 'upgrade',
+      before: info => `<UpgradePath title="${info}">`,
+      after: '</UpgradePath>'
+    }],
+    ['flowchart']
+  ],
+  configureWebpack: {
     resolve: {
       alias: {
         '@dome': './public/image'
@@ -68,7 +68,7 @@ module.exports = ctx => ({
   }
 })
 
-function getComponentSidebar () {
+function getComponentSidebar() {
   return [
     // '',
     'chat',
@@ -80,7 +80,7 @@ function getComponentSidebar () {
   ]
 }
 
-function getGuideSidebar (groupA) {
+function getGuideSidebar(groupA) {
   return [
     {
       title: groupA,

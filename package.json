@@ -14,11 +14,12 @@
       "require": "./lib/JwChat.umd.js",
       "types": "./lib/JwChat.d.ts"
     },
-    "./lib/*": {
+    "./lib/*.js": {
       "import": "./lib/JwChat.es.js",
       "require": "./lib/JwChat.umd.js",
       "types": "./lib/JwChat.d.ts"
-    }
+    },
+    "./*": "./*"
   },
   "main": "./lib/JwChat.umd.js",
   "module": "./lib/JwChat.es.js",

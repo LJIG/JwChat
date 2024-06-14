@@ -13,9 +13,13 @@
 新增表情包可自动匹配微信表情。
 新增聊天窗口配置组件，可以自由配置 顶部状态栏 和 右侧信息栏
 
-![](https://img-blog.csdnimg.cn/20210307230254986.gif)
+<!-- ![](https://img-blog.csdnimg.cn/20210307230254986.gif) -->
 
-![](https://img-blog.csdnimg.cn/20210307230254368.gif)
+![示例1](public/image/20210307.gif)
+
+<!-- ![](https://img-blog.csdnimg.cn/20210307230254986.gif) -->
+
+![示例2](public/image/20210307.gif)
 
 #### 安装
 

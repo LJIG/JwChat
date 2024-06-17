@@ -19,8 +19,6 @@ import type { PropType } from "vue";
 
 interface DataProps {
   show: boolean;
-  scroll: any;
-  // remind: null, // 消息提示
   stopScroll: boolean;
   showDownBtn: boolean;
   tipText: string;
@@ -67,7 +65,7 @@ export default defineComponent({
   },
   // 定义抛出的事件名称
   emits: ["loadDone", "systemEvent", "loadHistory", "click"],
-  setup(props, { emit, expose }) {
+  setup(props, { emit, expose, slots }) {
     const PHASE = {
       moving: {
         enter: "enter",
@@ -86,13 +84,13 @@ export default defineComponent({
 
     let data = reactive<DataProps>({
       show: false,
-      scroll: {},
-      // remind: null, // 消息提示
       stopScroll: false,
       showDownBtn: false,
       tipText: "",
       isLoding: false,
     });
+
+    const scroll = ref<any>({});
 
     const boxSize = computed<{ height: string; width: string }>(() => {
       let { height = "382px", width = "525px" } = props.config || {};
@@ -117,8 +115,9 @@ export default defineComponent({
     });
 
     watch(
-      () => data.scroll,
+      () => scroll.value,
       (newVal) => {
+        // debugger;
         if (!newVal) return;
         // console.log(newVal, "watch");
         const isBottom = newVal.isBottom;
@@ -128,14 +127,14 @@ export default defineComponent({
     );
 
     watch(boxSize, () => {
-      data.scroll.refresh();
+      scroll.value.refresh();
     });
 
     const scrollerRef = ref(null);
     const main = ref<HTMLElement | null>(null);
 
     const unread = computed<number>(() => {
-      const { unread = 0 } = data.scroll || {};
+      const { unread = 0 } = scroll.value || {};
       return unread;
     });
 
@@ -219,11 +218,12 @@ export default defineComponent({
             })}
           </div>
         </div>
-        {data.showDownBtn && (
-          <div class={style.downBtn} onClick={scrollBottom}>
-            {unread.value > 0 && <span>{unread.value}</span>}
-          </div>
-        )}
+        {(data.showDownBtn && slots.downBtn && slots.downBtn()) ||
+          (data.showDownBtn && (
+            <div class={style.downBtn} onClick={scrollBottom}>
+              {unread.value > 0 && <span>{unread.value}</span>}
+            </div>
+          ))}
       </div>
     );
 
@@ -235,14 +235,14 @@ export default defineComponent({
       }
     }
     function scrollBottom(): void {
-      if (!data.scroll) return;
-      if (data.scroll.isLoding) return;
-      data.scroll.refresh();
-      data.scroll.scrollBottom();
+      if (!scroll.value) return;
+      if (scroll.value.isLoding) return;
+      scroll.value.refresh();
+      scroll.value.scrollBottom();
     }
     function createScroll(): void {
       const pullingDown = historyConfig.value.show;
-      const scroll = new Scroll(scrollerRef.value, {
+      const _scroll = new Scroll(scrollerRef.value, {
         scrollY: true,
         click: true,
         probeType: 3,
@@ -263,10 +263,11 @@ export default defineComponent({
         preventDefault: false,
       });
 
-      data.scroll = scroll;
+      scroll.value = _scroll;
 
       // 保存数据
-      data.scroll.on("scrollEnd", () => {
+      _scroll.on("scrollEnd", () => {
+        console.log("scrollEnd");
         data.isLoding = false;
         childNodeLoad();
       });
@@ -276,17 +277,21 @@ export default defineComponent({
       // });
       // 当顶部下拉的距离大于 threshold 值时，触发一次 pullingDown 钩子。
       if (pullingDown) {
-        data.scroll.on("pullingDown", () => {
-          data.scroll.savePosition();
+        _scroll.on("pullingDown", () => {
+          console.log("pullingDown");
+
+          _scroll.savePosition();
           pullingDownHandler();
         });
         //当 BetterScroll 滚动到 pulldown 的 threshold 阈值区域之外的时候派发。你可以提示用户“手指释放刷新”
-        data.scroll.on("leaveThreshold", () => {
+        _scroll.on("leaveThreshold", () => {
+          console.log("leaveThreshold");
           setTipText(PHASE.moving.leave);
         });
         //当 BetterScroll 滚动到 pulldown 的 threshold 阈值区域之内的时候派发，
         // 在这个事件内部，你可以做文案初始化的逻辑，比如提示用户“下拉刷新”
-        data.scroll.on("enterThreshold", () => {
+        _scroll.on("enterThreshold", () => {
+          console.log("enterThreshold");
           data.isLoding = true;
           setTipText(PHASE.moving.enter);
         });
@@ -295,7 +300,7 @@ export default defineComponent({
     function finishPullDown(): void {
       setTipText(PHASE.succeed);
       // 结束下拉刷新行为。
-      data.scroll.finishPullDown();
+      scroll.value.finishPullDown();
     }
     function childNodeLoad(): void {
       if (scrollType.value !== "noroll") return;
@@ -304,7 +309,7 @@ export default defineComponent({
       if (!parent) return;
       const [, ...childs] = (parent as any).children;
 
-      data.scroll.saveNodes({ nodes: childs, dataList: props.list });
+      scroll.value.saveNodes({ nodes: childs, dataList: props.list });
     }
 
     function setTipText(phase: string = ""): void {

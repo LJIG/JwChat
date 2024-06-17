@@ -76,7 +76,7 @@ export default defineComponent({
     });
 
     const chatConfig = computed(() => {
-      const { historyConfig = {} } = props.config || {};
+      const { historyConfig = {} } = props.config.historyConfig || {};
       return { historyConfig };
     });
 
@@ -158,14 +158,17 @@ export default defineComponent({
                     emit("enter", $event);
                   }}
                   v-slots={{
-                    tools: () => slots.tools?.(),
+                    tools: slots.tools,
+                    enterBtn: slots.enterBtn,
+                    enter: slots.enter,
+                    downBtn: slots.downBtn,
                   }}
                   v-model={data.msg}
                   toolConfig={props.toolConfig}
                   scrollType={props.scrollType}
                   width={"100%"}
                   height={"100%"}
-                  config={chatConfig}
+                  config={chatConfig.value}
                   quickList={quickList}
                   onClickTalk={($event: Event) => {
                     emit("clickTalk", $event);

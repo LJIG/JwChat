@@ -100,6 +100,9 @@ export default defineComponent({
       <>
         <div class={style.chatPage} style={setStyle.value}>
           <chatListBox
+            v-slots={{
+              downBtn: slots.downBtn,
+            }}
             class={style.taleBox}
             ref={chatList}
             list={props.taleList}
@@ -115,7 +118,7 @@ export default defineComponent({
               class={style.tools}
               onEmoji={bindEmoji}
               v-slots={{
-                tools: slots.tools?.(),
+                tools: slots.tools,
               }}
             ></tools>
             <quickList
@@ -124,6 +127,10 @@ export default defineComponent({
               onSubmit={quickSubmit}
             />
             <EnterBox
+              v-slots={{
+                enter: slots.enter,
+                enterBtn: slots.enterBtn,
+              }}
               onSubmit={($event: Event) => {
                 emit("enter", $event);
               }}

@@ -26,7 +26,7 @@ export default defineComponent({
   },
   emits: ["update:modelValue", "submit"],
 
-  setup(props, { emit }) {
+  setup(props, { emit, slots }) {
     const data = reactive<DataProps>({
       currentMsg: "",
     });
@@ -68,25 +68,32 @@ export default defineComponent({
     );
 
     const msgBox = ref<HTMLElement | null>(null);
-
     return () => (
       <div class={style.enterBox} onKeyup={handleSend}>
-        <textarea
-          v-model={data.currentMsg}
-          rows="3"
-          placeholder={props.placeholder}
-          class={style.enterBoxInput}
-          ref={msgBox}
-        />
+        {slots.enter ? (
+          slots.enter()
+        ) : (
+          <textarea
+            v-model={data.currentMsg}
+            rows="3"
+            placeholder={props.placeholder}
+            class={style.enterBoxInput}
+            ref={msgBox}
+          />
+        )}
         <div class={style.enterBoxMenu}>
-          <el-button
-            class={style.enterBoxSubmit}
-            type="primary"
-            size="small"
-            onClick={handleSend}
-          >
-            发送
-          </el-button>
+          {slots.enterBtn ? (
+            slots.enterBtn()
+          ) : (
+            <el-button
+              class={style.enterBoxSubmit}
+              type="primary"
+              size="small"
+              onClick={handleSend}
+            >
+              发送
+            </el-button>
+          )}
         </div>
       </div>
     );

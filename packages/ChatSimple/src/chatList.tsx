@@ -114,17 +114,17 @@ export default defineComponent({
       return scrollType;
     });
 
-    watch(
-      () => scroll.value,
-      (newVal) => {
-        // debugger;
-        if (!newVal) return;
-        // console.log(newVal, "watch");
-        const isBottom = newVal.isBottom;
-        data.showDownBtn = !isBottom;
-      },
-      { deep: true }
-    );
+    // watch(
+    //   () => scroll.value,
+    //   (newVal) => {
+    //     // debugger;
+    //     if (!newVal) return;
+    //     console.log(newVal, "watch");
+    //     const isBottom = newVal.isBottom;
+    //     data.showDownBtn = !isBottom;
+    //   },
+    //   { deep: true }
+    // );
 
     watch(boxSize, () => {
       scroll.value.refresh();
@@ -218,10 +218,14 @@ export default defineComponent({
             })}
           </div>
         </div>
-        {(data.showDownBtn && slots.downBtn && slots.downBtn()) ||
-          (data.showDownBtn && (
+        {data.showDownBtn &&
+          (slots.downBtn ? (
+            <div class={style.positionRight} onClick={scrollBottom}>
+              {slots.downBtn()}
+            </div>
+          ) : (
             <div class={style.downBtn} onClick={scrollBottom}>
-              {unread.value > 0 && <span>{unread.value}</span>}
+              {unread.value > 0 && <span> {unread.value}</span>}
             </div>
           ))}
       </div>
@@ -269,6 +273,17 @@ export default defineComponent({
       _scroll.on("scrollEnd", () => {
         console.log("scrollEnd");
         data.isLoding = false;
+        console.log(
+          "%cpackagesChatSimplesrcchatList.tsx:277 _scroll.isBottom",
+          "color: #007acc;",
+          _scroll.isBottom
+        );
+        data.showDownBtn = !_scroll.isBottom;
+        console.log(
+          "%cpackagesChatSimplesrcchatList.tsx:283 data",
+          "color: #007acc;",
+          data
+        );
         childNodeLoad();
       });
       // data.scroll.on("refresh", () => {

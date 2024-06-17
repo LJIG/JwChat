@@ -12,7 +12,22 @@
       @clickTalk="talkEvent"
       :toolConfig="tool"
       :winBarConfig="winBarConfig"
-    />
+    >
+    <template #enter>
+      <input/>
+    </template>
+    <template #enterBtn>
+      <button>按钮</button>
+    </template>
+    <template #tools>
+      <div>
+       工具
+      </div>
+    </template>
+    <template #downBtn>
+      <div> 下来 </div>
+    </template>
+    </JwChat>
   </div>
 </template>
 

@@ -11,6 +11,12 @@
   touch-action: none;
   /* Prevent text resize on orientation change, useful for web-apps */
   text-size-adjust: none;
+  .positionRight {
+    position: absolute;
+    cursor: pointer;
+    right: 1rem;
+    bottom: 0rem;
+  }
   .downBtn {
     position: absolute;
     cursor: pointer;

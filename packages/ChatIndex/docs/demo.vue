@@ -13,7 +13,7 @@
       :toolConfig="tool"
       :winBarConfig="winBarConfig"
     >
-    <template #enter>
+    <!-- <template #enter>
       <input/>
     </template>
     <template #enterBtn>
@@ -24,9 +24,9 @@
        工具
       </div>
     </template>
-    <template #downBtn>
-      <div> 下来 </div>
-    </template>
+    <template #downBtn="unread">
+      <div> 下来 -{{ unread }}- </div>
+    </template> -->
     </JwChat>
   </div>
 </template>
@@ -285,7 +285,8 @@ export default {
      * @param {*}
      * @return {*}
      */
-    async bindLoadHistory() {
+    async bindLoadHistory(done) {
+      console.log(11)
       const history = new Array(3).fill().map((i, j) => {
         return {
           date: "2020/05/20 23:19:07",
@@ -301,7 +302,8 @@ export default {
       //  加载完成后通知组件关闭加载动画
       // this.config.historyConfig.tip = "加载完成";
       this.$nextTick(() => {
-        this.$refs.jwChat.finishPullDown();
+        done()
+        // this.$refs.jwChat.finishPullDown();
       });
     },
     talkEvent(play) {

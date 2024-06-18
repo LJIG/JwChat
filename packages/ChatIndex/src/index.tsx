@@ -76,7 +76,7 @@ export default defineComponent({
     });
 
     const chatConfig = computed(() => {
-      const { historyConfig = {} } = props.config.historyConfig || {};
+      const historyConfig = props.config.historyConfig || {};
       return { historyConfig };
     });
 

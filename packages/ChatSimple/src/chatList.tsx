@@ -22,7 +22,7 @@ interface DataProps {
   stopScroll: boolean;
   showDownBtn: boolean;
   tipText: string;
-  isLoding: boolean;
+  isHistoryLoding: boolean;
 }
 
 export type ListProps = {
@@ -87,7 +87,7 @@ export default defineComponent({
       stopScroll: false,
       showDownBtn: false,
       tipText: "",
-      isLoding: false,
+      isHistoryLoding: false,
     });
 
     const scroll = ref<any>({});
@@ -137,6 +137,8 @@ export default defineComponent({
       const { unread = 0 } = scroll.value || {};
       return unread;
     });
+
+    let loadTimer = ref(0);
 
     expose({ finishPullDown });
 
@@ -221,7 +223,7 @@ export default defineComponent({
         {data.showDownBtn &&
           (slots.downBtn ? (
             <div class={style.positionRight} onClick={scrollBottom}>
-              {slots.downBtn()}
+              {slots.downBtn(unread.value)}
             </div>
           ) : (
             <div class={style.downBtn} onClick={scrollBottom}>
@@ -232,15 +234,22 @@ export default defineComponent({
     );
 
     function loadDone(target: { type: string; target }): void {
-      // TODO:需要一个防抖
-      childNodeLoad();
-      if (scrollType.value == "scroll") {
-        scrollBottom();
+      if (loadTimer.value) {
+        window.clearTimeout(loadTimer.value);
+        loadTimer.value = 0;
       }
+
+      loadTimer.value = window.setTimeout(() => {
+        childNodeLoad();
+        if (scrollType.value == "scroll") {
+          scrollBottom();
+          data.isHistoryLoding = false;
+        }
+      }, 500);
     }
     function scrollBottom(): void {
       if (!scroll.value) return;
-      if (scroll.value.isLoding) return;
+      if (data.isHistoryLoding) return;
       scroll.value.refresh();
       scroll.value.scrollBottom();
     }
@@ -272,18 +281,7 @@ export default defineComponent({
       // 保存数据
       _scroll.on("scrollEnd", () => {
         console.log("scrollEnd");
-        data.isLoding = false;
-        console.log(
-          "%cpackagesChatSimplesrcchatList.tsx:277 _scroll.isBottom",
-          "color: #007acc;",
-          _scroll.isBottom
-        );
         data.showDownBtn = !_scroll.isBottom;
-        console.log(
-          "%cpackagesChatSimplesrcchatList.tsx:283 data",
-          "color: #007acc;",
-          data
-        );
         childNodeLoad();
       });
       // data.scroll.on("refresh", () => {
@@ -307,12 +305,17 @@ export default defineComponent({
         // 在这个事件内部，你可以做文案初始化的逻辑，比如提示用户“下拉刷新”
         _scroll.on("enterThreshold", () => {
           console.log("enterThreshold");
-          data.isLoding = true;
+          data.isHistoryLoding = true;
           setTipText(PHASE.moving.enter);
         });
       }
     }
     function finishPullDown(): void {
+      console.log(
+        "%cpackages/ChatSimple/src/chatList.tsx:306 ok",
+        "color: #007acc;",
+        "ok"
+      );
       setTipText(PHASE.succeed);
       // 结束下拉刷新行为。
       scroll.value.finishPullDown();
@@ -350,7 +353,7 @@ export default defineComponent({
     function pullingDownHandler(): void {
       // console.log("开始下拉");
       setTipText(PHASE.fetching);
-      emit("loadHistory");
+      emit("loadHistory", finishPullDown);
     }
     function systemEvent(itemData): void {
       emit("click", { type: "systemItem", data: itemData });

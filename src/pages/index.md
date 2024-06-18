@@ -57,7 +57,7 @@ pnpm install jwchat
 
 ```js
 import JwChat from "jwchat";
-import "jwchat/style.css";
+import "jwchat/lib/style.css";
 
 app.use(JwChat);
 ```

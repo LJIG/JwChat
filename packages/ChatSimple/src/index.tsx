@@ -42,6 +42,9 @@ export default defineComponent({
     config: {
       type: Object as PropType<configProps>,
     },
+    placeholder: {
+      type: String as PropType<string>,
+    },
   },
   emits: ["update:modelValue", "enter", "clickTalk"],
   setup(props, { emit, slots, expose }) {
@@ -136,6 +139,7 @@ export default defineComponent({
               }}
               v-model={data.msg}
               insert={data.insert}
+              placeholder={props.placeholder}
             />
           </div>
         </div>

@@ -1,6 +1,6 @@
 {
   "name": "jwchat",
-  "version": "2.0.2",
+  "version": "2.0.3",
   "auther": "Bian<389701057@qq.com>",
   "description": "Vue 聊天组件",
   "keyword": "chat,Vue",

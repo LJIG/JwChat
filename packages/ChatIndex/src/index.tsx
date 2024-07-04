@@ -53,6 +53,9 @@ export default defineComponent({
     scrollType: {
       default: "noroll",
     },
+    placeholder: {
+      type: String as PropType<string>,
+    },
   },
   emits: ["update:modelValue", "enter", "clickTalk"],
   setup(props, { emit, slots, expose }) {
@@ -168,6 +171,7 @@ export default defineComponent({
                   scrollType={props.scrollType}
                   width={"100%"}
                   height={"100%"}
+                  placeholder={props.placeholder}
                   config={chatConfig.value}
                   quickList={quickList}
                   onClickTalk={($event: Event) => {

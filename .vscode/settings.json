@@ -1,4 +1,5 @@
 {
   "commentTranslate.hover.enabled": true,
-  "editor.inlineSuggest.showToolbar": "always"
+  "editor.inlineSuggest.showToolbar": "always",
+  "i18n-ally.localesPaths": []
 }

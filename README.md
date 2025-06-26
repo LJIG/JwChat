@@ -1,6 +1,6 @@
 # JwChat
 
-Vue聊天组件集合的monorepo项目。
+Vue聊天组件集合的monorepo项目。 
 
 ## 项目结构
 

@@ -8,12 +8,12 @@
  */
 import { defineConfig, loadEnv, UserConfigExport } from "vite";
 import vue from "@vitejs/plugin-vue";
-import { resolve } from "path";
+import { resolve, join } from "path";
 import Markdown from "vite-plugin-md";
 import dts from "vite-plugin-dts";
 import vueJsx from "@vitejs/plugin-vue-jsx";
 import ElementPlus from "unplugin-element-plus/vite";
-
+console.log(join(__dirname, "../widget/packages"));
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd()).VITE_NODE_ENV;
 
@@ -30,6 +30,8 @@ export default defineConfig(({ mode }) => {
       alias: {
         "@": resolve(__dirname, "./src"),
         packages: resolve(__dirname, "./packages"),
+        // "/^@myui/(.+)$/": join(__dirname, "..", "packages", "$1", "src"),
+        "jwchat": join(__dirname, "../widget/packages"),
       },
     },
     server: {

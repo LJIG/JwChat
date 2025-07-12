@@ -1,5 +1,6 @@
 <template>
   <div>
+    111
     <JwChat
       ref="jwChat"
       :config="config"

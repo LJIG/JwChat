@@ -8,7 +8,7 @@ import demo from './demo.vue'
 
 # Chat 组件
 
-JwChat 聊天组件，简单集成。
+JwChat 聊天组件，简单集成。1111
 
 ## 基础用法
 

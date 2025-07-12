@@ -1,5 +1,4 @@
-// TODO: 需要修改
-import ComponentList from "../../packages/packages/list.json";
+import ComponentList from "jwchat/list.json";
 import { reactive, defineComponent } from "vue";
 import "./App.scss";
 

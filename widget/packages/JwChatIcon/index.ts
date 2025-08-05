@@ -1,5 +1,6 @@
 import JwChatIcon from "./src/index";
 import type { App, Plugin } from "vue";
+import type { IconProps } from "./src/icon";
 
 export const JwChatIconPlugin: Plugin = {
   install(app: App) {
@@ -8,3 +9,4 @@ export const JwChatIconPlugin: Plugin = {
 };
 
 export { JwChatIcon };
+export type { IconProps };

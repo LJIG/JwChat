@@ -2,17 +2,12 @@ import "./fonts/iconfont";
 import style from "./index.module.scss";
 
 import { defineComponent } from "vue";
-import type { PropType } from "vue";
+import { iconProps, type IconProps } from "./icon";
 
 export default defineComponent({
   name: "JwChat-icon",
-  props: {
-    type: {
-      type: String as PropType<string>,
-      required: true,
-    },
-  },
-  setup(props) {
+  props: iconProps,
+  setup(props: IconProps) {
     return () => (
       <div>
         {/* <i :class="['iconfont', 'icon-wenjian' ]"></i> */}

@@ -6,7 +6,10 @@ import router from "./router";
 
 import "./assets/markdown.css";
 
-import JwChat from "jwchat";
+import JwChat from "push_npm";
+console.log(11, JwChat);
+// import JwChat2 from "jwchat";
+// console.log(22, JwChat2);
 import Preview from "./components/Preview.vue";
 // import * as ElementPlusIconsVue from "@element-plus/icons-vue";
 

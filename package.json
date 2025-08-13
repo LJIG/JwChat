@@ -1,14 +1,19 @@
 {
   "name": "JChat",
   "private": true,
-  "packageManager": "pnpm@10.13.1",
+  "packageManager": "pnpm@10.14.0",
   "dependencies": {
     "element-plus": "^2.10.2",
-    "jwchat": "workspace:*",
     "typescript": "^4.9.5",
     "vue": "^3.5.17"
   },
   "scripts": {
     "bootstrap": "pnpm -F jwchat i && pnpm -F jwchatdoc i"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "esbuild",
+      "vue-demi"
+    ]
   }
 }

@@ -1,4 +1,4 @@
-import ComponentList from "jwchat/list.json";
+import ComponentList from "jwchatMd/list.json";
 import { reactive, defineComponent } from "vue";
 import "./App.scss";
 

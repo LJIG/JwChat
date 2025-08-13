@@ -1,6 +1,6 @@
 {
   "name": "jwchat",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "auther": "Bian<389701057@qq.com>",
   "description": "Vue 聊天组件",
   "keyword": "chat,Vue",
@@ -19,6 +19,7 @@
       "require": "./lib/JwChat.umd.js",
       "types": "./lib/JwChat.d.ts"
     },
+    "./packages/*": "./packages/*",
     "./*": "./*"
   },
   "main": "./lib/JwChat.umd.js",
@@ -85,11 +86,5 @@
     "commitizen": {
       "path": "node_modules/cz-git"
     }
-  },
-  "pnpm": {
-    "onlyBuiltDependencies": [
-      "esbuild",
-      "vue-demi"
-    ]
   }
 }

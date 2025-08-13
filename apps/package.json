@@ -49,6 +49,7 @@
     "@vueuse/core": "^10.11.0",
     "element-plus": "^2.1.9",
     "jwchat": "workspace:*",
+    "push_npm": "workspace:*",
     "prismjs": "^1.25.0",
     "vue": "^3.2.37",
     "wechat-emoji-parser": "^2.0.1"
@@ -86,11 +87,5 @@
     "commitizen": {
       "path": "node_modules/cz-git"
     }
-  },
-  "pnpm": {
-    "onlyBuiltDependencies": [
-      "esbuild",
-      "vue-demi"
-    ]
   }
 }

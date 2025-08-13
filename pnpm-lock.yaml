@@ -11,9 +11,6 @@ importers:
       element-plus:
         specifier: ^2.10.2
         version: 2.10.2(vue@3.5.17(typescript@4.9.5))
-      jwchat:
-        specifier: workspace:*
-        version: link:widget
       typescript:
         specifier: ^4.9.5
         version: 4.9.5
@@ -59,6 +56,9 @@ importers:
       prismjs:
         specifier: ^1.25.0
         version: 1.30.0
+      push_npm:
+        specifier: workspace:*
+        version: link:../push_npm
       vue:
         specifier: ^3.2.37
         version: 3.5.17(typescript@4.9.5)
@@ -132,6 +132,8 @@ importers:
       vue-tsc:
         specifier: ^0.28.10
         version: 0.28.10(typescript@4.9.5)
+
+  push_npm: {}
 
   widget:
     dependencies:

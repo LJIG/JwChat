@@ -29,9 +29,9 @@ export default defineConfig(({ mode }) => {
     resolve: {
       alias: {
         "@": resolve(__dirname, "./src"),
-        packages: resolve(__dirname, "./packages"),
+        // packages: resolve(__dirname, "./packages"),
         // "/^@myui/(.+)$/": join(__dirname, "..", "packages", "$1", "src"),
-        "jwchat": join(__dirname, "../widget/packages"),
+        "jwchatMd": join(__dirname, "../widget/packages"),
       },
     },
     server: {

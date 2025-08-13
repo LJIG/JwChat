@@ -52,12 +52,13 @@ export default {
       if (isDev) {
         this.sourceCode = (
           await import(
-            /* @vite-ignore */ `../../packages/${this.compName}/docs/${this.demoName}.vue?raw`
+            // TODO: 
+            /* @vite-ignore */ `../widget/packages/${this.compName}/docs/${this.demoName}.vue?raw`
           )
         ).default;
       } else {
         this.sourceCode = await fetch(
-          `${isDev ? "" : ""}/packages/${this.compName}/docs/${
+          `${isDev ? "" : ""}/widget/${this.compName}/docs/${
             this.demoName
           }.vue`
         ).then((res) => res.text());

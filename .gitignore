@@ -1,5 +1,14 @@
-/node_modules
-/dist
+
+# Package Manager
+node_modules
+.pnpm-debug.log*
+
+# System
+.DS_Store
+
+# Bundle
+dist
+
 /lib
 /docs
 yarn-error.log

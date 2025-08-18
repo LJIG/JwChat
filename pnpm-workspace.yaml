@@ -1,4 +1,5 @@
 packages:
-  - 'widget'
-  - 'apps'
-  - 'push_npm'
+  - widget
+  - apps
+  - push_npm
+  - internal/*

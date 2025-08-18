@@ -5,29 +5,29 @@
  *
  * 根据 /packages 目录下的组件所生成的模块导出，请勿手动修改
  */
-// import type { App, Plugin } from "vue";
+import type { App, Plugin } from "vue";
 
-// import { ChatPlugin } from "./ChatSimple";
-// import { JwChatIconPlugin } from "./JwChatIcon";
-// import { ChatIndexPlugin } from "./ChatIndex";
-// import { JwChatItemPlugin } from "./JwChatItem";
-// import { RightListPlugin } from "./RightList";
-// import { EmptyPlugin } from "./Empty";
-// import { QuickTalkPlugin } from "./QuickTalk";
+import { ChatPlugin } from "./ChatSimple/index";
+import { JwChatIconPlugin } from "./JwChatIcon";
+import { ChatIndexPlugin } from "./ChatIndex";
+import { JwChatItemPlugin } from "./JwChatItem";
+import { RightListPlugin } from "./RightList";
+import { EmptyPlugin } from "./Empty";
+import { QuickTalkPlugin } from "./QuickTalk";
 
-// const JwChatPlugin: Plugin = {
-//   install(app: App) {
-//     ChatPlugin.install?.(app);
-//     JwChatIconPlugin.install?.(app);
-//     ChatIndexPlugin.install?.(app);
-//     JwChatItemPlugin.install?.(app);
-//     RightListPlugin.install?.(app);
-//     EmptyPlugin.install?.(app);
-//     QuickTalkPlugin.install?.(app);
-//   },
-// };
+const JwChatPlugin: Plugin = {
+  install(app: App) {
+    ChatPlugin.install?.(app);
+    JwChatIconPlugin.install?.(app);
+    ChatIndexPlugin.install?.(app);
+    JwChatItemPlugin.install?.(app);
+    RightListPlugin.install?.(app);
+    EmptyPlugin.install?.(app);
+    QuickTalkPlugin.install?.(app);
+  },
+};
 
-// export default JwChatPlugin;
+export default JwChatPlugin;
 
 export * from "./ChatSimple";
 export * from "./JwChatIcon";

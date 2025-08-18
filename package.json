@@ -8,12 +8,19 @@
     "vue": "^3.5.17"
   },
   "scripts": {
-    "bootstrap": "pnpm -F jwchat i && pnpm -F jwchatdoc i"
+    "bootstrap": "pnpm -F jwchat i && pnpm -F jwchatdoc i",
+    "stub": "pnpm run -r --parallel stub",
+    "postinstall": "pnpm stub",
+    "clean": "pnpm run clean:dist && pnpm run -r --parallel clean",
+    "clean:dist": "rimraf dist"
   },
   "pnpm": {
     "onlyBuiltDependencies": [
       "esbuild",
       "vue-demi"
     ]
+  },
+  "devDependencies": {
+    "rimraf": "^6.0.1"
   }
 }

@@ -8,7 +8,7 @@
  * Copyright (c) 2025 by Bian <389701057@qq.com>, All Rights Reserved.
  */
 
-import { buildConfig, run, runTask, withTaskName } from "./src";
+import { run, runTask, withTaskName } from "./src";
 import { parallel, series } from "gulp";
 import { copyFile, mkdir } from "fs/promises";
 import { epOutput, projRoot } from "@jwchat/build-utils";
@@ -35,5 +35,5 @@ export default series(
 
   // parallel(copyTypesDefinitions, copyFiles)
 );
-
 export * from './src'
+

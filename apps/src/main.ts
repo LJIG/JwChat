@@ -6,10 +6,7 @@ import router from "./router";
 
 import "./assets/markdown.css";
 
-import JwChat from "push_npm";
-console.log(11, JwChat);
-// import JwChat2 from "jwchat";
-// console.log(22, JwChat2);
+import JwChat from "jwchat";
 import Preview from "./components/Preview.vue";
 // import * as ElementPlusIconsVue from "@element-plus/icons-vue";
 
@@ -19,4 +16,6 @@ const app = createApp(App);
 // }
 // app.use(ElementPlus);
 app.component("Preview", Preview);
-app.use(JwChat).use(router).mount("#app");
+app.component(JwChat.name, JwChat)
+// app.use(JwChat)
+ app.use(router).mount("#app");

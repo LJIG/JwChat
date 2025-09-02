@@ -12,7 +12,8 @@
     "stub": "pnpm run -r --parallel stub",
     "postinstall": "pnpm stub",
     "clean": "pnpm run clean:dist && pnpm run -r --parallel clean",
-    "clean:dist": "rimraf dist"
+    "clean:dist": "rimraf dist",
+    "remove:node": "find . -name \"node_modules\" -type d -prune -exec rm -rf '{}' +"
   },
   "pnpm": {
     "onlyBuiltDependencies": [
@@ -21,6 +22,7 @@
     ]
   },
   "devDependencies": {
+    "@vitejs/plugin-vue": "^5.2.4",
     "rimraf": "^6.0.1"
   }
 }

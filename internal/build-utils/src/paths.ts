@@ -2,7 +2,7 @@
  * @Author            : Bian <389701057@qq.com>
  * @Date              : 2025-08-15 11:03:13
  * @LastEditors       : LJIG <389701057@qq.com>
- * @LastEditTime      : 2025-08-28 15:18:53
+ * @LastEditTime      : 2025-09-01 18:07:29
  * @FilePath          : /internal/build-utils/src/paths.ts
  * @Description       :
  * Copyright (c) 2025 by Bian <389701057@qq.com>, All Rights Reserved.
@@ -13,11 +13,15 @@ import { resolve } from "path";
 export const projRoot = resolve(__dirname, "..", "..", "..");
 export const buildRoot = resolve(projRoot, "internal", "build");
 export const pkgRoot = resolve(projRoot, "widget");
+// export const epRoot = resolve(pkgRoot, 'element-plus')
+export const epRoot = resolve(pkgRoot, '')
 
 /** `/dist` */
 export const buildOutput = resolve(projRoot, "dist");
 /** `/dist/element-plus` */
 export const epOutput = resolve(buildOutput, "widget");
+
+export const epPackage = resolve(epRoot, 'package.json')
 
 const windowsSlashRE = /\\/g;
 

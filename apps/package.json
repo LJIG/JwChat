@@ -33,7 +33,6 @@
     "lib": "vue-tsc --noEmit && vite build --mode lib && rm -rf ./lib/image",
     "gen": "node ./script/genNewComp/index.js",
     "version": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0 && git add CHANGELOG.md",
-    "clean": "pnpm -r exec rm -rf node_modules && rm -rf node_modules",
     "install:all": "pnpm install",
     "build:all": "pnpm -r build"
   },

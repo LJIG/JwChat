@@ -23,48 +23,48 @@ const routes = [
     path: "/",
     component: () => import("./pages/index.md"),
   },
-  {
-    title: "聊天组件", 
-    name: "ChatSimple",
-    path: "/components/ChatSimple",
-    component: () => import("jwchatMd/ChatSimple/docs/README.md"),
-  },
+  // {
+  //   title: "聊天组件", 
+  //   name: "ChatSimple",
+  //   path: "/components/ChatSimple",
+  //   component: () => import("jwchatMd/ChatSimple/docs/README.md"),
+  // },
   {
     title: "图标",
     name: "JwChatIcon",
     path: "/components/JwChatIcon",
     component: () => import("jwchatMd/JwChatIcon/docs/README.md"),
   },
-  {
-    title: "组件主页",
-    name: "ChatIndex",
-    path: "/components/ChatIndex",
-    component: () => import("jwchatMd/ChatIndex/docs/README.md"),
-  },
+  // {
+  //   title: "组件主页",
+  //   name: "ChatIndex",
+  //   path: "/components/ChatIndex",
+  //   component: () => import("jwchatMd/ChatIndex/docs/README.md"),
+  // },
   {
     title: "用户条目",
     name: "JwChatItem",
     path: "/components/JwChatItem",
     component: () => import("jwchatMd/JwChatItem/docs/README.md"),
   },
-  {
-    title: "右侧组件",
-    name: "RightList",
-    path: "/components/RightList",
-    component: () => import("jwchatMd/RightList/docs/README.md"),
-  },
+  // {
+  //   title: "右侧组件",
+  //   name: "RightList",
+  //   path: "/components/RightList",
+  //   component: () => import("jwchatMd/RightList/docs/README.md"),
+  // },
   {
     title: "空状态",
     name: "Empty",
     path: "/components/Empty",
     component: () => import("jwchatMd/Empty/docs/README.md"),
   },
-  {
-    title: "快速回复",
-    name: "QuickTalk",
-    path: "/components/QuickTalk",
-    component: () => import("jwchatMd/QuickTalk/docs/README.md"),
-  },
+  // {
+  //   title: "快速回复",
+  //   name: "QuickTalk",
+  //   path: "/components/QuickTalk",
+  //   component: () => import("jwchatMd/QuickTalk/docs/README.md"),
+  // },
 ];
 
 const routerConfig = {

@@ -6,7 +6,8 @@ import router from "./router";
 
 import "./assets/markdown.css";
 
-import JwChat from "jwchat";
+import JwChat from "jwchat/packages/Empty/src/index.mjs";
+// import "jwchat/index.css";
 import Preview from "./components/Preview.vue";
 // import * as ElementPlusIconsVue from "@element-plus/icons-vue";
 

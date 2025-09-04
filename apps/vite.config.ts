@@ -34,7 +34,7 @@ export default defineConfig(({ mode }) => {
         "jwchatMd": join(__dirname, "../widget/packages"),
         // 让文档站在开发时直接使用本仓库 widget 源码入口
         // "jwchat": resolve(__dirname, "../widget/packages/index.ts"),
-        jwchat: resolve(__dirname, '../dist/widget/es/packages/ChatSimple/src/index.mjs'),
+        jwchat: resolve(__dirname, '../dist/widget/es/'),
         // 兼容组件源码中的 '@/utils/*' 引用
         "@/utils": resolve(__dirname, "../widget/utils"),
       },

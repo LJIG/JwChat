@@ -29,12 +29,12 @@ const routes = [
   //   path: "/components/ChatSimple",
   //   component: () => import("jwchatMd/ChatSimple/docs/README.md"),
   // },
-  {
-    title: "图标",
-    name: "JwChatIcon",
-    path: "/components/JwChatIcon",
-    component: () => import("jwchatMd/JwChatIcon/docs/README.md"),
-  },
+  // {
+  //   title: "图标",
+  //   name: "JwChatIcon",
+  //   path: "/components/JwChatIcon",
+  //   component: () => import("jwchatMd/JwChatIcon/docs/README.md"),
+  // },
   // {
   //   title: "组件主页",
   //   name: "ChatIndex",

@@ -1,11 +1,5 @@
 [
   {
-    "compName": "JwChatIcon",
-    "compZhName": "图标",
-    "compDesc": "简单的图标",
-    "compClassName": "jw-chat-icon"
-  },
-  {
     "compName": "JwChatItem",
     "compZhName": "用户条目",
     "compDesc": "默认：这是一个新组件",

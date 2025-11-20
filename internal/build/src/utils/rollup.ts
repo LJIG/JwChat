@@ -2,7 +2,7 @@
  * @Author            : Bian <389701057@qq.com>
  * @Date              : 2025-08-28 17:47:09
  * @LastEditors       : LJIG <389701057@qq.com>
- * @LastEditTime      : 2025-09-01 18:03:56
+ * @LastEditTime      : 2025-11-17 16:12:03
  * @FilePath          : /internal/build/src/utils/rollup.ts
  * @Description       :
  * Copyright (c) 2025 by Bian <389701057@qq.com>, All Rights Reserved.
@@ -28,4 +28,12 @@ export const generateExternal = async (options: { full: boolean }) => {
 
 export function writeBundles(bundle: RollupBuild, options: OutputOptions[]) {
   return Promise.all(options.map((option) => bundle.write(option)));
+}
+
+export function formatBundleFilename(
+  name: string,
+  minify: boolean,
+  ext: string
+) {
+  return `${name}${minify ? '.min' : ''}.${ext}`
 }

@@ -1,5 +1,6 @@
 import { computed, defineComponent } from "vue";
 import style from "./index.module.scss";
+// const style = {}
 import { ElBadge } from "element-plus";
 import type { PropType } from "vue";
 

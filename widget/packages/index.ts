@@ -7,32 +7,32 @@
  */
 import type { App, Plugin } from "vue";
 
-import { ChatPlugin } from "./ChatSimple/index";
-import { JwChatIconPlugin } from "./JwChatIcon";
-import { ChatIndexPlugin } from "./ChatIndex";
+// import { ChatPlugin } from "./ChatSimple/index";
+// import { JwChatIconPlugin } from "./JwChatIcon";
+// import { ChatIndexPlugin } from "./ChatIndex";
 import { JwChatItemPlugin } from "./JwChatItem";
-import { RightListPlugin } from "./RightList";
+// import { RightListPlugin } from "./RightList";
 import { EmptyPlugin } from "./Empty";
-import { QuickTalkPlugin } from "./QuickTalk";
+// import { QuickTalkPlugin } from "./QuickTalk";
 
 const JwChatPlugin: Plugin = {
   install(app: App) {
-    ChatPlugin.install?.(app);
-    JwChatIconPlugin.install?.(app);
-    ChatIndexPlugin.install?.(app);
+    // ChatPlugin.install?.(app);
+    // JwChatIconPlugin.install?.(app);
+    // ChatIndexPlugin.install?.(app);
     JwChatItemPlugin.install?.(app);
-    RightListPlugin.install?.(app);
+    // RightListPlugin.install?.(app);
     EmptyPlugin.install?.(app);
-    QuickTalkPlugin.install?.(app);
+    // QuickTalkPlugin.install?.(app);
   },
 };
 
 export default JwChatPlugin;
 
-export * from "./ChatSimple";
-export * from "./JwChatIcon";
-export * from "./ChatIndex";
+// export * from "./ChatSimple";
+// export * from "./JwChatIcon";
+// export * from "./ChatIndex";
 export * from "./JwChatItem";
-export * from "./RightList";
+// export * from "./RightList";
 export * from "./Empty";
-export * from "./QuickTalk";
+// export * from "./QuickTalk";

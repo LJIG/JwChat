@@ -9,6 +9,9 @@ node_modules
 # Bundle
 dist
 
+# TODO: push_npm/version.ts
+version.ts
+
 /lib
 /docs
 yarn-error.log

@@ -11,7 +11,8 @@ import "./assets/markdown.css";
 
 /* 代码引入测试 */
 /* 1. */
-import JwChat from "jwchat";
+import JwChat from "push_npm"; 
+// import * as JwChat from "jwchat";
 // import "jwchat/index.css";
 /* 2. */
 // import JwChat from "/public/dist/index.full.min.mjs"; //  mjs
@@ -32,6 +33,16 @@ for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
 app.component("Preview", Preview);
 
 /* 1. 2. */
+// const JwChatPlugin = {
+//   install(app) {
+//     for (const key in JwChat) {
+//       const component = (JwChat as any)[key];
+//       app.use(component);
+//     }
+//   },
+// };
+// app.use(JwChatPlugin);
+
 app.use(JwChat);
 
 /* 3. */

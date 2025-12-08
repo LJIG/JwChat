@@ -27,7 +27,7 @@ export default defineConfig(({ mode }) => {
       }),
     ],
     resolve: {
-      alias: {
+      /* alias: {
         "@": resolve(__dirname, "./src"),
         // packages: resolve(__dirname, "./packages"),
         // "/^@myui/(.+)$/": join(__dirname, "..", "packages", "$1", "src"),
@@ -35,9 +35,20 @@ export default defineConfig(({ mode }) => {
         // 让文档站在开发时直接使用本仓库 widget 源码入口
         // "jwchat": resolve(__dirname, "../widget/packages/index.ts"),
         jwchat: resolve(__dirname, '../widget/packages'),
+        "npm_push": resolve(__dirname, '../widget/packages'), // 配置 jwchat/packages 别名，用于 push_npm 中的导入
+        "@/utils": resolve(__dirname, "../widget/utils"), // 兼容组件源码中的 '@/utils/*' 引用
+      }, */
+      alias: [
+        { find: "@", replacement: resolve(__dirname, "./src") },
+        { find: "jwchatMd", replacement: join(__dirname, "../widget/packages") },
+        // 让文档站在开发时直接使用本仓库 widget 源码入口
+        // 支持 jwchat/packages/* 的深层路径导入（必须在 jwchat 之前）
+        { find: /^jwchat\/packages\/(.+)$/, replacement: resolve(__dirname, '../widget/packages/$1') },
+        { find: "jwchat/packages", replacement: resolve(__dirname, '../widget/packages/index.ts') },
+        { find: "jwchat", replacement: resolve(__dirname, '../widget/packages') },
         // 兼容组件源码中的 '@/utils/*' 引用
-        "@/utils": resolve(__dirname, "../widget/utils"),
-      },
+        { find: "@/utils", replacement: resolve(__dirname, "../widget/utils") },
+      ]
     },
     server: {
       port: 8080,

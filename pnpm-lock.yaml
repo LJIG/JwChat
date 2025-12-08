@@ -11,6 +11,12 @@ importers:
       element-plus:
         specifier: ^2.10.2
         version: 2.10.2(vue@3.5.17(typescript@4.9.5))
+      jwchat:
+        specifier: workspace:*
+        version: link:widget
+      push_npm:
+        specifier: workspace:*
+        version: link:push_npm
       typescript:
         specifier: ^4.9.5
         version: 4.9.5
@@ -20,7 +26,7 @@ importers:
     devDependencies:
       '@vitejs/plugin-vue':
         specifier: ^5.2.4
-        version: 5.2.4(vite@5.4.19(@types/node@16.18.126)(sass@1.89.2))(vue@3.5.17(typescript@4.9.5))
+        version: 5.2.4(vite@5.4.19(sass@1.89.2))(vue@3.5.17(typescript@4.9.5))
       rimraf:
         specifier: ^6.0.1
         version: 6.0.1
@@ -84,7 +90,7 @@ importers:
         version: 16.18.126
       '@vitejs/plugin-vue':
         specifier: ^5.2.4
-        version: 5.2.4(vite@5.4.19(@types/node@16.18.126)(sass@1.89.2))(vue@3.5.17(typescript@4.9.5))
+        version: 5.2.4(vite@5.4.19(sass@1.89.2))(vue@3.5.17(typescript@4.9.5))
       '@vitejs/plugin-vue-jsx':
         specifier: ^4.2.0
         version: 4.2.0(vite@5.4.19(@types/node@16.18.126)(sass@1.89.2))(vue@3.5.17(typescript@4.9.5))
@@ -187,7 +193,7 @@ importers:
         version: 4.0.17
       '@vitejs/plugin-vue':
         specifier: 5.2.4
-        version: 5.2.4(vite@5.4.19(@types/node@16.18.126)(sass@1.89.2))(vue@3.5.17(typescript@4.9.5))
+        version: 5.2.4(vite@5.4.19(sass@1.89.2))(vue@3.5.17(typescript@4.9.5))
       postcss:
         specifier: ^8.5.6
         version: 8.5.6
@@ -216,7 +222,11 @@ importers:
         specifier: ^3.6.0
         version: 3.6.0(sass@1.89.2)(typescript@4.9.5)(vue@3.5.17(typescript@4.9.5))
 
-  push_npm: {}
+  push_npm:
+    dependencies:
+      jwchat:
+        specifier: workspace:*
+        version: link:../widget
 
   widget:
     dependencies:
@@ -271,7 +281,7 @@ importers:
         version: 16.18.126
       '@vitejs/plugin-vue':
         specifier: ^5.2.4
-        version: 5.2.4(vite@5.4.19(@types/node@16.18.126)(sass@1.89.2))(vue@3.5.17(typescript@4.9.5))
+        version: 5.2.4(vite@5.4.19(sass@1.89.2))(vue@3.5.17(typescript@4.9.5))
       '@vitejs/plugin-vue-jsx':
         specifier: ^4.2.0
         version: 4.2.0(vite@5.4.19(@types/node@16.18.126)(sass@1.89.2))(vue@3.5.17(typescript@4.9.5))
@@ -5783,7 +5793,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@vitejs/plugin-vue@5.2.4(vite@5.4.19(@types/node@16.18.126)(sass@1.89.2))(vue@3.5.17(typescript@4.9.5))':
+  '@vitejs/plugin-vue@5.2.4(vite@5.4.19(sass@1.89.2))(vue@3.5.17(typescript@4.9.5))':
     dependencies:
       vite: 5.4.19(@types/node@16.18.126)(sass@1.89.2)
       vue: 3.5.17(typescript@4.9.5)

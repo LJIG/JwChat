@@ -1,0 +1,61 @@
+.wrapper {
+  padding: 0;
+  height: 100%;
+  width: 0;
+  max-width: 100%;
+  min-width: 220px;
+  margin: 0 auto;
+  text-align: left;
+  position: relative;
+  .elMenuDemo {
+    width: 100%;
+    height: 42px;
+    line-height: 40px;
+    display: flex;
+    position: relative;
+    & > * {
+      height: unset;
+      line-height: unset;
+      width: 40%;
+      padding: 0;
+      text-align: center;
+      box-shadow: none;
+    }
+  }
+  .addBtn {
+    width: 20%;
+    position: absolute;
+    right: 0;
+    &:focus {
+      outline: none;
+      text-align: center;
+    }
+  }
+  ul {
+    padding: 0;
+    list-style: none;
+    height: 84%;
+    overflow: auto;
+    li {
+      padding: 0.5rem;
+      padding-right: 0;
+      box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+      margin: 0.2rem 0;
+      & p {
+        margin: 0;
+        /* width: 95%; */
+      }
+      &:hover i {
+        display: inline-block;
+      }
+      & i {
+        /* display: none; */
+        margin: 0 0.05rem;
+        &:hover {
+          color: #409eff;
+          cursor: pointer;
+        }
+      }
+    }
+  }
+}

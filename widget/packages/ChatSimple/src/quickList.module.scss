@@ -1,0 +1,38 @@
+//@import url(); 引入公共css类
+.quickListBox {
+  padding: 0px;
+  margin: 0px;
+  text-align: left;
+  max-height: 100px;
+  overflow: auto;
+  width: 100%;
+  padding: 5px;
+  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+  transition: all 2s;
+  box-sizing: border-box;
+  position: absolute;
+  // top: 0;
+  transform: translateY(-105%);
+  background: #fff;
+  .quickItem {
+    padding: 0.2rem 0;
+    display: flex;
+    &:hover {
+      background: #fafafa;
+    }
+    span {
+      display: inline-block;
+      width: 100%;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+    .enterBtn {
+      align-self: center;
+      cursor: pointer;
+      &:hover {
+        color: red;
+      }
+    }
+  }
+}

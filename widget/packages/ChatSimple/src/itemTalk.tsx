@@ -20,7 +20,8 @@ interface DataProps {
 
 export default defineComponent({
   inheritAttrs: false,
-  components: { ElDialog },
+  // 移除 components 注册，JSX 中直接使用导入的组件变量
+  // components: { ElDialog },
   props: {
     text: {
       type: String as PropType<string>,
@@ -118,7 +119,7 @@ export default defineComponent({
         </span>
         {/* <!-- 查看区域 --> */}
         {["video", "img"].includes(getTag.value) && (
-          <el-dialog
+          <ElDialog
             v-model={data.show}
             append-to-body
             width="40%"
@@ -141,7 +142,7 @@ export default defineComponent({
                 controls
               ></audio>
             )}
-          </el-dialog>
+          </ElDialog>
         )}
       </>
     );

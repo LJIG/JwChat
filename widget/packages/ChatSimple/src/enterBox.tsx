@@ -9,7 +9,8 @@ interface DataProps {
 
 export default defineComponent({
   name: "JwChat_enterbox",
-  components: { ElButton },
+  // 移除 components 注册，JSX 中直接使用导入的组件变量
+  // components: { ElButton },
   props: {
     placeholder: {
       type: String as PropType<string>,
@@ -85,14 +86,14 @@ export default defineComponent({
           {slots.enterBtn ? (
             slots.enterBtn()
           ) : (
-            <el-button
+            <ElButton
               class={style.enterBoxSubmit}
               type="primary"
               size="small"
               onClick={handleSend}
             >
               发送
-            </el-button>
+            </ElButton>
           )}
         </div>
       </div>

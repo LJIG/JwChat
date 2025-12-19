@@ -1,4 +1,4 @@
-import Scroll from "@/utils/scroll";
+import Scroll from "jwchat/utils/scroll";
 import { Close } from "@element-plus/icons-vue";
 import style from "./windowBar.module.scss";
 import {
@@ -10,6 +10,8 @@ import {
   watch,
 } from "vue";
 import { ElButton, ElDivider } from "element-plus";
+import { JwChatItem } from "jwchat/packages/JwChatItem";
+import { Empty } from "jwchat/packages/Empty";
 
 interface DataProps {
   activeItem: number;
@@ -18,10 +20,10 @@ interface DataProps {
   complete: any;
 }
 export default defineComponent({
-  components: {
-    ElButton,
-    ElDivider,
-  },
+  // components: {
+  //   ElButton,
+  //   ElDivider,
+  // },
   props: {
     config: {
       typeof: Object,
@@ -124,9 +126,9 @@ export default defineComponent({
                     [style.winActive]: data.activeItem == item.id,
                   }}
                 >
-                  <JwChat-item config={item} />
+                  <JwChatItem config={item} />
                   <div class={style.itemOperation}>
-                    <el-button
+                    <ElButton
                       type="info"
                       icon={Close}
                       circle
@@ -142,11 +144,11 @@ export default defineComponent({
             {!winList.value.length && (
               <>
                 <div>
-                  <JwChat-empty size="8rem" />
+                  <Empty size="8rem" />
                 </div>
-                <el-divider style="padding: 0 5px">
+                <ElDivider style="padding: 0 5px">
                   <span style="font-size: 0.2rem">暂无会话</span>
-                </el-divider>
+                </ElDivider>
               </>
             )}
           </div>

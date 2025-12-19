@@ -2,6 +2,9 @@ import { computed, defineComponent, reactive, ref, watch } from "vue";
 import type { PropType } from "vue";
 import WinBar from "./windowBar";
 import style from "./index.module.scss";
+import { JwChatIcon } from "jwchat/packages/JwChatIcon";
+import { JwChatItem } from "jwchat/packages/JwChatItem";
+import { Chat } from "jwchat/packages/ChatSimple";
 interface DataProps {
   chatHeight: String;
   msg: String;
@@ -9,9 +12,9 @@ interface DataProps {
 }
 export default defineComponent({
   name: "JwChat",
-  components: {
-    WinBar,
-  },
+  // components: {
+  //   WinBar,
+  // },
   props: {
     config: {
       type: Object,
@@ -149,12 +152,12 @@ export default defineComponent({
           )}
           <div class={style.winBox}>
             <div class={style.header}>
-              <JwChat-item config={props.config} onClick={bindClick} />
+              <JwChatItem config={props.config} onClick={bindClick} />
               {slots.header?.()}
             </div>
             <div class={style.main}>
               <div class={style.chatBox}>
-                <JwChat-simple
+                <Chat
                   ref={jwChat}
                   taleList={props.taleList}
                   onEnter={($event: Event) => {
@@ -177,7 +180,7 @@ export default defineComponent({
                   onClickTalk={($event: Event) => {
                     emit("clickTalk", $event);
                   }}
-                ></JwChat-simple>
+                ></Chat>
               </div>
               {props.showRightBox && (
                 <div
@@ -189,7 +192,7 @@ export default defineComponent({
                       data.switchBox = !data.switchBox;
                     }}
                   >
-                    <JwChat-icon class={style.switch} type={switchIcon.value} />
+                    <JwChatIcon class={style.switch} type={switchIcon.value} />
                   </span>
                   {data.switchBox && slots.default?.()}
                 </div>

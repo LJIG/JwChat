@@ -1,8 +1,8 @@
-import Scroll from "@/utils/scroll";
+import Scroll from "jwchat/utils/scroll";
 // import Remind from '@/utils/remind'
-import itemTalk from "./itemTalk";
-import systemTalk from "./systemTalk";
-import shopTalk from "./shopTalk";
+import ItemTalk from "./itemTalk";
+import SystemTalk from "./systemTalk";
+import ShopTalk from "./shopTalk";
 import style from "./chatList.module.scss";
 import {
   computed,
@@ -52,7 +52,9 @@ type ConfigProps = {
 
 export default defineComponent({
   name: "JwChat_list",
-  components: { itemTalk, systemTalk, shopTalk, ElDivider, ElLink },
+  // 移除 components 注册，JSX 中直接使用导入的组件变量
+  // components: { itemTalk, systemTalk, shopTalk, ElDivider, ElLink },
+  // components: { itemTalk, systemTalk, shopTalk },
   props: {
     list: {
       type: Array as PropType<ListProps[]>,
@@ -151,9 +153,9 @@ export default defineComponent({
             </div>
             {props.list.map((item, k: number) => {
               return item.type === "tip" ? (
-                <el-divider key={JSON.stringify(item) + k}>
+                <ElDivider key={JSON.stringify(item) + k}>
                   {item.text}
-                </el-divider>
+                </ElDivider>
               ) : (
                 <div
                   key={JSON.stringify(item) + k + "else"}
@@ -181,7 +183,7 @@ export default defineComponent({
                   <div class={style["web__main-text"]}>
                     <div class={style["web__main-arrow"]}></div>
                     {item.text.text && (
-                      <itemTalk
+                      <ItemTalk
                         text={item.text.text}
                         // v-on:systemEvent={taskEvent}
                         // v-on:loadDone={loadDone}
@@ -190,14 +192,14 @@ export default defineComponent({
                       />
                     )}
                     {item.text.system && (
-                      <systemTalk
+                      <SystemTalk
                         text={item.text.system}
                         onSystemEvent={systemEvent}
                         onLoadDone={loadDone}
                       />
                     )}
                     {item.text.subLink && (
-                      <el-link
+                      <ElLink
                         onClick={() => {
                           taskEvent(item.text);
                         }}
@@ -205,10 +207,10 @@ export default defineComponent({
                         class={style.itemChild}
                       >
                         {item.text.subLink.text}
-                      </el-link>
+                      </ElLink>
                     )}
                     {item.text.shop && (
-                      <shopTalk
+                      <ShopTalk
                         text={item.text.shop}
                         onSystemEvent={taskEvent}
                         onLoadDone={loadDone}

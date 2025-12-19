@@ -5,6 +5,7 @@ import { /* ToolsProps, */ DataProps } from "../types/tools";
 import { ElPopover } from "element-plus";
 import type { PropType } from "vue";
 import { emojiImg } from "@/utils/imgUrl";
+import { JwChatIcon } from "jwchat/packages/JwChatIcon";
 
 const emojis: Array<any> = getEmojis({
   size: 26,
@@ -43,7 +44,8 @@ export default defineComponent({
   name: "JwChat-tools",
   props: Props,
   emits: ["emoji"],
-  components: { ElPopover },
+  // 移除 components 注册，JSX 中直接使用导入的组件变量
+  // components: { ElPopover },
   setup(props, { emit, slots }) {
     const data = reactive<DataProps>({
       // emoji: emojis,
@@ -83,7 +85,7 @@ export default defineComponent({
     return () => (
       <div class={style.toolsBox}>
         {showEmoji.value && (
-          <el-popover
+          <ElPopover
             placement="top-start"
             trigger="click"
             ref="popover"
@@ -91,7 +93,7 @@ export default defineComponent({
             width="auto"
             v-slots={{
               reference: () => (
-                <JwChat-icon
+                <JwChatIcon
                   class={style.toolIcon}
                   type="icon-xiaolian"
                   title="表情"
@@ -105,7 +107,7 @@ export default defineComponent({
             <ul class={style.emojiBox}>
               <emojiDom />
             </ul>
-          </el-popover>
+          </ElPopover>
         )}
         {showkeys.value.map((item, k) => (
           <>
@@ -116,7 +118,7 @@ export default defineComponent({
                     bindButton(item);
                   }}
                 >
-                  <JwChat-icon
+                  <JwChatIcon
                     class={style.toolIcon}
                     type={data.toolConfig[item].icon}
                     title={iconTitle(item, k)}

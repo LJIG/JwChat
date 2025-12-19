@@ -1,7 +1,7 @@
 import EnterBox from "./enterBox";
-import chatListBox from "./chatList";
-import tools from "./tools";
-import quickList from "./quickList";
+import ChatListBox from "./chatList";
+import ToolsBox from "./tools";
+import QuickList from "./quickList";
 import style from "./index.module.scss";
 import { computed, defineComponent, nextTick, reactive, ref, watch } from "vue";
 
@@ -21,7 +21,6 @@ export type configProps = {
 
 export default defineComponent({
   name: "JwChat-simple",
-  components: { quickList, tools, EnterBox, chatListBox },
   props: {
     taleList: Object as PropType<ListProps>,
     scrollType: String as PropType<scrollType>,
@@ -102,7 +101,7 @@ export default defineComponent({
     return () => (
       <>
         <div class={style.chatPage} style={setStyle.value}>
-          <chatListBox
+          <ChatListBox
             v-slots={{
               downBtn: slots.downBtn,
             }}
@@ -116,15 +115,15 @@ export default defineComponent({
             config={chatListConfig.value}
           />
           <div class={style.toolBox}>
-            <tools
+            <ToolsBox
               tools={props.toolConfig}
               class={style.tools}
               onEmoji={bindEmoji}
               v-slots={{
                 tools: slots.tools,
               }}
-            ></tools>
-            <quickList
+            ></ToolsBox>
+            <QuickList
               list={props.quickList}
               msg={data.msg}
               onSubmit={quickSubmit}

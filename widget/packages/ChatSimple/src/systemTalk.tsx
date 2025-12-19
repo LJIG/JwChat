@@ -10,7 +10,8 @@ type TextProps = {
 };
 
 export default defineComponent({
-  components: { ElLink },
+  // 移除 components 注册，JSX 中直接使用导入的组件变量
+  // components: { ElLink },
   props: {
     text: {
       type: Object as PropType<TextProps>,
@@ -30,14 +31,14 @@ export default defineComponent({
         <div class={style.subtitle}>{props.text.subtitle}</div>
         {props.text.content.map((item) => (
           <div key={JSON.stringify(item)}>
-            <el-link
+            <ElLink
               type="primary"
               onClick={() => {
                 emit("systemEvent", item);
               }}
             >
               {item.text}
-            </el-link>
+            </ElLink>
           </div>
         ))}
       </div>

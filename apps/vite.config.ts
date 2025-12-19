@@ -45,9 +45,11 @@ export default defineConfig(({ mode }) => {
         // 支持 jwchat/packages/* 的深层路径导入（必须在 jwchat 之前）
         { find: /^jwchat\/packages\/(.+)$/, replacement: resolve(__dirname, '../widget/packages/$1') },
         { find: "jwchat/packages", replacement: resolve(__dirname, '../widget/packages/index.ts') },
-        { find: "jwchat", replacement: resolve(__dirname, '../widget/packages') },
         // 兼容组件源码中的 '@/utils/*' 引用
-        { find: "@/utils", replacement: resolve(__dirname, "../widget/utils") },
+          { find: /^jwchat\/utils\/(.+)$/, replacement: resolve(__dirname, '../widget/utils/$1') },
+        // { find: "jwchat/utils", replacement: resolve(__dirname, "../widget/utils") },
+        { find: "jwchat", replacement: resolve(__dirname, '../widget/packages') },
+        { find: 'push_dist',replacement: resolve(__dirname, '../dist/widget/dist/index.full.mjs')  }
       ]
     },
     server: {

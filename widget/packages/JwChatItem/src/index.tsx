@@ -13,9 +13,9 @@ export type ItemConfigProps = {
 
 export default defineComponent({
   name: "JwChat-item",
-  components: {
-    ElBadge,
-  },
+  // components: {
+  //   ElBadge,
+  // },
   props: {
     config: {
       type: Object as PropType<ItemConfigProps>,
@@ -54,21 +54,19 @@ export default defineComponent({
     return () => (
       <>
         <div class={style.item}>
-          <el-badge
+          <ElBadge
             value={props.config.readNum}
             hidden={props.config.readNum < 1}
           >
-            {props.config.img && (
-              <img
-                src={props.config.img}
-                style={coverSize.value}
-                class={style.cover}
-                onClick={() => {
-                  bindClick({ key: "cover", value: props.config });
-                }}
-              />
-            )}
-          </el-badge>
+            <img
+              src={props.config.img}
+              style={coverSize.value}
+              class={style.cover}
+              onClick={() => {
+                bindClick({ key: "cover", value: props.config });
+              }}
+            />
+          </ElBadge>
           <div class={style.info}>
             <p
               class={style.name}

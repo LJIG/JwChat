@@ -1,4 +1,4 @@
-import Scroll from "@/utils/scroll";
+import Scroll from "jwchat/utils/scroll";
 import style from "./index.module.scss";
 import {
   computed,
@@ -10,6 +10,8 @@ import {
 } from "vue";
 import { ElInput } from "element-plus";
 import type { PropType } from "vue";
+import { JwChatItem } from "jwchat/packages/JwChatItem";
+import { Empty } from "jwchat/packages/Empty";
 
 interface DataProps {
   filter: string;
@@ -27,7 +29,7 @@ export type RightListProps = {
 
 export default defineComponent({
   name: "JwChat-rightbox",
-  components: { ElInput },
+  // components: { ElInput },
   props: {
     config: {
       type: Object as PropType<RightListProps>,
@@ -122,7 +124,7 @@ export default defineComponent({
         <div class={style.notice} style="resolve">
           {!info.value.notice && (
             <div class={style.empty}>
-              <JwChat-empty size="8rem" />
+              <Empty size="8rem" />
             </div>
           )}
           <p style="padding-left: 0.2rem">{info.value.tip}</p>
@@ -135,7 +137,7 @@ export default defineComponent({
             {info.value.listTip} ({dataList.value.length})
           </div>
           <div>
-            <el-input
+            <ElInput
               placeholder={info.value.filterTip}
               v-model={data.filter}
               clearable
@@ -147,7 +149,7 @@ export default defineComponent({
               <ul>
                 {dataList.value.map((item, k: number) => (
                   <li key={k}>
-                    <JwChat-item size="25" config={item} onClick={bindClick} />
+                    <JwChatItem size="25" config={item} onClick={bindClick} />
                   </li>
                 ))}
               </ul>

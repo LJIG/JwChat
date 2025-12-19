@@ -12,6 +12,7 @@ import {
   ElButton,
 } from "element-plus";
 import type { PropType } from "vue";
+import { Empty } from "jwchat/packages/Empty";
 
 interface DataProps {
   activeIndex: string | number;
@@ -29,16 +30,16 @@ export type ConfigProps = {
 
 export default defineComponent({
   name: "JwChat-talk",
-  components: {
-    ElMenu,
-    ElDialog,
-    ElMenuItem,
-    ElIcon,
-    ElRow,
-    ElCol,
-    ElInput,
-    ElButton,
-  },
+  // components: {
+  //   ElMenu,
+  //   ElDialog,
+  //   ElMenuItem,
+  //   ElIcon,
+  //   ElRow,
+  //   ElCol,
+  //   ElInput,
+  //   ElButton,
+  // },
   props: {
     taleList: {
       type: Array as PropType<string[]>,
@@ -114,7 +115,7 @@ export default defineComponent({
       <>
         <div class={style.wrapper}>
           {showHeader.value && (
-            <el-menu
+            <ElMenu
               default-active={data.activeIndex}
               class={style.elMenuDemo}
               ellipsis={false}
@@ -122,9 +123,9 @@ export default defineComponent({
               onSelect={handleSelect}
             >
               {showNav.value.map((item, key) => (
-                <el-menu-item index={`${key + 1}`} key={item}>
+                <ElMenuItem index={`${key + 1}`} key={item}>
                   {item}
-                </el-menu-item>
+                </ElMenuItem>
               ))}
               <div
                 style={{ visibility: showAddBtn ? "visible" : "hidden" }}
@@ -134,49 +135,49 @@ export default defineComponent({
                 }}
                 title="新增"
               >
-                <el-icon>
+                <ElIcon>
                   <CirclePlus />
-                </el-icon>
+                </ElIcon>
               </div>
-            </el-menu>
+            </ElMenu>
           )}
-          {!props.taleList.length && <JwChat-empty />}
+          {!props.taleList.length && <Empty />}
           <ul>
             {props.taleList.map((i, k) => (
               <li key={JSON.stringify(i)}>
-                <el-row>
-                  <el-col span={showDelete.value == false ? 19 + 2 : 19}>
+                <ElRow>
+                  <ElCol span={showDelete.value == false ? 19 + 2 : 19}>
                     <p>{i}</p>
-                  </el-col>
-                  <el-col
+                  </ElCol>
+                  <ElCol
                     span={showDelete.value == false ? 5 - 2 : 5}
                     style="text-algin: right"
                   >
-                    <el-icon
+                    <ElIcon
                       title="发送"
                       onClick={() => {
                         emit("event", { key: "select", value: i });
                       }}
                     >
                       <CircleCheck />
-                    </el-icon>
+                    </ElIcon>
                     {showDelete.value && (
-                      <el-icon
+                      <ElIcon
                         title="删除"
                         onClick={() => {
                           emit("event", { key: "delIndex", value: k });
                         }}
                       >
                         <CircleClose />
-                      </el-icon>
+                      </ElIcon>
                     )}
-                  </el-col>
-                </el-row>
+                  </ElCol>
+                </ElRow>
               </li>
             ))}
           </ul>
-          <el-dialog title="新增快捷回复" v-model={data.visible} width="36%">
-            <el-input
+          <ElDialog title="新增快捷回复" v-model={data.visible} width="36%">
+            <ElInput
               rows="3"
               show-word-limit
               maxlength={maxlength.value}
@@ -185,7 +186,7 @@ export default defineComponent({
               type="textarea"
             />
             <div style="text-align: right; margin: 0; margin-top: 10px">
-              <el-button
+              <ElButton
                 size="small"
                 type="text"
                 onClick={() => {
@@ -193,12 +194,12 @@ export default defineComponent({
                 }}
               >
                 取消
-              </el-button>
-              <el-button type="primary" size="small" onClick={AddQuickFn}>
+              </ElButton>
+              <ElButton type="primary" size="small" onClick={AddQuickFn}>
                 确定
-              </el-button>
+              </ElButton>
             </div>
-          </el-dialog>
+          </ElDialog>
         </div>
       </>
     );

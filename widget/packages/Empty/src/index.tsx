@@ -1,5 +1,6 @@
 import { computed, defineComponent } from "vue";
 import type { PropType } from "vue";
+import { JwChatIcon } from "jwchat/packages/JwChatIcon";
 // import css from "./index.module.scss";
 
 type sizeProp = string | number;
@@ -32,8 +33,7 @@ export default defineComponent({
     return () => (
       <>
         <div class="empty" style={sizeBox.value}>
-          111
-          <JwChat-icon type="icon-empty" style={sizeStyle.value} />
+          <JwChatIcon type="icon-empty" style={sizeStyle.value} />
         </div>
       </>
     );

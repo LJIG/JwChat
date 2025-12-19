@@ -4,3 +4,5 @@
 /docs
 yarn-error.log
 *.zip
+/public/element-plus
+/public/widget

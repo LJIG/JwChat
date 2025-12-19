@@ -2,7 +2,7 @@
  * @Author            : Bian <389701057@qq.com>
  * @Date              : 2025-08-29 15:48:54
  * @LastEditors       : LJIG <389701057@qq.com>
- * @LastEditTime      : 2025-09-02 14:43:51
+ * @LastEditTime      : 2025-12-15 14:42:37
  * @FilePath          : /internal/build/src/build-info.ts
  * @Description       :
  * Copyright (c) 2025 by Bian <389701057@qq.com>, All Rights Reserved.
@@ -12,7 +12,7 @@ import path from 'path'
 const PKG_NAME = 'element-plus'
 import { epOutput } from '@jwchat/build-utils'
 
-console.log({epOutput})
+// console.log({epOutput})
 
 export const modules = ["esm", "cjs"] as const;
 export type Module = typeof modules[number];

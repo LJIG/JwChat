@@ -1,5 +1,5 @@
 import { defineComponent, nextTick, onMounted } from "vue";
-import style from "./systemTalk.module.scss";
+import "./systemTalk.module.scss";
 import { ElLink } from "element-plus";
 import type { PropType } from "vue";
 
@@ -26,9 +26,9 @@ export default defineComponent({
       });
     });
     return () => (
-      <div class={style.systemTalk}>
-        <div class={style.title}>{props.text.title}</div>
-        <div class={style.subtitle}>{props.text.subtitle}</div>
+      <div class="systemTalk">
+        <div class="title">{props.text.title}</div>
+        <div class="subtitle">{props.text.subtitle}</div>
         {props.text.content.map((item) => (
           <div key={JSON.stringify(item)}>
             <ElLink

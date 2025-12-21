@@ -1,7 +1,7 @@
 import { computed, defineComponent, reactive, ref, watch } from "vue";
 import type { PropType } from "vue";
 import WinBar from "./windowBar";
-import style from "./index.module.scss";
+import "./index.module.scss";
 import { JwChatIcon } from "jwchat/packages/JwChatIcon";
 import { JwChatItem } from "jwchat/packages/JwChatItem";
 import { Chat } from "jwchat/packages/ChatSimple";
@@ -146,17 +146,17 @@ export default defineComponent({
 
     return () => (
       <>
-        <div class={style.ChatPage} style={faceSize.value}>
+        <div class="ChatPage" style={faceSize.value}>
           {JSON.stringify(props.winBarConfig) !== "{}" && (
             <WinBar config={props.winBarConfig} onClick={winBarClick} />
           )}
-          <div class={style.winBox}>
-            <div class={style.header}>
+          <div class="winBox">
+            <div class="header">
               <JwChatItem config={props.config} onClick={bindClick} />
               {slots.header?.()}
             </div>
-            <div class={style.main}>
-              <div class={style.chatBox}>
+            <div class="main">
+              <div class="chatBox">
                 <Chat
                   ref={jwChat}
                   taleList={props.taleList}
@@ -184,7 +184,7 @@ export default defineComponent({
               </div>
               {props.showRightBox && (
                 <div
-                  class={style.rightBox}
+                  class="rightBox"
                   style={!data.switchBox && "width:0px;"}
                 >
                   <span
@@ -192,7 +192,7 @@ export default defineComponent({
                       data.switchBox = !data.switchBox;
                     }}
                   >
-                    <JwChatIcon class={style.switch} type={switchIcon.value} />
+                    <JwChatIcon class="switch" type={switchIcon.value} />
                   </span>
                   {data.switchBox && slots.default?.()}
                 </div>

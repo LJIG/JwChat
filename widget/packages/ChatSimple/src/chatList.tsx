@@ -3,7 +3,7 @@ import Scroll from "jwchat/utils/scroll";
 import ItemTalk from "./itemTalk";
 import SystemTalk from "./systemTalk";
 import ShopTalk from "./shopTalk";
-import style from "./chatList.module.scss";
+import "./chatList.module.scss";
 import {
   computed,
   defineComponent,
@@ -145,10 +145,10 @@ export default defineComponent({
     expose({ finishPullDown });
 
     return () => (
-      <div class={style.wrapper}>
-        <div class={style.scroller} ref={scrollerRef}>
-          <div class={style.web__main} ref={main}>
-            <div class={style["pulldown-wrapper"]}>
+      <div class="wrapper">
+        <div class="scroller" ref={scrollerRef}>
+          <div class="web__main" ref={main}>
+            <div class="pulldown-wrapper">
               <div v-html={data.tipText}></div>
             </div>
             {props.list.map((item, k: number) => {
@@ -160,11 +160,11 @@ export default defineComponent({
                 <div
                   key={JSON.stringify(item) + k + "else"}
                   class={[
-                    style["web__main-item"],
-                    item.mine && style["web__main-item--mine"],
+                    "web__main-item",
+                    item.mine && "web__main-item--mine",
                   ]}
                 >
-                  <div class={style["web__main-user"]}>
+                  <div class="web__main-user">
                     <img
                       src={item.img}
                       onClick={() => {
@@ -180,8 +180,8 @@ export default defineComponent({
                       <i>{item.date}</i>
                     </cite>
                   </div>
-                  <div class={style["web__main-text"]}>
-                    <div class={style["web__main-arrow"]}></div>
+                  <div class="web__main-text">
+                    <div class="web__main-arrow"></div>
                     {item.text.text && (
                       <ItemTalk
                         text={item.text.text}
@@ -204,7 +204,7 @@ export default defineComponent({
                           taskEvent(item.text);
                         }}
                         // v-bind={item.text.subLink.prop}
-                        class={style.itemChild}
+                        class="itemChild"
                       >
                         {item.text.subLink.text}
                       </ElLink>
@@ -224,11 +224,11 @@ export default defineComponent({
         </div>
         {data.showDownBtn &&
           (slots.downBtn ? (
-            <div class={style.positionRight} onClick={scrollBottom}>
+            <div class="positionRight" onClick={scrollBottom}>
               {slots.downBtn(unread.value)}
             </div>
           ) : (
-            <div class={style.downBtn} onClick={scrollBottom}>
+            <div class="downBtn" onClick={scrollBottom}>
               {unread.value > 0 && <span> {unread.value}</span>}
             </div>
           ))}

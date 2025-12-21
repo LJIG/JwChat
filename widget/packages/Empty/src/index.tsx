@@ -2,6 +2,7 @@ import { computed, defineComponent } from "vue";
 import type { PropType } from "vue";
 import { JwChatIcon } from "jwchat/packages/JwChatIcon";
 // import css from "./index.module.scss";
+import  "./index.module.scss";
 
 type sizeProp = string | number;
 

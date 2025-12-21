@@ -1,5 +1,5 @@
 import Scroll from "jwchat/utils/scroll";
-import style from "./index.module.scss";
+import "./index.module.scss";
 import {
   computed,
   defineComponent,
@@ -120,10 +120,10 @@ export default defineComponent({
     });
 
     return () => (
-      <div class={style.wrapper}>
-        <div class={style.notice} style="resolve">
+      <div class="wrapper">
+        <div class="notice" style="resolve">
           {!info.value.notice && (
-            <div class={style.empty}>
+            <div class="empty">
               <Empty size="8rem" />
             </div>
           )}
@@ -132,7 +132,7 @@ export default defineComponent({
             {info.value.notice}
           </p>
         </div>
-        <div class={style.userList}>
+        <div class="userList">
           <div>
             {info.value.listTip} ({dataList.value.length})
           </div>
@@ -144,8 +144,8 @@ export default defineComponent({
               size="small"
             />
           </div>
-          <div class={style.listBox}>
-            <div class={style.scrollBox} ref={scrollBox}>
+          <div class="listBox">
+            <div class="scrollBox" ref={scrollBox}>
               <ul>
                 {dataList.value.map((item, k: number) => (
                   <li key={k}>

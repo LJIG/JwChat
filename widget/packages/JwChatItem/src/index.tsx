@@ -1,5 +1,5 @@
 import { computed, defineComponent } from "vue";
-import style from "./index.module.scss";
+import "./index.module.scss";
 // const style = {}
 import { ElBadge } from "element-plus";
 import type { PropType } from "vue";
@@ -53,7 +53,7 @@ export default defineComponent({
 
     return () => (
       <>
-        <div class={style.item}>
+        <div class="item">
           <ElBadge
             value={props.config.readNum}
             hidden={props.config.readNum < 1}
@@ -61,15 +61,15 @@ export default defineComponent({
             <img
               src={props.config.img}
               style={coverSize.value}
-              class={style.cover}
+              class="cover"
               onClick={() => {
                 bindClick({ key: "cover", value: props.config });
               }}
             />
           </ElBadge>
-          <div class={style.info}>
+          <div class="info">
             <p
-              class={style.name}
+              class="name"
               onClick={() => {
                 bindClick({ key: "name", value: props.config });
               }}
@@ -77,7 +77,7 @@ export default defineComponent({
               {props.config.name}
             </p>
             <p
-              class={style.dept}
+              class="dept"
               onClick={() => {
                 bindClick({ key: "dept", value: props.config });
               }}

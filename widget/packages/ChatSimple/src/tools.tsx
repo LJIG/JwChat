@@ -1,6 +1,6 @@
 import { computed, defineComponent, reactive } from "vue";
 import { getEmojis } from "wechat-emoji-parser";
-import style from "./tools.module.scss";
+import "./tools.module.scss";
 import { /* ToolsProps, */ DataProps } from "../types/tools";
 import { ElPopover } from "element-plus";
 import type { PropType } from "vue";
@@ -83,7 +83,7 @@ export default defineComponent({
     });
 
     return () => (
-      <div class={style.toolsBox}>
+      <div class="toolsBox">
         {showEmoji.value && (
           <ElPopover
             placement="top-start"
@@ -94,7 +94,7 @@ export default defineComponent({
             v-slots={{
               reference: () => (
                 <JwChatIcon
-                  class={style.toolIcon}
+                  class="toolIcon"
                   type="icon-xiaolian"
                   title="表情"
                   onClick={() => {
@@ -104,7 +104,7 @@ export default defineComponent({
               ),
             }}
           >
-            <ul class={style.emojiBox}>
+            <ul class="emojiBox">
               <emojiDom />
             </ul>
           </ElPopover>
@@ -119,7 +119,7 @@ export default defineComponent({
                   }}
                 >
                   <JwChatIcon
-                    class={style.toolIcon}
+                    class="toolIcon"
                     type={data.toolConfig[item].icon}
                     title={iconTitle(item, k)}
                   />

@@ -2,7 +2,7 @@ import EnterBox from "./enterBox";
 import ChatListBox from "./chatList";
 import ToolsBox from "./tools";
 import QuickList from "./quickList";
-import style from "./index.module.scss";
+import  "./index.module.scss";
 import { computed, defineComponent, nextTick, reactive, ref, watch } from "vue";
 
 import type { PropType } from "vue";
@@ -94,18 +94,18 @@ export default defineComponent({
       return { width, height: talkHeight, scrollType, historyConfig };
     });
 
-    const chatList = ref<InstanceType<typeof chatListBox> | null>(null);
+    const chatList = ref<InstanceType<typeof ChatListBox> | null>(null);
 
     expose({ finishPullDown });
 
     return () => (
       <>
-        <div class={style.chatPage} style={setStyle.value}>
+        <div class="chatPage" style={setStyle.value}>
           <ChatListBox
             v-slots={{
               downBtn: slots.downBtn,
             }}
-            class={style.taleBox}
+            class="taleBox"
             ref={chatList}
             list={props.taleList}
             onClick={($event: Event) => {
@@ -114,10 +114,10 @@ export default defineComponent({
             onLoadHistory={loadHistoryHandler}
             config={chatListConfig.value}
           />
-          <div class={style.toolBox}>
+          <div class="toolBox">
             <ToolsBox
               tools={props.toolConfig}
-              class={style.tools}
+              class="tools"
               onEmoji={bindEmoji}
               v-slots={{
                 tools: slots.tools,

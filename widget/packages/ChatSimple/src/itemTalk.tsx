@@ -1,5 +1,5 @@
 import { computed, defineComponent, nextTick, onMounted, reactive } from "vue";
-import style from "./itemTalk.module.scss";
+import "./itemTalk.module.scss";
 import { emojiImg } from "@/utils/imgUrl";
 import {
   configParseEmoji,
@@ -78,11 +78,11 @@ export default defineComponent({
 
     return () => (
       <>
-        <span class={style.item_msg} onClick={itemCallback}>
+        <span class="item_msg" onClick={itemCallback}>
           {getTag.value === "span" && <span v-html={parseText()} />}
           {getTag.value === "img" && (
             <img
-              class={style["web__msg--img"]}
+              class="web__msg--img"
               src={getData.value.src}
               onClick={() => {
                 showDialog({ tag: "img" });
@@ -94,7 +94,7 @@ export default defineComponent({
           )}
           {getTag.value === "video" && (
             <video
-              class={style["web__msg--video"]}
+              class="web__msg--video"
               src={getData.value.src}
               controls
               onClick={() => {
@@ -107,7 +107,7 @@ export default defineComponent({
           )}
           {getTag.value === "audio" && (
             <audio
-              class={style["web__msg--audio"]}
+              class="web__msg--audio"
               style="width: 20rem; height: 20px"
               src={getData.value.src}
               controls

@@ -1,5 +1,5 @@
 import { computed, defineComponent, unref } from "vue";
-import style from "./quickList.module.scss";
+import "./quickList.module.scss";
 import type { PropType } from "vue";
 
 export type ListProps = { text: string; id?: unknown };
@@ -37,10 +37,10 @@ export default defineComponent({
     return () => (
       <>
         {showList.value.length > 0 && (
-          <div class={style.quickListBox}>
+          <div class="quickListBox">
             {showList.value.map((i, k) => {
               return (
-                <div key={k} class={style.quickItem}>
+                <div key={k} class="quickItem">
                   <span
                     v-html={i.showText}
                     onClick={() => {
@@ -48,7 +48,7 @@ export default defineComponent({
                     }}
                   />
                   <i
-                    class={[style.enterBtn, style["el-icon-circle-check"]]}
+                    class={["enterBtn", "el-icon-circle-check"]}
                     title="选择"
                     onClick={() => {
                       submit(i);

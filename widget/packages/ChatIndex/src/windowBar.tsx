@@ -1,6 +1,6 @@
 import Scroll from "jwchat/utils/scroll";
 import { Close } from "@element-plus/icons-vue";
-import style from "./windowBar.module.scss";
+import "./windowBar.module.scss";
 import {
   computed,
   defineComponent,
@@ -110,8 +110,8 @@ export default defineComponent({
     });
 
     return () => (
-      <div class={style.windowBar} style={winBarStyle.value}>
-        <div class={style.winBarBox} ref={windowBar}>
+      <div class="windowBar" style={winBarStyle.value}>
+        <div class="winBarBox" ref={windowBar}>
           <div>
             {winList.value.map((item, k) => {
               return (
@@ -122,12 +122,12 @@ export default defineComponent({
                   }}
                   style={winItemStyle.value}
                   class={{
-                    [style.winItem]: true,
-                    [style.winActive]: data.activeItem == item.id,
+                    ["winItem"]: true,
+                    ["winActive"]: data.activeItem == item.id,
                   }}
                 >
                   <JwChatItem config={item} />
-                  <div class={style.itemOperation}>
+                  <div class="itemOperation">
                     <ElButton
                       type="info"
                       icon={Close}

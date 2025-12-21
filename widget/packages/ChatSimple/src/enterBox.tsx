@@ -1,6 +1,6 @@
 import { defineComponent, nextTick, reactive, ref, watch } from "vue";
 import { ElButton } from "element-plus";
-import style from "./enterBox.module.scss";
+import "./enterBox.module.scss";
 import type { PropType } from "vue";
 
 interface DataProps {
@@ -70,7 +70,7 @@ export default defineComponent({
 
     const msgBox = ref<HTMLElement | null>(null);
     return () => (
-      <div class={style.enterBox} onKeyup={handleSend}>
+      <div class="enterBox" onKeyup={handleSend}>
         {slots.enter ? (
           slots.enter()
         ) : (
@@ -78,16 +78,16 @@ export default defineComponent({
             v-model={data.currentMsg}
             rows="3"
             placeholder={props.placeholder}
-            class={style.enterBoxInput}
+            class="enterBoxInput"
             ref={msgBox}
           />
         )}
-        <div class={style.enterBoxMenu}>
+        <div class="enterBoxMenu">
           {slots.enterBtn ? (
             slots.enterBtn()
           ) : (
             <ElButton
-              class={style.enterBoxSubmit}
+              class="enterBoxSubmit"
               type="primary"
               size="small"
               onClick={handleSend}

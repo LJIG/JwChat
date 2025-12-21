@@ -1,6 +1,6 @@
 import { computed, defineComponent, nextTick, reactive, toRefs } from "vue";
 import { CirclePlus, CircleCheck, CircleClose } from "@element-plus/icons-vue";
-import style from "./index.module.scss";
+import "./index.module.scss";
 import {
   ElMenu,
   ElDialog,
@@ -113,11 +113,11 @@ export default defineComponent({
 
     return () => (
       <>
-        <div class={style.wrapper}>
+        <div class="wrapper">
           {showHeader.value && (
             <ElMenu
               default-active={data.activeIndex}
-              class={style.elMenuDemo}
+              class="elMenuDemo"
               ellipsis={false}
               mode="horizontal"
               onSelect={handleSelect}
@@ -129,7 +129,7 @@ export default defineComponent({
               ))}
               <div
                 style={{ visibility: showAddBtn ? "visible" : "hidden" }}
-                class={style.addBtn}
+                class="addBtn"
                 onClick={() => {
                   data.visible = true;
                 }}
